@@ -35,17 +35,21 @@ public class DatabaseConnection
 	
 	public boolean disconnect()
 	{
-		try
+		if(connection != null)
 		{
-			connection.close();
-			return true;
+			try
+			{
+				connection.close();
+				return true;
+			}
+			catch (SQLException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			}
 		}
-		catch (SQLException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
+		return true;
 	}
 	
 	public List<String[]> querryDatabase(String querryString, int columnNumber)
