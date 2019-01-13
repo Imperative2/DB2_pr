@@ -160,7 +160,7 @@ public class App
 			{
 				if(dbConn.connect() == false)
 				{
-					JOptionPane.showMessageDialog(mainFrame, "Nie mo¿na po³¹czyæ siê do bazy danych",
+					JOptionPane.showMessageDialog(mainFrame, "Nie moï¿½na poï¿½ï¿½czyï¿½ siï¿½ do bazy danych",
 							"Uwaga!", JOptionPane.ERROR_MESSAGE);
 				}
 				LoggingControler logControler = new LoggingControler(dbConn);
@@ -198,13 +198,13 @@ public class App
 					}
 					case -1:
 					{
-						JOptionPane.showMessageDialog(mainFrame, "Z³y login lub has³o",
+						JOptionPane.showMessageDialog(mainFrame, "Zï¿½y login lub hasï¿½o",
 								"Uwaga!", JOptionPane.ERROR_MESSAGE);
 						break;
 					}
 					default:
 					{
-						JOptionPane.showMessageDialog(mainFrame, "B³¹d podczas logowania",
+						JOptionPane.showMessageDialog(mainFrame, "Bï¿½ï¿½d podczas logowania",
 								"Uwaga!", JOptionPane.ERROR_MESSAGE);
 						break;
 					}
@@ -218,7 +218,7 @@ public class App
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				JOptionPane.showMessageDialog(mainFrame, "W celu odzyskanie has³o zg³oœ siê do administratora systemu.",
+				JOptionPane.showMessageDialog(mainFrame, "W celu odzyskanie hasï¿½o zgï¿½oï¿½ siï¿½ do administratora systemu.",
 						"Uwaga!", JOptionPane.WARNING_MESSAGE);
 			}
 		});
@@ -459,7 +459,7 @@ public class App
 		panelUserGroups.add(btnNewButton);
 		
 		JPanel panelUserAdmissionGroups = new JPanel();
-		tabbedPane.addTab("Przegl¹daj grupy", null, panelUserAdmissionGroups, null);
+		tabbedPane.addTab("Przeglï¿½daj grupy", null, panelUserAdmissionGroups, null);
 		panelUserAdmissionGroups.setLayout(null);
 		
 	}
