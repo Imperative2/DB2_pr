@@ -15,7 +15,9 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 
 import java.awt.event.ActionListener;
+import java.nio.file.attribute.GroupPrincipal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.awt.event.ActionEvent;
@@ -30,6 +32,10 @@ import javax.swing.JList;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class App
 {
@@ -328,14 +334,16 @@ public class App
 		
 		
 		
-		DefaultListModel<String> listModel = new DefaultListModel<>();
-		listModel.addElement("USA");
-		listModel.addElement("India");		
+
 		
 		
 		
 		
 		
+		
+		
+		DefaultListModel<UserGroupModel> listModel = new DefaultListModel<>();
+
 		
 		
 		userGroupsComponentsMap = new HashMap<>();
@@ -343,6 +351,33 @@ public class App
 		panelUserGroups = new JPanel();
 		tabbedPane.addTab("Zapisany do grup", null, panelUserGroups, null);
 		panelUserGroups.setLayout(null);
+		
+		
+		
+		
+		tabbedPane.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent arg0)
+			{
+				listModel.clear();
+				UserGroupModel emptyModel = new UserGroupModel(dbConn);
+				List<String[]> elements = emptyModel.getData();
+				for(String[] element : elements)
+				{
+					if(element.length > 10)
+					{
+						if(element[10].equals(mainUser.getUserId()))
+						{
+							UserGroupModel item = new UserGroupModel(element);
+							listModel.addElement(item);
+						}
+					}
+
+				}	
+				
+			}
+		});
 		
 		JLabel fixLabelUserECTS = new JLabel("Liczba punkt\u00F3w ECTS:");
 		fixLabelUserECTS.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -360,103 +395,148 @@ public class App
 		scrollPane.setBounds(12, 42, 180, 298);
 		panelUserGroups.add(scrollPane);
 		
-		JList<String> list = new JList<>(listModel);
+		JList<UserGroupModel> list = new JList<>(listModel);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(list);
+		list.addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e)
+			{
+					UserGroupModel groupModel = list.getSelectedValue();
+					groupModel.addComponentsMap(userGroupsComponentsMap);
+					groupModel.updateGroupModel(panelUserGroups);
+					
+			}
+		});
 		
-		JLabel fixLabelCourseName = new JLabel("Nazwa kursu:");
-		fixLabelCourseName.setFont(new Font("Arial", Font.PLAIN, 16));
-		fixLabelCourseName.setBounds(204, 68, 101, 16);
-		panelUserGroups.add(fixLabelCourseName);
+		JLabel fixLabelGroupCourseName = new JLabel("Nazwa kursu:");
+		fixLabelGroupCourseName.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelGroupCourseName.setBounds(204, 68, 101, 16);
+		panelUserGroups.add(fixLabelGroupCourseName,2);
+		userGroupsComponentsMap.put("fixLabelGroupCourseName", 2);
 		
-		JLabel lblFormaKursu = new JLabel("Forma zaj\u0119\u0107:");
-		lblFormaKursu.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblFormaKursu.setBounds(204, 107, 101, 16);
-		panelUserGroups.add(lblFormaKursu);
+		JLabel labelGroupCourseName = new JLabel("Urz\u0105dzenia Peryferyjne");
+		labelGroupCourseName.setFont(new Font("Arial", Font.BOLD, 16));
+		labelGroupCourseName.setBounds(301, 68, 201, 16);
+		panelUserGroups.add(labelGroupCourseName,3);
+		labelGroupCourseName.setVisible(false);
+		userGroupsComponentsMap.put("labelGroupCourseName", 3);
 		
-		JLabel lblNewLabel = new JLabel("ECTS:");
-		lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblNewLabel.setBounds(519, 68, 56, 16);
-		panelUserGroups.add(lblNewLabel);
+		JLabel fixLabelGroupForm = new JLabel("Forma zaj\u0119\u0107:");
+		fixLabelGroupForm.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelGroupForm.setBounds(204, 107, 101, 16);
+		panelUserGroups.add(fixLabelGroupForm,4);
+		userGroupsComponentsMap.put("fixLabelGroupForm", 4);
 		
-		JLabel lblKodGrupy = new JLabel("Kod grupy:");
-		lblKodGrupy.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblKodGrupy.setBounds(469, 107, 83, 16);
-		panelUserGroups.add(lblKodGrupy);
 		
-		JLabel labelCourseName = new JLabel("Urz\u0105dzenia Peryferyjne");
-		labelCourseName.setFont(new Font("Arial", Font.BOLD, 16));
-		labelCourseName.setBounds(301, 68, 201, 16);
-		panelUserGroups.add(labelCourseName);
+		JLabel labelGroupForm = new JLabel("Laboratorium");
+		labelGroupForm.setFont(new Font("Arial", Font.PLAIN, 16));
+		labelGroupForm.setBounds(306, 107, 101, 16);
+		panelUserGroups.add(labelGroupForm,5);
+		labelGroupForm.setVisible(false);
+		userGroupsComponentsMap.put("labelGroupForm", 5);
 		
-		JLabel lblNewLabel_2 = new JLabel("Laboratorium");
-		lblNewLabel_2.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblNewLabel_2.setBounds(306, 107, 101, 16);
-		panelUserGroups.add(lblNewLabel_2);
+		JLabel fixLabelGroupECTS = new JLabel("ECTS:");
+		fixLabelGroupECTS.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelGroupECTS.setBounds(519, 68, 56, 16);
+		panelUserGroups.add(fixLabelGroupECTS,6);
+		userGroupsComponentsMap.put("fixLabelGroupECTS", 6);
 		
-		JLabel lblNewLabel_3 = new JLabel("5");
-		lblNewLabel_3.setFont(new Font("Arial", Font.BOLD, 16));
-		lblNewLabel_3.setBounds(571, 68, 76, 16);
-		panelUserGroups.add(lblNewLabel_3);
 		
-		JLabel lblNewLabel_4 = new JLabel("E06-gh4");
-		lblNewLabel_4.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblNewLabel_4.setBounds(564, 107, 83, 16);
-		panelUserGroups.add(lblNewLabel_4);
+		JLabel labelGroupECTS = new JLabel("5");
+		labelGroupECTS.setFont(new Font("Arial", Font.BOLD, 16));
+		labelGroupECTS.setBounds(571, 68, 76, 16);
+		panelUserGroups.add(labelGroupECTS,7);
+		labelGroupECTS.setVisible(false);
+		userGroupsComponentsMap.put("labelGroupECTS", 7);
 		
-		JLabel lblProwadzcy = new JLabel("Prowadz\u0105cy:");
-		lblProwadzcy.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblProwadzcy.setBounds(204, 146, 101, 16);
-		panelUserGroups.add(lblProwadzcy);
+		JLabel fixLabelGroupCode = new JLabel("Kod grupy:");
+		fixLabelGroupCode.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelGroupCode.setBounds(469, 107, 83, 18);
+		panelUserGroups.add(fixLabelGroupCode,8);
+		userGroupsComponentsMap.put("fixLabelGroupCode", 8);
 		
-		JLabel lblNewLabel_5 = new JLabel("dr. in\u017C. Janusz Biernat");
-		lblNewLabel_5.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblNewLabel_5.setBounds(301, 146, 283, 16);
-		panelUserGroups.add(lblNewLabel_5);
+		JLabel labelGroupCode = new JLabel("E06-gh4");
+		labelGroupCode.setFont(new Font("Arial", Font.PLAIN, 16));
+		labelGroupCode.setBounds(564, 107, 83, 18);
+		panelUserGroups.add(labelGroupCode,9);
+		labelGroupCode.setVisible(false);
+		userGroupsComponentsMap.put("labelGroupCode", 9);
 		
-		JLabel lblSalaZajciowa = new JLabel("Sala zaj\u0119ciowa:");
-		lblSalaZajciowa.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblSalaZajciowa.setBounds(204, 225, 119, 16);
-		panelUserGroups.add(lblSalaZajciowa);
 		
-		JLabel lblNewLabel_6 = new JLabel("Poniedzia\u0142ek");
-		lblNewLabel_6.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblNewLabel_6.setBounds(528, 185, 119, 16);
-		panelUserGroups.add(lblNewLabel_6);
+		JLabel fixLabelGroupTeacher = new JLabel("Prowadz\u0105cy:");
+		fixLabelGroupTeacher.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelGroupTeacher.setBounds(204, 146, 101, 16);
+		panelUserGroups.add(fixLabelGroupTeacher,10);
+		userGroupsComponentsMap.put("fixLabelGroupTeacher", 10);
 		
-		JLabel lblDzieZajc = new JLabel("Dzie\u0144 zaj\u0119c:");
-		lblDzieZajc.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblDzieZajc.setBounds(421, 185, 95, 16);
-		panelUserGroups.add(lblDzieZajc);
+		JLabel labelGroupTeacher = new JLabel("dr. in\u017C. Janusz Biernat");
+		labelGroupTeacher.setFont(new Font("Arial", Font.PLAIN, 16));
+		labelGroupTeacher.setBounds(301, 146, 283, 16);
+		panelUserGroups.add(labelGroupTeacher,11);
+		labelGroupTeacher.setVisible(false);
+		userGroupsComponentsMap.put("labelGroupTeacher", 11);
 		
-		JLabel lblGodzinyZaj = new JLabel("Godziny Zaj\u0119\u0107");
-		lblGodzinyZaj.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblGodzinyZaj.setBounds(421, 225, 103, 16);
-		panelUserGroups.add(lblGodzinyZaj);
+		JLabel fixLabelGroupDay = new JLabel("Dzie\u0144 zaj\u0119c:");
+		fixLabelGroupDay.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelGroupDay.setBounds(421, 185, 95, 16);
+		panelUserGroups.add(fixLabelGroupDay,12);
+		userGroupsComponentsMap.put("fixLabelGroupDay", 12);
 		
-		JLabel lblParzystoTygodnia = new JLabel("Parzysto\u015B\u0107 tygodnia:");
-		lblParzystoTygodnia.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblParzystoTygodnia.setBounds(204, 185, 151, 16);
-		panelUserGroups.add(lblParzystoTygodnia);
+		JLabel labelGroupDay = new JLabel("Poniedzia\u0142ek");
+		labelGroupDay.setFont(new Font("Arial", Font.PLAIN, 16));
+		labelGroupDay.setBounds(528, 185, 119, 16);
+		panelUserGroups.add(labelGroupDay,13);
+		labelGroupDay.setVisible(false);
+		userGroupsComponentsMap.put("labelGroupDay", 13);
 		
-		JLabel lblNewLabel_7 = new JLabel("TP");
-		lblNewLabel_7.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblNewLabel_7.setBounds(367, 185, 56, 16);
-		panelUserGroups.add(lblNewLabel_7);
 		
-		JLabel lblNewLabel_1 = new JLabel("C13 0.16");
-		lblNewLabel_1.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblNewLabel_1.setBounds(314, 225, 95, 16);
-		panelUserGroups.add(lblNewLabel_1);
+		JLabel fixLabelGroupTime = new JLabel("Godziny Zaj\u0119\u0107");
+		fixLabelGroupTime.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelGroupTime.setBounds(421, 225, 193, 16);
+		panelUserGroups.add(fixLabelGroupTime,14);
+		userGroupsComponentsMap.put("fixLabelGroupTime", 14);
 		
-		JLabel lblNewLabel_8 = new JLabel("13:15 - 15:15");
-		lblNewLabel_8.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblNewLabel_8.setBounds(528, 225, 119, 16);
-		panelUserGroups.add(lblNewLabel_8);
+		JLabel labelGroupTime = new JLabel("13:15 - 15:15");
+		labelGroupTime.setFont(new Font("Arial", Font.PLAIN, 16));
+		labelGroupTime.setBounds(528, 225, 119, 16);
+		panelUserGroups.add(labelGroupTime,15);
+		labelGroupTime.setVisible(false);
+		userGroupsComponentsMap.put("labelGroupTime", 15);
 		
-		JButton btnNewButton = new JButton("Wypisz");
-		btnNewButton.setBounds(642, 289, 97, 25);
-		panelUserGroups.add(btnNewButton);
+		JLabel fixLabelGroupWeek = new JLabel("Parzysto\u015B\u0107 tygodnia:");
+		fixLabelGroupWeek.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelGroupWeek.setBounds(204, 185, 151, 16);
+		panelUserGroups.add(fixLabelGroupWeek,16);
+		userGroupsComponentsMap.put("fixLabelGroupWeek", 16);
+		
+		JLabel labelGroupWeek = new JLabel("TP");
+		labelGroupWeek.setFont(new Font("Arial", Font.PLAIN, 16));
+		labelGroupWeek.setBounds(367, 185, 56, 16);
+		panelUserGroups.add(labelGroupWeek,17);
+		labelGroupWeek.setVisible(false);
+		userGroupsComponentsMap.put("labelGroupWeek", 17);
+		
+		JLabel fixLabelGroupRoom = new JLabel("Sala zaj\u0119ciowa:");
+		fixLabelGroupRoom.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelGroupRoom.setBounds(204, 225, 119, 16);
+		panelUserGroups.add(fixLabelGroupRoom,18);
+		userGroupsComponentsMap.put("fixLabelGroupRoom", 18);
+		
+		JLabel labelGroupRoom = new JLabel("C13 0.16");
+		labelGroupRoom.setFont(new Font("Arial", Font.PLAIN, 16));
+		labelGroupRoom.setBounds(314, 225, 95, 16);
+		panelUserGroups.add(labelGroupRoom,19);
+		labelGroupRoom.setVisible(false);
+		userGroupsComponentsMap.put("labelGroupRoom", 19);
+		
+		
+		JButton buttonGroupUnsub = new JButton("Wypisz");
+		buttonGroupUnsub.setBounds(642, 289, 97, 25);
+		panelUserGroups.add(buttonGroupUnsub,20);
+		buttonGroupUnsub.setVisible(false);
+		userGroupsComponentsMap.put("buttonGroupUnsub", 20);
 		
 		JPanel panelUserAdmissionGroups = new JPanel();
 		tabbedPane.addTab("Przegl¹daj grupy", null, panelUserAdmissionGroups, null);
