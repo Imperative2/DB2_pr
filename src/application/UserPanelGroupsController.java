@@ -30,6 +30,12 @@ public class UserPanelGroupsController
 		return mainUser;
 	}
 	
+	
+	public void updateSelectedGroup(JPanel userPanelGropus)
+	{
+		
+	}
+	
 	public void updateUserECTS(JPanel userPanelGroups)
 	{
 		int ectsPoints = groupsComponents.get("labelUserECTS");

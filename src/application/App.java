@@ -364,49 +364,99 @@ public class App
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(list);
 		
-		JLabel lblNazwaKursu = new JLabel("Nazwa kursu:");
-		lblNazwaKursu.setBounds(213, 44, 90, 16);
-		panelUserGroups.add(lblNazwaKursu);
+		JLabel fixLabelCourseName = new JLabel("Nazwa kursu:");
+		fixLabelCourseName.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelCourseName.setBounds(204, 68, 101, 16);
+		panelUserGroups.add(fixLabelCourseName);
 		
 		JLabel lblFormaKursu = new JLabel("Forma zaj\u0119\u0107:");
-		lblFormaKursu.setBounds(410, 44, 76, 16);
+		lblFormaKursu.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblFormaKursu.setBounds(204, 107, 101, 16);
 		panelUserGroups.add(lblFormaKursu);
 		
 		JLabel lblNewLabel = new JLabel("ECTS:");
-		lblNewLabel.setBounds(608, 44, 56, 16);
+		lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblNewLabel.setBounds(519, 68, 56, 16);
 		panelUserGroups.add(lblNewLabel);
 		
 		JLabel lblKodGrupy = new JLabel("Kod grupy:");
-		lblKodGrupy.setBounds(223, 84, 56, 16);
+		lblKodGrupy.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblKodGrupy.setBounds(469, 107, 83, 16);
 		panelUserGroups.add(lblKodGrupy);
 		
-		JLabel lblNewLabel_1 = new JLabel("New label");
-		lblNewLabel_1.setBounds(315, 44, 56, 16);
-		panelUserGroups.add(lblNewLabel_1);
+		JLabel labelCourseName = new JLabel("Urz\u0105dzenia Peryferyjne");
+		labelCourseName.setFont(new Font("Arial", Font.BOLD, 16));
+		labelCourseName.setBounds(301, 68, 201, 16);
+		panelUserGroups.add(labelCourseName);
 		
-		JLabel lblNewLabel_2 = new JLabel("New label");
-		lblNewLabel_2.setBounds(498, 44, 56, 16);
+		JLabel lblNewLabel_2 = new JLabel("Laboratorium");
+		lblNewLabel_2.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblNewLabel_2.setBounds(306, 107, 101, 16);
 		panelUserGroups.add(lblNewLabel_2);
 		
-		JLabel lblNewLabel_3 = new JLabel("New label");
-		lblNewLabel_3.setBounds(659, 44, 56, 16);
+		JLabel lblNewLabel_3 = new JLabel("5");
+		lblNewLabel_3.setFont(new Font("Arial", Font.BOLD, 16));
+		lblNewLabel_3.setBounds(571, 68, 76, 16);
 		panelUserGroups.add(lblNewLabel_3);
 		
-		JLabel lblNewLabel_4 = new JLabel("New label");
-		lblNewLabel_4.setBounds(315, 84, 56, 16);
+		JLabel lblNewLabel_4 = new JLabel("E06-gh4");
+		lblNewLabel_4.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblNewLabel_4.setBounds(564, 107, 83, 16);
 		panelUserGroups.add(lblNewLabel_4);
 		
 		JLabel lblProwadzcy = new JLabel("Prowadz\u0105cy:");
-		lblProwadzcy.setBounds(410, 84, 56, 16);
+		lblProwadzcy.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblProwadzcy.setBounds(204, 146, 101, 16);
 		panelUserGroups.add(lblProwadzcy);
 		
-		JLabel lblNewLabel_5 = new JLabel("New label");
-		lblNewLabel_5.setBounds(498, 84, 56, 16);
+		JLabel lblNewLabel_5 = new JLabel("dr. in\u017C. Janusz Biernat");
+		lblNewLabel_5.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblNewLabel_5.setBounds(301, 146, 283, 16);
 		panelUserGroups.add(lblNewLabel_5);
 		
 		JLabel lblSalaZajciowa = new JLabel("Sala zaj\u0119ciowa:");
-		lblSalaZajciowa.setBounds(213, 128, 56, 16);
+		lblSalaZajciowa.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblSalaZajciowa.setBounds(204, 225, 119, 16);
 		panelUserGroups.add(lblSalaZajciowa);
+		
+		JLabel lblNewLabel_6 = new JLabel("Poniedzia\u0142ek");
+		lblNewLabel_6.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblNewLabel_6.setBounds(528, 185, 119, 16);
+		panelUserGroups.add(lblNewLabel_6);
+		
+		JLabel lblDzieZajc = new JLabel("Dzie\u0144 zaj\u0119c:");
+		lblDzieZajc.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblDzieZajc.setBounds(421, 185, 95, 16);
+		panelUserGroups.add(lblDzieZajc);
+		
+		JLabel lblGodzinyZaj = new JLabel("Godziny Zaj\u0119\u0107");
+		lblGodzinyZaj.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblGodzinyZaj.setBounds(421, 225, 103, 16);
+		panelUserGroups.add(lblGodzinyZaj);
+		
+		JLabel lblParzystoTygodnia = new JLabel("Parzysto\u015B\u0107 tygodnia:");
+		lblParzystoTygodnia.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblParzystoTygodnia.setBounds(204, 185, 151, 16);
+		panelUserGroups.add(lblParzystoTygodnia);
+		
+		JLabel lblNewLabel_7 = new JLabel("TP");
+		lblNewLabel_7.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblNewLabel_7.setBounds(367, 185, 56, 16);
+		panelUserGroups.add(lblNewLabel_7);
+		
+		JLabel lblNewLabel_1 = new JLabel("C13 0.16");
+		lblNewLabel_1.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblNewLabel_1.setBounds(314, 225, 95, 16);
+		panelUserGroups.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_8 = new JLabel("13:15 - 15:15");
+		lblNewLabel_8.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblNewLabel_8.setBounds(528, 225, 119, 16);
+		panelUserGroups.add(lblNewLabel_8);
+		
+		JButton btnNewButton = new JButton("Wypisz");
+		btnNewButton.setBounds(642, 289, 97, 25);
+		panelUserGroups.add(btnNewButton);
 		
 		JPanel panelUserAdmissionGroups = new JPanel();
 		tabbedPane.addTab("Przegl¹daj grupy", null, panelUserAdmissionGroups, null);
