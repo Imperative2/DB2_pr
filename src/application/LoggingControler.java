@@ -41,15 +41,15 @@ public class LoggingControler
 					String userId = result.get(0)[0];
 					String name = result.get(0)[1];
 					String surname = result.get(0)[2];
-//					String fieldOfStudy = result.get(0)[8];
-//					String semester = result.get(0)[9];
+					String fieldOfStudy = result.get(0)[8];
+					String semester = result.get(0)[9];
 
 					Student student = new Student();
 					student.setName(name);
 					student.setSurname(surname);
 					student.setUserId(userId);
-//					student.setFieldOfStudy(fieldOfStudy);
-//					student.setSemester(semester);
+					student.setFieldOfStudy(fieldOfStudy);
+					student.setSemester(semester);
 					loggedUser = student;
 					return 1;
 				}
@@ -90,15 +90,6 @@ public class LoggingControler
 	public User getLoggedUser()
 	{
 		return loggedUser;
-	}
-	public static void main(String[] args)
-	{
-		DatabaseConnection dbConn = new DatabaseConnection();
-		LoggingControler lCon = new LoggingControler(dbConn);
-		System.out.println(lCon.login("karol", "admin"));
-
-		
-		
 	}
 
 }

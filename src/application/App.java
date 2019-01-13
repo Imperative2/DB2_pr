@@ -9,6 +9,8 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import java.awt.Color;
+
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 
@@ -23,6 +25,11 @@ import javax.swing.JOptionPane;
 
 import java.awt.SystemColor;
 import javax.swing.JTabbedPane;
+import java.awt.Component;
+import javax.swing.JList;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 
 public class App
 {
@@ -40,7 +47,10 @@ public class App
 	private JPanel userPanel;
 	private final static String USER_PANEL_ID = "USERPANEL";
 	private UserPanelControler userPanelControler;
-	Map<String,Integer> userComponentsMap;
+	private Map<String,Integer> userComponentsMap;
+	private JPanel panelUserGroups;
+	private UserPanelGroupsController userPanelGroupsController;
+	private Map<String,Integer> userGroupsComponentsMap;
 	
 	private JPanel employeePanel;
 	private final static String EMPLOYEE_PANEL_ID = "EMPLOYEEPANEL";
@@ -96,101 +106,9 @@ public class App
 		cards = (CardLayout)(mainFrame.getContentPane().getLayout());
 
 		initLoginPanel();
-
-		userPanel = new JPanel();
-		userPanel.setBackground(new Color(204, 255, 102));
-		mainFrame.getContentPane().add(userPanel, USER_PANEL_ID);
-		userPanel.setLayout(null);
 		
-		userComponentsMap = new HashMap<>();
+		initUserPanel();
 
-		JLabel fixLabelName = new JLabel("Imi\u0119:");
-		fixLabelName.setFont(new Font("Arial", Font.PLAIN, 16));
-		fixLabelName.setBounds(12, 25, 33, 16);
-		userComponentsMap.put("fixLabelName", 0);
-		userPanel.add(fixLabelName,0);
-
-		JLabel labelName = new JLabel("name");
-		labelName.setFont(new Font("Arial", Font.PLAIN, 16));
-		labelName.setBounds(66, 25, 95, 16);
-		userComponentsMap.put("labelName", 1);
-		userPanel.add(labelName,1);
-
-		JLabel fixLabelSurname = new JLabel("Nazwisko:");
-		fixLabelSurname.setFont(new Font("Arial", Font.PLAIN, 16));
-		fixLabelSurname.setBounds(186, 25, 81, 16);
-		userComponentsMap.put("fixLabelSurname", 2);
-		userPanel.add(fixLabelSurname,2);
-
-		JLabel labelSurname = new JLabel("Surname");
-		labelSurname.setFont(new Font("Arial", Font.PLAIN, 16));
-		labelSurname.setBounds(266, 25, 95, 16);
-		userComponentsMap.put("labelSurname", 3);
-		userPanel.add(labelSurname,3);
-
-		JLabel fixLabelStudentIndex = new JLabel("Indeks:");
-		fixLabelStudentIndex.setFont(new Font("Arial", Font.PLAIN, 16));
-		fixLabelStudentIndex.setBounds(12, 54, 56, 16);
-		userComponentsMap.put("fixLabelStudentIndex", 4);
-		userPanel.add(fixLabelStudentIndex,4);
-
-		JLabel labelStudentIndex = new JLabel("studentIndex");
-		labelStudentIndex.setFont(new Font("Arial", Font.PLAIN, 16));
-		labelStudentIndex.setBounds(66, 54, 95, 16);
-		userComponentsMap.put("labelStudentIndex", 5);
-		userPanel.add(labelStudentIndex,5);
-
-		JLabel fixLabelFieldStudy = new JLabel("Kierunek:");
-		fixLabelFieldStudy.setFont(new Font("Arial", Font.PLAIN, 16));
-		fixLabelFieldStudy.setBounds(186, 54, 81, 16);
-		userComponentsMap.put("fixLabelFieldStudy", 6);
-		userPanel.add(fixLabelFieldStudy,6);
-
-		JLabel labelFieldStudy = new JLabel("field of study");
-		labelFieldStudy.setFont(new Font("Arial", Font.PLAIN, 16));
-		labelFieldStudy.setBounds(266, 54, 95, 16);
-		userComponentsMap.put("labelFieldStudy", 7);
-		userPanel.add(labelFieldStudy,7);
-
-		JLabel fixLabelSemester = new JLabel("Semestr:");
-		fixLabelSemester.setFont(new Font("Arial", Font.PLAIN, 16));
-		fixLabelSemester.setBounds(385, 54, 72, 16);
-		userComponentsMap.put("fixLabelSemester", 8);
-		userPanel.add(fixLabelSemester,8);
-
-		JLabel labelSemester = new JLabel("studentSemester");
-		labelSemester.setFont(new Font("Arial", Font.PLAIN, 16));
-		labelSemester.setBounds(457, 54, 81, 16);
-		userComponentsMap.put("labelSemester", 9);
-		userPanel.add(labelSemester,9);
-
-		JLabel fixLabelTime = new JLabel("Czas:");
-		fixLabelTime.setFont(new Font("Arial", Font.BOLD, 16));
-		fixLabelTime.setBounds(546, 25, 56, 16);
-		userPanel.add(fixLabelTime);
-
-		JLabel labelTime = new JLabel("11-11-2019 16:34:16");
-		labelTime.setFont(new Font("Arial", Font.BOLD, 16));
-		labelTime.setBounds(595, 25, 187, 16);
-		userPanel.add(labelTime);
-		
-		MyClock myClock = new MyClock(labelTime);
-		Timer timer = new Timer();
-		timer.schedule(myClock, 1000);
-
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(12, 83, 770, 370);
-		userPanel.add(tabbedPane);
-
-		JPanel panel = new JPanel();
-		tabbedPane.addTab("New tab", null, panel, null);
-
-		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("New tab", null, panel_1, null);
-
-		JPanel panel_3 = new JPanel();
-		tabbedPane.addTab("New tab", null, panel_3, null);
-		
 		initEmployeePanel();
 
 
@@ -263,6 +181,9 @@ public class App
 						userPanelControler = new UserPanelControler(dbConn, userComponentsMap);
 						userPanelControler.setMainUser((Student)mainUser);
 						userPanelControler.updateUserPanel(userPanel);
+						userPanelGroupsController = new UserPanelGroupsController(dbConn, userGroupsComponentsMap);
+						userPanelGroupsController.setMainUser((Student)mainUser);
+						userPanelGroupsController.updateUserECTS(panelUserGroups);
 						cards.show(mainFrame.getContentPane(), USER_PANEL_ID);
 						break;
 					}
@@ -313,6 +234,186 @@ public class App
 		});
 	}
 
+	private void initUserPanel()
+	{
+
+		userPanel = new JPanel();
+		userPanel.setBackground(new Color(204, 255, 102));
+		mainFrame.getContentPane().add(userPanel, USER_PANEL_ID);
+		userPanel.setLayout(null);
+		
+		userComponentsMap = new HashMap<>();
+
+		JLabel fixLabelName = new JLabel("Imi\u0119:");
+		fixLabelName.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelName.setBounds(12, 25, 33, 16);
+		userPanel.add(fixLabelName,0);
+		userComponentsMap.put("fixLabelName", 0);
+
+		JLabel labelName = new JLabel("name");
+		labelName.setFont(new Font("Arial", Font.PLAIN, 16));
+		labelName.setBounds(66, 25, 95, 16);
+		userComponentsMap.put("labelName", 1);
+		userPanel.add(labelName,1);
+
+		JLabel fixLabelSurname = new JLabel("Nazwisko:");
+		fixLabelSurname.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelSurname.setBounds(186, 25, 81, 16);
+		userComponentsMap.put("fixLabelSurname", 2);
+		userPanel.add(fixLabelSurname,2);
+
+		JLabel labelSurname = new JLabel("Surname");
+		labelSurname.setFont(new Font("Arial", Font.PLAIN, 16));
+		labelSurname.setBounds(266, 25, 160, 16);
+		userComponentsMap.put("labelSurname", 3);
+		userPanel.add(labelSurname,3);
+
+		JLabel fixLabelStudentIndex = new JLabel("Indeks:");
+		fixLabelStudentIndex.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelStudentIndex.setBounds(12, 54, 56, 16);
+		userComponentsMap.put("fixLabelStudentIndex", 4);
+		userPanel.add(fixLabelStudentIndex,4);
+
+		JLabel labelStudentIndex = new JLabel("studentIndex");
+		labelStudentIndex.setFont(new Font("Arial", Font.PLAIN, 16));
+		labelStudentIndex.setBounds(66, 54, 95, 16);
+		userComponentsMap.put("labelStudentIndex", 5);
+		userPanel.add(labelStudentIndex,5);
+
+		JLabel fixLabelFieldStudy = new JLabel("Kierunek:");
+		fixLabelFieldStudy.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelFieldStudy.setBounds(186, 54, 81, 16);
+		userComponentsMap.put("fixLabelFieldStudy", 6);
+		userPanel.add(fixLabelFieldStudy,6);
+
+		JLabel labelFieldStudy = new JLabel("field of study");
+		labelFieldStudy.setFont(new Font("Arial", Font.PLAIN, 16));
+		labelFieldStudy.setBounds(266, 54, 95, 16);
+		userComponentsMap.put("labelFieldStudy", 7);
+		userPanel.add(labelFieldStudy,7);
+
+		JLabel fixLabelSemester = new JLabel("Semestr:");
+		fixLabelSemester.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelSemester.setBounds(385, 54, 72, 16);
+		userComponentsMap.put("fixLabelSemester", 8);
+		userPanel.add(fixLabelSemester,8);
+
+		JLabel labelSemester = new JLabel("studentSemester");
+		labelSemester.setFont(new Font("Arial", Font.PLAIN, 16));
+		labelSemester.setBounds(457, 54, 81, 16);
+		userComponentsMap.put("labelSemester", 9);
+		userPanel.add(labelSemester,9);
+
+		JLabel fixLabelTime = new JLabel("Czas:");
+		fixLabelTime.setFont(new Font("Arial", Font.BOLD, 16));
+		fixLabelTime.setBounds(546, 25, 56, 16);
+		userPanel.add(fixLabelTime);
+
+		JLabel labelTime = new JLabel("11-11-2019 16:34:16");
+		labelTime.setFont(new Font("Arial", Font.BOLD, 16));
+		labelTime.setBounds(595, 25, 187, 16);
+		userPanel.add(labelTime);
+		
+		MyClock myClock = new MyClock(labelTime);
+		Timer timer = new Timer();
+		timer.schedule(myClock, 1000);
+
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBounds(12, 83, 770, 370);
+		userPanel.add(tabbedPane);
+
+		JPanel panelUserAdmission = new JPanel();
+		tabbedPane.addTab("Zapisy", null, panelUserAdmission, null);
+		panelUserAdmission.setLayout(null);
+		
+		
+		
+		DefaultListModel<String> listModel = new DefaultListModel<>();
+		listModel.addElement("USA");
+		listModel.addElement("India");		
+		
+		
+		
+		
+		
+		
+		
+		userGroupsComponentsMap = new HashMap<>();
+		
+		panelUserGroups = new JPanel();
+		tabbedPane.addTab("Zapisany do grup", null, panelUserGroups, null);
+		panelUserGroups.setLayout(null);
+		
+		JLabel fixLabelUserECTS = new JLabel("Liczba punkt\u00F3w ECTS:");
+		fixLabelUserECTS.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelUserECTS.setBounds(12, 13, 158, 16);
+		panelUserGroups.add(fixLabelUserECTS,0);
+		userGroupsComponentsMap.put("fixLabelUserECTS", 0);
+		
+		JLabel labelUserECTS = new JLabel("30");
+		labelUserECTS.setFont(new Font("Arial", Font.PLAIN, 16));
+		labelUserECTS.setBounds(182, 14, 35, 16);
+		panelUserGroups.add(labelUserECTS,1);
+		userGroupsComponentsMap.put("labelUserECTS", 1);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(12, 42, 180, 298);
+		panelUserGroups.add(scrollPane);
+		
+		JList<String> list = new JList<>(listModel);
+		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		scrollPane.setViewportView(list);
+		
+		JLabel lblNazwaKursu = new JLabel("Nazwa kursu:");
+		lblNazwaKursu.setBounds(213, 44, 90, 16);
+		panelUserGroups.add(lblNazwaKursu);
+		
+		JLabel lblFormaKursu = new JLabel("Forma zaj\u0119\u0107:");
+		lblFormaKursu.setBounds(410, 44, 76, 16);
+		panelUserGroups.add(lblFormaKursu);
+		
+		JLabel lblNewLabel = new JLabel("ECTS:");
+		lblNewLabel.setBounds(608, 44, 56, 16);
+		panelUserGroups.add(lblNewLabel);
+		
+		JLabel lblKodGrupy = new JLabel("Kod grupy:");
+		lblKodGrupy.setBounds(223, 84, 56, 16);
+		panelUserGroups.add(lblKodGrupy);
+		
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		lblNewLabel_1.setBounds(315, 44, 56, 16);
+		panelUserGroups.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("New label");
+		lblNewLabel_2.setBounds(498, 44, 56, 16);
+		panelUserGroups.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("New label");
+		lblNewLabel_3.setBounds(659, 44, 56, 16);
+		panelUserGroups.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel("New label");
+		lblNewLabel_4.setBounds(315, 84, 56, 16);
+		panelUserGroups.add(lblNewLabel_4);
+		
+		JLabel lblProwadzcy = new JLabel("Prowadz\u0105cy:");
+		lblProwadzcy.setBounds(410, 84, 56, 16);
+		panelUserGroups.add(lblProwadzcy);
+		
+		JLabel lblNewLabel_5 = new JLabel("New label");
+		lblNewLabel_5.setBounds(498, 84, 56, 16);
+		panelUserGroups.add(lblNewLabel_5);
+		
+		JLabel lblSalaZajciowa = new JLabel("Sala zaj\u0119ciowa:");
+		lblSalaZajciowa.setBounds(213, 128, 56, 16);
+		panelUserGroups.add(lblSalaZajciowa);
+		
+		JPanel panelUserAdmissionGroups = new JPanel();
+		tabbedPane.addTab("Przegl¹daj grupy", null, panelUserAdmissionGroups, null);
+		panelUserAdmissionGroups.setLayout(null);
+		
+	}
+	
 	private void initEmployeePanel()
 	{
 		employeePanel = new JPanel();

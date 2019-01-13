@@ -41,7 +41,7 @@ public class MyClock extends TimerTask
 			else
 				timeString += "0" + timeNow.get(timeNow.HOUR_OF_DAY) + ":";
 			
-			if (timeNow.get(timeNow.HOUR_OF_DAY) > 9)
+			if (timeNow.get(timeNow.MINUTE) > 9)
 				timeString += timeNow.get(timeNow.MINUTE) + ":";
 			else
 				timeString += "0" + timeNow.get(timeNow.MINUTE) + ":";
