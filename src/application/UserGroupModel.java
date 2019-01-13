@@ -21,6 +21,7 @@ public class UserGroupModel
 	private String day;
 	private String room;
 	private String time;
+	private String zapisID;
 	
 	
 	public UserGroupModel(DatabaseConnection dbConn)
@@ -39,6 +40,7 @@ public class UserGroupModel
 		this.day = data[6];
 		this.room = data[7];
 		this.time = data[8];
+		this.zapisID = data[9];
 	}
 	
 	public String toString()
@@ -197,6 +199,11 @@ public class UserGroupModel
 	public void setTime(String time)
 	{
 		this.time = time;
+	}
+	
+	public String getZapisId()
+	{
+		return zapisID;
 	}
 	
 }
