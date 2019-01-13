@@ -404,9 +404,11 @@ public class App
 			public void valueChanged(ListSelectionEvent e)
 			{
 					UserGroupModel groupModel = list.getSelectedValue();
-					groupModel.addComponentsMap(userGroupsComponentsMap);
-					groupModel.updateGroupModel(panelUserGroups);
-					
+					if(groupModel != null)
+					{
+						groupModel.addComponentsMap(userGroupsComponentsMap);
+						groupModel.updateGroupModel(panelUserGroups);	
+					}	
 			}
 		});
 		
@@ -537,6 +539,39 @@ public class App
 		panelUserGroups.add(buttonGroupUnsub,20);
 		buttonGroupUnsub.setVisible(false);
 		userGroupsComponentsMap.put("buttonGroupUnsub", 20);
+		
+		buttonGroupUnsub.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				UserGroupModel groupModel = list.getSelectedValue();
+				String zapisId = groupModel.getZapisId();
+				System.out.println(zapisId);
+				JButton button = (JButton)e.getSource();
+				
+				button.setVisible(false);
+				
+				listModel.clear();
+				UserGroupModel emptyModel = new UserGroupModel(dbConn);
+				List<String[]> elements = emptyModel.getData();
+				for(String[] element : elements)
+				{
+					if(element.length > 10)
+					{
+						if(element[10].equals(mainUser.getUserId()))
+						{
+							UserGroupModel item = new UserGroupModel(element);
+							listModel.addElement(item);
+						}
+					}
+
+				}	
+				
+				JOptionPane.showMessageDialog(mainFrame, "Pomyœlnie usuniêto zapis.",
+						"Uwaga!", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
 		
 		JPanel panelUserAdmissionGroups = new JPanel();
 		tabbedPane.addTab("Przegl¹daj grupy", null, panelUserAdmissionGroups, null);
