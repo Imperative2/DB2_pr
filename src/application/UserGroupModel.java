@@ -45,7 +45,7 @@ public class UserGroupModel
 	
 	public String toString()
 	{
-		return courseName+" "+form;
+		return courseName+" "+form.charAt(0);
 	}
 	
 	public void addComponentsMap(Map<String, Integer> groupComponentsMap)

@@ -62,9 +62,9 @@ public class App
 	
 	private JPanel employeePanel;
 	private final static String EMPLOYEE_PANEL_ID = "EMPLOYEEPANEL";
+	private EmployeePanelControler employeePanelControler;
+	private Map<String,Integer> employeeComponentsMap;
 
-	private JTextField textFieldLogin;
-	private JPasswordField passwordField;
 
 	/**
 	 * Launch the application.
@@ -134,7 +134,7 @@ public class App
 		fixLabelLogin.setBounds(209, 121, 110, 25);
 		loginPanel.add(fixLabelLogin);
 
-		textFieldLogin = new JTextField("pwr235011");
+		JTextField textFieldLogin = new JTextField("pwr235011");
 		textFieldLogin.setBounds(331, 123, 266, 22);
 		loginPanel.add(textFieldLogin);
 		textFieldLogin.setColumns(10);
@@ -144,7 +144,7 @@ public class App
 		fixLabelPassword.setBounds(209, 164, 98, 16);
 		loginPanel.add(fixLabelPassword);
 
-		passwordField = new JPasswordField("haslo");
+		JPasswordField passwordField = new JPasswordField("haslo");
 		passwordField.setBounds(331, 158, 266, 22);
 		loginPanel.add(passwordField);
 
@@ -203,6 +203,11 @@ public class App
 						passwordField.setText("");
 						textFieldLogin.setText("");
 						mainUser = logControler.getLoggedUser();
+						
+						employeePanelControler = new EmployeePanelControler(dbConn, employeeComponentsMap);
+						employeePanelControler.setMainUser((Employee)mainUser);
+						employeePanelControler.updateEmployeePanel(employeePanel);
+						
 						cards.show(mainFrame.getContentPane(), EMPLOYEE_PANEL_ID);
 						
 						break;
@@ -327,7 +332,7 @@ public class App
 		
 		MyClock myClock = new MyClock(labelTime);
 		Timer timer = new Timer();
-		timer.schedule(myClock, 1000);
+		timer.schedule(myClock, 800);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(12, 83, 770, 370);
@@ -664,34 +669,35 @@ public class App
 		mainFrame.getContentPane().add(employeePanel, EMPLOYEE_PANEL_ID);
 		employeePanel.setLayout(null);
 		
+		employeeComponentsMap = new HashMap<>();
+		
 		JLabel fixLabelName = new JLabel("Imi\u0119:");
 		fixLabelName.setFont(new Font("Arial", Font.PLAIN, 16));
 		fixLabelName.setBounds(12, 23, 40, 16);
-	//	userComponentsMap.put("fixLabelName", 0);
 		employeePanel.add(fixLabelName,0);
+		employeeComponentsMap.put("fixLabelName", 0);
 		
 		JLabel labelName = new JLabel("Name");
 		labelName.setFont(new Font("Arial", Font.PLAIN, 16));
 		labelName.setBounds(50, 24, 105, 16);
-	//	userComponentsMap.put("labelName", 1);
 		employeePanel.add(labelName,1);
+		employeeComponentsMap.put("labelName", 1);
 		
 		JLabel fixLabelSurname = new JLabel("Nazwisko:");
 		fixLabelSurname.setFont(new Font("Arial", Font.PLAIN, 16));
 		fixLabelSurname.setBounds(167, 24, 81, 16);
-	//	userComponentsMap.put("fixLabelSurname", 2);
 		employeePanel.add(fixLabelSurname,2);
+		employeeComponentsMap.put("fixLabelSurname", 2);
 		
 		JLabel labelSurname = new JLabel("Surname");
 		labelSurname.setFont(new Font("Arial", Font.PLAIN, 16));
 		labelSurname.setBounds(247, 24, 105, 16);
-	//	userComponentsMap.put("labelSurname", 3);
 		employeePanel.add(labelSurname,3);
+		employeeComponentsMap.put("labelSurname", 3);
 		
 		JLabel fixLabelTime = new JLabel("Czas:");
 		fixLabelTime.setFont(new Font("Arial", Font.BOLD, 16));
 		fixLabelTime.setBounds(500, 23, 56, 16);
-	//	userComponentsMap.put("fixl", 4);
 		employeePanel.add(fixLabelTime);
 		
 		JLabel labelTime = new JLabel("11-11-2019 16:43:12");
@@ -701,7 +707,7 @@ public class App
 		
 		MyClock myClock = new MyClock(labelTime);
 		Timer timer = new Timer();
-		timer.schedule(myClock, 1000);
+		timer.schedule(myClock, 800);
 		
 		
 		JTabbedPane tabbedPane_1 = new JTabbedPane(JTabbedPane.TOP);
@@ -709,19 +715,19 @@ public class App
 		employeePanel.add(tabbedPane_1);
 		
 		JPanel panel = new JPanel();
-		tabbedPane_1.addTab("New tab", null, panel, null);
+		tabbedPane_1.addTab("Prawa i terminy zapisów studentów", null, panel, null);
 		
 		JPanel panel_1 = new JPanel();
-		tabbedPane_1.addTab("New tab", null, panel_1, null);
+		tabbedPane_1.addTab("Zarz¹dzaj grupami", null, panel_1, null);
 		
 		JPanel panel_2 = new JPanel();
-		tabbedPane_1.addTab("New tab", null, panel_2, null);
+		tabbedPane_1.addTab("Zarz¹dzaj kursami", null, panel_2, null);
 		
 		JPanel panel_3 = new JPanel();
-		tabbedPane_1.addTab("New tab", null, panel_3, null);
+		tabbedPane_1.addTab("Wypisz studenta", null, panel_3, null);
 		
 		JPanel panel_4 = new JPanel();
-		tabbedPane_1.addTab("New tab", null, panel_4, null);
+		tabbedPane_1.addTab("Zapisz studenta", null, panel_4, null);
 		
 	}
 }
