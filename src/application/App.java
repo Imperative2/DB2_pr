@@ -47,12 +47,14 @@ public class App
 	private JPanel userPanel;
 	private final static String USER_PANEL_ID = "USERPANEL";
 	private UserPanelControler userPanelControler;
+	private UserAdmissionController userAdmissionController;
 	private Map<String,Integer> userComponentsMap;
 	private JPanel panelUserGroups;
 	private UserPanelGroupsController userPanelGroupsController;
 	private Map<String,Integer> userGroupsComponentsMap;
 	
 	private JPanel employeePanel;
+	private UserAdmissionPanel panelUserAdmissionGroups;
 	private final static String EMPLOYEE_PANEL_ID = "EMPLOYEEPANEL";
 
 	private JTextField textFieldLogin;
@@ -126,7 +128,7 @@ public class App
 		fixLabelLogin.setBounds(209, 121, 110, 25);
 		loginPanel.add(fixLabelLogin);
 
-		textFieldLogin = new JTextField();
+		textFieldLogin = new JTextField("pwr235011");
 		textFieldLogin.setBounds(331, 123, 266, 22);
 		loginPanel.add(textFieldLogin);
 		textFieldLogin.setColumns(10);
@@ -136,7 +138,7 @@ public class App
 		fixLabelPassword.setBounds(209, 164, 98, 16);
 		loginPanel.add(fixLabelPassword);
 
-		passwordField = new JPasswordField();
+		passwordField = new JPasswordField("haslo");
 		passwordField.setBounds(331, 158, 266, 22);
 		loginPanel.add(passwordField);
 
@@ -181,6 +183,9 @@ public class App
 						userPanelControler = new UserPanelControler(dbConn, userComponentsMap);
 						userPanelControler.setMainUser((Student)mainUser);
 						userPanelControler.updateUserPanel(userPanel);
+						userAdmissionController = new UserAdmissionController(dbConn, panelUserAdmissionGroups);
+						userAdmissionController.setMainUser((Student)mainUser);
+						userAdmissionController.updateAdmissionPanel();
 						userPanelGroupsController = new UserPanelGroupsController(dbConn, userGroupsComponentsMap);
 						userPanelGroupsController.setMainUser((Student)mainUser);
 						userPanelGroupsController.updateUserECTS(panelUserGroups);
@@ -359,7 +364,7 @@ public class App
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 42, 180, 298);
 		panelUserGroups.add(scrollPane);
-		
+
 		JList<String> list = new JList<>(listModel);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(list);
@@ -458,12 +463,12 @@ public class App
 		btnNewButton.setBounds(642, 289, 97, 25);
 		panelUserGroups.add(btnNewButton);
 		
-		JPanel panelUserAdmissionGroups = new JPanel();
+		panelUserAdmissionGroups = new UserAdmissionPanel();
 		tabbedPane.addTab("Przegl�daj grupy", null, panelUserAdmissionGroups, null);
 		panelUserAdmissionGroups.setLayout(null);
 		
 	}
-	
+
 	private void initEmployeePanel()
 	{
 		employeePanel = new JPanel();
