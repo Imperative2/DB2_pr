@@ -12,6 +12,7 @@ public class DatabaseConnection
 {
 
 	private String jdbcUrl = "jdbc:mysql://localhost/karol_bd2?user=admin&password=admin";
+//	private String jdbcUrl = "jdbc:mysql://localhost/karol_bd2?user=admin&password=admin";	
 	private Connection connection;
 	
 	public DatabaseConnection()
