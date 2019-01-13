@@ -57,10 +57,10 @@ public class App
 	private Map<String,Integer> userComponentsMap;
 	private JPanel panelUserGroups;
 	private UserPanelGroupsController userPanelGroupsController;
+	UserAdmissionPanel panelUserAdmissionGroups = new UserAdmissionPanel();
 	private Map<String,Integer> userGroupsComponentsMap;
 	
 	private JPanel employeePanel;
-	private UserAdmissionPanel panelUserAdmissionGroups;
 	private final static String EMPLOYEE_PANEL_ID = "EMPLOYEEPANEL";
 
 	private JTextField textFieldLogin;
@@ -573,13 +573,12 @@ public class App
 
 				}	
 				
-				JOptionPane.showMessageDialog(mainFrame, "Pomyœlnie usuniêto zapis.",
+				JOptionPane.showMessageDialog(mainFrame, "Pomyï¿½lnie usuniï¿½to zapis.",
 						"Uwaga!", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
-		
-		JPanel panelUserAdmissionGroups = new JPanel();
-		tabbedPane.addTab("Przegl¹daj grupy", null, panelUserAdmissionGroups, null);
+
+		tabbedPane.addTab("Przeglï¿½daj grupy", null, panelUserAdmissionGroups, null);
 		panelUserAdmissionGroups.setLayout(null);
 		
 	}
