@@ -53,9 +53,11 @@ public class App
 	private JPanel userPanel;
 	private final static String USER_PANEL_ID = "USERPANEL";
 	private UserPanelControler userPanelControler;
+	private UserAdmissionController userAdmissionController;
 	private Map<String,Integer> userComponentsMap;
 	private JPanel panelUserGroups;
 	private UserPanelGroupsController userPanelGroupsController;
+	UserAdmissionPanel panelUserAdmissionGroups = new UserAdmissionPanel();
 	private Map<String,Integer> userGroupsComponentsMap;
 	
 	private JPanel employeePanel;
@@ -132,7 +134,7 @@ public class App
 		fixLabelLogin.setBounds(209, 121, 110, 25);
 		loginPanel.add(fixLabelLogin);
 
-		textFieldLogin = new JTextField();
+		textFieldLogin = new JTextField("pwr235011");
 		textFieldLogin.setBounds(331, 123, 266, 22);
 		loginPanel.add(textFieldLogin);
 		textFieldLogin.setColumns(10);
@@ -142,7 +144,7 @@ public class App
 		fixLabelPassword.setBounds(209, 164, 98, 16);
 		loginPanel.add(fixLabelPassword);
 
-		passwordField = new JPasswordField();
+		passwordField = new JPasswordField("haslo");
 		passwordField.setBounds(331, 158, 266, 22);
 		loginPanel.add(passwordField);
 
@@ -166,7 +168,7 @@ public class App
 			{
 				if(dbConn.connect() == false)
 				{
-					JOptionPane.showMessageDialog(mainFrame, "Nie mo¿na po³¹czyæ siê do bazy danych",
+					JOptionPane.showMessageDialog(mainFrame, "Nie mo?na po??czy? si? do bazy danych",
 							"Uwaga!", JOptionPane.ERROR_MESSAGE);
 				}
 				LoggingControler logControler = new LoggingControler(dbConn);
@@ -187,6 +189,9 @@ public class App
 						userPanelControler = new UserPanelControler(dbConn, userComponentsMap);
 						userPanelControler.setMainUser((Student)mainUser);
 						userPanelControler.updateUserPanel(userPanel);
+						userAdmissionController = new UserAdmissionController(dbConn, panelUserAdmissionGroups);
+						userAdmissionController.setMainUser((Student)mainUser);
+						userAdmissionController.updateAdmissionPanel();
 						userPanelGroupsController = new UserPanelGroupsController(dbConn, userGroupsComponentsMap);
 						userPanelGroupsController.setMainUser((Student)mainUser);
 						userPanelGroupsController.updateUserECTS(panelUserGroups);
@@ -204,13 +209,13 @@ public class App
 					}
 					case -1:
 					{
-						JOptionPane.showMessageDialog(mainFrame, "Z³y login lub has³o",
+						JOptionPane.showMessageDialog(mainFrame, "Z?y login lub has?o",
 								"Uwaga!", JOptionPane.ERROR_MESSAGE);
 						break;
 					}
 					default:
 					{
-						JOptionPane.showMessageDialog(mainFrame, "B³¹d podczas logowania",
+						JOptionPane.showMessageDialog(mainFrame, "B??d podczas logowania",
 								"Uwaga!", JOptionPane.ERROR_MESSAGE);
 						break;
 					}
@@ -224,7 +229,7 @@ public class App
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				JOptionPane.showMessageDialog(mainFrame, "W celu odzyskanie has³o zg³oœ siê do administratora systemu.",
+				JOptionPane.showMessageDialog(mainFrame, "W celu odzyskanie has?o zg?o? si? do administratora systemu.",
 						"Uwaga!", JOptionPane.WARNING_MESSAGE);
 			}
 		});
@@ -394,7 +399,7 @@ public class App
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 42, 180, 298);
 		panelUserGroups.add(scrollPane);
-		
+
 		JList<UserGroupModel> list = new JList<>(listModel);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(list);
@@ -568,17 +573,16 @@ public class App
 
 				}	
 				
-				JOptionPane.showMessageDialog(mainFrame, "Pomyœlnie usuniêto zapis.",
+				JOptionPane.showMessageDialog(mainFrame, "Pomyï¿½lnie usuniï¿½to zapis.",
 						"Uwaga!", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
-		
-		JPanel panelUserAdmissionGroups = new JPanel();
-		tabbedPane.addTab("Przegl¹daj grupy", null, panelUserAdmissionGroups, null);
+
+		tabbedPane.addTab("Przeglï¿½daj grupy", null, panelUserAdmissionGroups, null);
 		panelUserAdmissionGroups.setLayout(null);
 		
 	}
-	
+
 	private void initEmployeePanel()
 	{
 		employeePanel = new JPanel();
