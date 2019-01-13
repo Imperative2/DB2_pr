@@ -1,10 +1,6 @@
 package application;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,27 +9,29 @@ public class DatabaseConnection
 
 	private String jdbcUrl = "jdbc:mysql://localhost/karol_bd2?user=admin&password=admin";
 //	private String jdbcUrl = "jdbc:mysql://localhost/karol_bd2?user=admin&password=admin";	
+
 	private Connection connection;
-	
+
 	public DatabaseConnection()
 	{
-		
+
 	}
-	
+
 	public boolean connect()
 	{
-		try 
+		try
 		{
-			 connection = DriverManager.getConnection(jdbcUrl);
+		     connection = DriverManager.getConnection(jdbcUrl);
 			 return true;
 		}
 		catch (SQLException e)
 		{
 			System.out.println(e.toString() +"\n error durign connection!!!!");
+			e.printStackTrace();
 			return false;
 		}
 	}
-	
+
 	public boolean disconnect()
 	{
 		if(connection != null)
@@ -52,7 +50,7 @@ public class DatabaseConnection
 		}
 		return true;
 	}
-	
+
 	public List<String[]> querryDatabase(String querryString, int columnNumber)
 	{
 		List<String[]> databaseResult = new ArrayList<>();
@@ -79,6 +77,6 @@ public class DatabaseConnection
 			e.printStackTrace();
 			return null;
 		}
-		
+
 	}
 }

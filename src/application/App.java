@@ -53,9 +53,11 @@ public class App
 	private JPanel userPanel;
 	private final static String USER_PANEL_ID = "USERPANEL";
 	private UserPanelControler userPanelControler;
+	private UserAdmissionController userAdmissionController;
 	private Map<String,Integer> userComponentsMap;
 	private JPanel panelUserGroups;
 	private UserPanelGroupsController userPanelGroupsController;
+	UserAdmissionPanel panelUserAdmissionGroups = new UserAdmissionPanel();
 	private Map<String,Integer> userGroupsComponentsMap;
 	
 	private JPanel employeePanel;
@@ -132,7 +134,7 @@ public class App
 		fixLabelLogin.setBounds(209, 121, 110, 25);
 		loginPanel.add(fixLabelLogin);
 
-		textFieldLogin = new JTextField();
+		textFieldLogin = new JTextField("pwr235011");
 		textFieldLogin.setBounds(331, 123, 266, 22);
 		loginPanel.add(textFieldLogin);
 		textFieldLogin.setColumns(10);
@@ -142,7 +144,7 @@ public class App
 		fixLabelPassword.setBounds(209, 164, 98, 16);
 		loginPanel.add(fixLabelPassword);
 
-		passwordField = new JPasswordField();
+		passwordField = new JPasswordField("haslo");
 		passwordField.setBounds(331, 158, 266, 22);
 		loginPanel.add(passwordField);
 
@@ -166,7 +168,7 @@ public class App
 			{
 				if(dbConn.connect() == false)
 				{
-					JOptionPane.showMessageDialog(mainFrame, "Nie mo¿na po³¹czyæ siê do bazy danych",
+					JOptionPane.showMessageDialog(mainFrame, "Nie mo?na po??czy? si? do bazy danych",
 							"Uwaga!", JOptionPane.ERROR_MESSAGE);
 				}
 				LoggingControler logControler = new LoggingControler(dbConn);
@@ -187,6 +189,9 @@ public class App
 						userPanelControler = new UserPanelControler(dbConn, userComponentsMap);
 						userPanelControler.setMainUser((Student)mainUser);
 						userPanelControler.updateUserPanel(userPanel);
+						userAdmissionController = new UserAdmissionController(dbConn, panelUserAdmissionGroups);
+						userAdmissionController.setMainUser((Student)mainUser);
+						userAdmissionController.updateAdmissionPanel();
 						userPanelGroupsController = new UserPanelGroupsController(dbConn, userGroupsComponentsMap);
 						userPanelGroupsController.setMainUser((Student)mainUser);
 						userPanelGroupsController.updateUserECTS(panelUserGroups);
@@ -204,13 +209,13 @@ public class App
 					}
 					case -1:
 					{
-						JOptionPane.showMessageDialog(mainFrame, "Z³y login lub has³o",
+						JOptionPane.showMessageDialog(mainFrame, "Z?y login lub has?o",
 								"Uwaga!", JOptionPane.ERROR_MESSAGE);
 						break;
 					}
 					default:
 					{
-						JOptionPane.showMessageDialog(mainFrame, "B³¹d podczas logowania",
+						JOptionPane.showMessageDialog(mainFrame, "B??d podczas logowania",
 								"Uwaga!", JOptionPane.ERROR_MESSAGE);
 						break;
 					}
@@ -224,7 +229,7 @@ public class App
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				JOptionPane.showMessageDialog(mainFrame, "W celu odzyskanie has³o zg³oœ siê do administratora systemu.",
+				JOptionPane.showMessageDialog(mainFrame, "W celu odzyskanie has?o zg?o? si? do administratora systemu.",
 						"Uwaga!", JOptionPane.WARNING_MESSAGE);
 			}
 		});
@@ -394,7 +399,7 @@ public class App
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 42, 180, 298);
 		panelUserGroups.add(scrollPane);
-		
+
 		JList<UserGroupModel> list = new JList<>(listModel);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(list);
@@ -568,17 +573,90 @@ public class App
 
 				}	
 				
-				JOptionPane.showMessageDialog(mainFrame, "Pomyœlnie usuniêto zapis.",
+				JOptionPane.showMessageDialog(mainFrame, "Pomyï¿½lnie usuniï¿½to zapis.",
 						"Uwaga!", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
-		
-		JPanel panelUserAdmissionGroups = new JPanel();
-		tabbedPane.addTab("Przegl¹daj grupy", null, panelUserAdmissionGroups, null);
+
+		tabbedPane.addTab("Przegl¹daj daj grupy", null, panelUserAdmissionGroups, null);
 		panelUserAdmissionGroups.setLayout(null);
 		
+		JLabel fixLabelBrowserForm = new JLabel("Forma zaj\u0119\u0107:");
+		fixLabelBrowserForm.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelBrowserForm.setBounds(437, 48, 95, 16);
+		panelUserAdmissionGroups.add(fixLabelBrowserForm);
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setBounds(193, 153, 56, 40);
+		panelUserAdmissionGroups.add(lblNewLabel_1);
+		
+		JLabel labelBrowserForm = new JLabel("wyk\u0142ad");
+		labelBrowserForm.setFont(new Font("Arial", Font.PLAIN, 16));
+		labelBrowserForm.setBounds(533, 48, 56, 16);
+		panelUserAdmissionGroups.add(labelBrowserForm);
+		
+		JLabel fixLabelBrowserTeacher = new JLabel("Prowadz\u0105cy:");
+		fixLabelBrowserTeacher.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelBrowserTeacher.setBounds(437, 104, 95, 16);
+		panelUserAdmissionGroups.add(fixLabelBrowserTeacher);
+		
+		JLabel labelBrowserTeacher = new JLabel("dr inz janusz biernatykat");
+		labelBrowserTeacher.setFont(new Font("Arial", Font.PLAIN, 16));
+		labelBrowserTeacher.setBounds(533, 104, 209, 16);
+		panelUserAdmissionGroups.add(labelBrowserTeacher);
+		
+		JLabel fixLabelBrowserECTS = new JLabel("ECTS:");
+		fixLabelBrowserECTS.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelBrowserECTS.setBounds(612, 48, 56, 16);
+		panelUserAdmissionGroups.add(fixLabelBrowserECTS);
+		
+		JLabel labelBrowserECTS = new JLabel("5");
+		labelBrowserECTS.setFont(new Font("Arial", Font.BOLD, 16));
+		labelBrowserECTS.setBounds(668, 48, 56, 16);
+		panelUserAdmissionGroups.add(labelBrowserECTS);
+		
+		JLabel fixLabelBrowserWeek = new JLabel("Parzysto\u015B\u0107 tygodnia:");
+		fixLabelBrowserWeek.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelBrowserWeek.setBounds(437, 145, 152, 16);
+		panelUserAdmissionGroups.add(fixLabelBrowserWeek);
+		
+		JLabel labelBrowserWeek = new JLabel("TP");
+		labelBrowserWeek.setFont(new Font("Arial", Font.PLAIN, 16));
+		labelBrowserWeek.setBounds(589, 145, 56, 16);
+		panelUserAdmissionGroups.add(labelBrowserWeek);
+		
+		JLabel fixLabelBrowserDay = new JLabel("Dzie\u0144 zaj\u0119\u0107:");
+		fixLabelBrowserDay.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelBrowserDay.setBounds(437, 177, 95, 16);
+		panelUserAdmissionGroups.add(fixLabelBrowserDay);
+		
+		JLabel labelBrowserDay = new JLabel("PONiedzia\u0142ek");
+		labelBrowserDay.setFont(new Font("Arial", Font.PLAIN, 16));
+		labelBrowserDay.setBounds(533, 177, 112, 16);
+		panelUserAdmissionGroups.add(labelBrowserDay);
+		
+		JLabel fixLabelBrowserTime = new JLabel("Godziny zaj\u0119\u0107:");
+		fixLabelBrowserTime.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelBrowserTime.setBounds(437, 224, 112, 16);
+		panelUserAdmissionGroups.add(fixLabelBrowserTime);
+		
+		JLabel fixLabelBrowserRoom = new JLabel("Sala zaj\u0119\u0107:");
+		fixLabelBrowserRoom.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelBrowserRoom.setBounds(437, 269, 95, 16);
+		panelUserAdmissionGroups.add(fixLabelBrowserRoom);
+		
+		JLabel labelBrowserTime = new JLabel("New label");
+		labelBrowserTime.setFont(new Font("Arial", Font.PLAIN, 16));
+		labelBrowserTime.setBounds(545, 224, 141, 16);
+		panelUserAdmissionGroups.add(labelBrowserTime);
+		
+		JLabel labelBrowserRoom = new JLabel("c13 0.16 alal");
+		labelBrowserRoom.setFont(new Font("Arial", Font.PLAIN, 16));
+		labelBrowserRoom.setBounds(519, 269, 149, 16);
+		panelUserAdmissionGroups.add(labelBrowserRoom);
+		
 	}
-	
+
 	private void initEmployeePanel()
 	{
 		employeePanel = new JPanel();
