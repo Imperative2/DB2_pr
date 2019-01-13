@@ -38,13 +38,18 @@ public class LoggingControler
 				}
 				else
 				{
+					String userId = result.get(0)[0];
 					String name = result.get(0)[1];
 					String surname = result.get(0)[2];
-					String userId = result.get(0)[0];
+//					String fieldOfStudy = result.get(0)[8];
+//					String semester = result.get(0)[9];
+
 					Student student = new Student();
 					student.setName(name);
 					student.setSurname(surname);
 					student.setUserId(userId);
+//					student.setFieldOfStudy(fieldOfStudy);
+//					student.setSemester(semester);
 					loggedUser = student;
 					return 1;
 				}
