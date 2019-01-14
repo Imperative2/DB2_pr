@@ -130,36 +130,36 @@ public class App
 
 		JLabel fixLabelLogin = new JLabel("Podaj Login:");
 		fixLabelLogin.setFont(new Font("Arial", Font.BOLD, 16));
-		fixLabelLogin.setBounds(209, 121, 110, 25);
+		fixLabelLogin.setBounds(177, 121, 110, 25);
 		loginPanel.add(fixLabelLogin);
 
 		JTextField textFieldLogin = new JTextField("pwr235011");
-		textFieldLogin.setBounds(331, 123, 266, 22);
+		textFieldLogin.setBounds(285, 123, 266, 22);
 		loginPanel.add(textFieldLogin);
 		textFieldLogin.setColumns(10);
 
 		JLabel fixLabelPassword = new JLabel("Podaj Has\u0142o:");
 		fixLabelPassword.setFont(new Font("Arial", Font.BOLD, 16));
-		fixLabelPassword.setBounds(209, 164, 98, 16);
+		fixLabelPassword.setBounds(177, 160, 98, 16);
 		loginPanel.add(fixLabelPassword);
 
 		JPasswordField passwordField = new JPasswordField("haslo");
-		passwordField.setBounds(331, 158, 266, 22);
+		passwordField.setBounds(285, 159, 266, 22);
 		loginPanel.add(passwordField);
 
 		JButton btnLogin = new JButton("Zaloguj");
 		btnLogin.setFont(new Font("Arial", Font.PLAIN, 16));
-		btnLogin.setBounds(331, 205, 97, 25);
+		btnLogin.setBounds(285, 205, 97, 25);
 		loginPanel.add(btnLogin);
 
 		JButton btnForgotPassword = new JButton("Zapomnia\u0142em has\u0142a");
 		btnForgotPassword.setFont(new Font("Arial", Font.PLAIN, 16));
-		btnForgotPassword.setBounds(357, 243, 211, 25);
+		btnForgotPassword.setBounds(311, 243, 211, 25);
 		loginPanel.add(btnForgotPassword);
 
 		JButton btnExit = new JButton("Wyjd\u017A");
 		btnExit.setFont(new Font("Arial", Font.PLAIN, 16));
-		btnExit.setBounds(500, 206, 97, 25);
+		btnExit.setBounds(450, 206, 97, 25);
 		loginPanel.add(btnExit);
 
 		btnLogin.addActionListener(new ActionListener() {
@@ -599,14 +599,18 @@ public class App
 		panelUserAdmissionSaves.add(fixLabelAdmissionRight,19);
 
 		labelAdmissionTime = new JLabel("-- . --");
-		labelAdmissionTime.setFont(new Font("Arial", Font.PLAIN, 16));
-		labelAdmissionTime.setBounds(130, 10, 200, 16);
+		labelAdmissionTime.setFont(new Font("Arial", Font.BOLD, 16));
+		labelAdmissionTime.setBounds(113, 10, 200, 16);
 		panelUserAdmissionSaves.add(labelAdmissionTime,19);
 
 		labelAdmissionRight = new JLabel("-- . --");
-		labelAdmissionRight.setFont(new Font("Arial", Font.PLAIN, 16));
+		labelAdmissionRight.setFont(new Font("Arial", Font.BOLD, 16));
 		labelAdmissionRight.setBounds(500, 10, 95, 16);
 		panelUserAdmissionSaves.add(labelAdmissionRight,19);
+		
+		JButton btnAdmissionSignUp = new JButton("Zapisz");
+		btnAdmissionSignUp.setBounds(645, 302, 97, 25);
+		panelUserAdmissionSaves.add(btnAdmissionSignUp);
 
 	}
 
