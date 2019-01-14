@@ -20,6 +20,10 @@ public class Group {
         return Integer.toString(id);
     }
 
+    public int getId(){
+        return id;
+    }
+
     public int getHours() {
         return hours;
     }

@@ -72,4 +72,8 @@ public class UserAdmissionController {
         }
         return false;
     }
+
+    public Group getChosenGroup() {
+        return userAdmissionPanel.getChosenGroup();
+    }
 }

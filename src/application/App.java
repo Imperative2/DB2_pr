@@ -1,5 +1,7 @@
 package application;
 
+import application.models.Group;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -561,7 +563,7 @@ public class App
 				JButton button = (JButton)e.getSource();
 
 				String sql_query = "DELETE FROM `zapis` WHERE `zapis`.`id_zapisu` =  " + zapisId + ";";
-				dbConn.deleteData(sql_query);
+				dbConn.deleteOrUpdateData(sql_query);
 				button.setVisible(false);
 				
 				listModel.clear();
@@ -610,8 +612,36 @@ public class App
 		
 		JButton btnAdmissionSignUp = new JButton("Zapisz");
 		btnAdmissionSignUp.setBounds(645, 302, 97, 25);
+		btnAdmissionSignUp.addActionListener(e->{
+			signUpStudentToGroup(userAdmissionControllerSaves.getChosenGroup());
+		});
 		panelUserAdmissionSaves.add(btnAdmissionSignUp);
 
+	}
+
+	private void signUpStudentToGroup(Group group) {
+		if(checkRightToSignUp((Student)mainUser) && studentIsNotInGroup((Student)mainUser, group)){
+
+		}
+	}
+
+	private boolean studentIsNotInGroup(Student mainUser, Group group) {
+		List<String[]> queryResults;
+		queryResults = dbConn.querryDatabase("Select id_grupy from zapis where id_indeksu = " + mainUser.getUserId() + ";", 1);
+		for(String[] id_grupy:queryResults){
+			if(Integer.parseInt(id_grupy[0]) == group.getId()){
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private boolean checkRightToSignUp(Student mainUser) {
+		if(mainUser.getAdmissionRight().equals("posiada") || timerAdmissionTime.isAfter()){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	private void initEmployeePanel()

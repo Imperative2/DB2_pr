@@ -8,8 +8,8 @@ public class DatabaseConnection
 {
 
 //	private String jdbcUrl = "jdbc:mysql://localhost/karol_bd2?user=admin&password=admin";
-	private String jdbcUrl = "jdbc:mysql://localhost/karol_bd2?user=admin&password=admin";
-//	private String jdbcUrl = "jdbc:mysql://localhost:3306/edukacja_cl?user=admin&password=admin";
+//	private String jdbcUrl = "jdbc:mysql://localhost/karol_bd2?user=admin&password=admin";
+	private String jdbcUrl = "jdbc:mysql://localhost:3306/edukacja_cl?user=admin&password=admin";
 
 	private Connection connection;
 
@@ -81,7 +81,7 @@ public class DatabaseConnection
 
 	}
 
-    public void deleteData(String sql_query) {
+    public void deleteOrUpdateData(String sql_query) {
         try {
             Statement stmt = connection.createStatement();
             stmt.executeUpdate(sql_query);

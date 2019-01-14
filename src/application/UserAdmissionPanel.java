@@ -15,6 +15,7 @@ public class UserAdmissionPanel extends JPanel
 	private DefaultListModel<Group> groupsModel = new DefaultListModel<>();
 	private JLabel labelBrowserForm, labelBrowserTeacher, labelBrowserECTS, labelBrowserWeek, labelBrowserDay,
 			labelBrowserTime, labelBrowserRoom, labelFreeSpace;
+	private JList<Group> listGroups;
 
 	public UserAdmissionPanel()
 	{
@@ -42,7 +43,7 @@ public class UserAdmissionPanel extends JPanel
 		 */
 		JList<Course> listCourses = new JList<>(coursesModel);
 
-		JList<Group> listGroups = new JList<>(groupsModel);
+		listGroups = new JList<>(groupsModel);
 		listGroups.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		groupsScroll.setViewportView(listGroups);
 		listGroups.addListSelectionListener(e -> {
@@ -198,4 +199,8 @@ public class UserAdmissionPanel extends JPanel
 	{
 		coursesModel.addElement(course);
 	}
+
+	public Group getChosenGroup(){
+	     return listGroups.getSelectedValue();
+    }
 }
