@@ -14,6 +14,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
+import java.beans.Statement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -558,7 +559,9 @@ public class App
 				String zapisId = groupModel.getZapisId();
 				System.out.println(zapisId);
 				JButton button = (JButton)e.getSource();
-				
+
+				String sql_query = "DELETE FROM `zapis` WHERE `zapis`.`id_zapisu` =  " + zapisId + ";";
+				dbConn.deleteData(sql_query);
 				button.setVisible(false);
 				
 				listModel.clear();

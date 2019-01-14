@@ -80,4 +80,13 @@ public class DatabaseConnection
 		}
 
 	}
+
+    public void deleteData(String sql_query) {
+        try {
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate(sql_query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
