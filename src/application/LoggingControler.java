@@ -30,7 +30,7 @@ public class LoggingControler
 			{
 				List<String[]> result;
 				String sqlQuerry = "SELECT * FROM STUDENT WHERE LOGIN='"+login+"' AND haslo='"+password+"'";
-				result = dbConn.querryDatabase(sqlQuerry, 10);
+				result = dbConn.querryDatabase(sqlQuerry, 112);
 				dbConn.disconnect();
 				if(result.size()>3 || result.size() < 1)
 				{
@@ -43,6 +43,8 @@ public class LoggingControler
 					String surname = result.get(0)[2];
 					String fieldOfStudy = result.get(0)[8];
 					String semester = result.get(0)[9];
+					String admissionRight = result.get(0)[10];
+					String admissionTime = result.get(0)[11];
 
 					Student student = new Student();
 					student.setName(name);
@@ -50,6 +52,8 @@ public class LoggingControler
 					student.setUserId(userId);
 					student.setFieldOfStudy(fieldOfStudy);
 					student.setSemester(semester);
+					student.setAdmissionRight(admissionRight);
+					student.setAdmissionTime(admissionTime);
 					loggedUser = student;
 					return 1;
 				}
