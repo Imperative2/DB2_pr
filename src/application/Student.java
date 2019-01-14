@@ -43,7 +43,7 @@ public class Student extends User
 	
 	public String getAdmissionTime()
 	{
-		return admissionRight;
+		return admissionTime;
 	}
 	
 	public void setPesel(String pesel)

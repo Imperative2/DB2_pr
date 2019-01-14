@@ -18,7 +18,6 @@ public class UserAdmissionController {
     private final int AMOUNT_OF_COLUMN = 16;
     private Student mainUser;
     private List<Course> courseList = new ArrayList<>();
-    private List<Group> groupList = new ArrayList<>();
 
     private UserAdmissionPanel userAdmissionPanel;
 
@@ -47,10 +46,30 @@ public class UserAdmissionController {
     }
     private void createCoursesAndGroups(List<String[]> queryResults) {
         for(String[] row : queryResults){
-            Course course = new Course(Integer.parseInt(row[0]), row[1], Integer.parseInt(row[2]), row[3], Integer.parseInt(row[4]), row[14]);
+            if(!courseIsOnTheList(Integer.parseInt(row[0]))) {
+                Course course = new Course(Integer.parseInt(row[0]), row[1], Integer.parseInt(row[2]), row[3], Integer.parseInt(row[4]), row[14]);
+                courseList.add(course);
+            }
             Group group = new Group(Integer.parseInt(row[6]),Integer.parseInt(row[9]), row[10], row[11],Integer.parseInt(row[12]), row[13], row[15]);
-            course.addGroups(group);
-            courseList.add(course);
+            getCourseByID(Integer.parseInt(row[0])).addGroups(group);
         }
+    }
+
+    private Course getCourseByID(int id) {
+        for(Course course:courseList){
+            if(course.getId()==id){
+                return course;
+            }
+        }
+        return null;
+    }
+
+    private boolean courseIsOnTheList(int id) {
+        for(Course course:courseList){
+            if(course.getId()==id){
+                return true;
+            }
+        }
+        return false;
     }
 }
