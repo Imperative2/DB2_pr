@@ -60,6 +60,8 @@ public class App
 	private UserAdmissionPanel panelUserAdmissionSaves = new UserAdmissionPanel();
 	private Map<String,Integer> userGroupsComponentsMap;
 	
+	private TimerAdmissionTime timerAdmissionTime;
+	
 	private JPanel employeePanel;
 	private final static String EMPLOYEE_PANEL_ID = "EMPLOYEEPANEL";
 	private EmployeePanelControler employeePanelControler;
@@ -206,6 +208,7 @@ public class App
 							labelAdmissionRight.setForeground(Color.RED);
 						}
 						labelAdmissionTime.setText(((Student)mainUser).getAdmissionTime());
+						timerAdmissionTime = new TimerAdmissionTime(((Student)mainUser).getGregTime(), labelAdmissionTime, 10000);
 						labelAdmissionRight.setText(((Student)mainUser).getAdmissionRight());
 						break;
 					}
