@@ -16,6 +16,7 @@ public class Course {
         this.semester = semester;
         this.formOfClasses = formOfClasses;
         this.ects = ects;
+        this.nameMaster = nameMaster;
     }
 
     public void addGroups(Group group) {
@@ -28,6 +29,42 @@ public class Course {
 
     @Override
     public String toString() {
-        return name + " " + formOfClasses;
+        return name + " " + formOfClasses.toCharArray()[0];
+    }
+
+    public String getFormOfClasses(){
+        return formOfClasses;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getEcts() {
+        return ects;
+    }
+
+    public void setEcts(int ects) {
+        this.ects = ects;
+    }
+
+    public int getSemester() {
+        return semester;
+    }
+
+    public void setSemester(int semester) {
+        this.semester = semester;
+    }
+
+    public String getNameMaster() {
+        return nameMaster;
+    }
+
+    public void setNameMaster(String nameMaster) {
+        this.nameMaster = nameMaster;
     }
 }

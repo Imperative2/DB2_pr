@@ -7,8 +7,9 @@ import java.util.List;
 public class DatabaseConnection
 {
 
-	private String jdbcUrl = "jdbc:mysql://localhost/karol_bd2?user=admin&password=admin";
-//	private String jdbcUrl = "jdbc:mysql://localhost/karol_bd2?user=admin&password=admin";	
+//	private String jdbcUrl = "jdbc:mysql://localhost/karol_bd2?user=admin&password=admin";
+//	private String jdbcUrl = "jdbc:mysql://localhost/karol_bd2?user=admin&password=admin";
+	private String jdbcUrl = "jdbc:mysql://localhost:3306/edukacja_cl?user=admin&password=admin";
 
 	private Connection connection;
 

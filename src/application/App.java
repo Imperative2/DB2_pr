@@ -12,24 +12,19 @@ import java.awt.Color;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 
 import java.awt.event.ActionListener;
-import java.nio.file.attribute.GroupPrincipal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.CardLayout;
-import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 
 import java.awt.SystemColor;
 import javax.swing.JTabbedPane;
-import java.awt.Component;
 import javax.swing.JList;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ChangeEvent;
@@ -54,16 +49,19 @@ public class App
 	private final static String USER_PANEL_ID = "USERPANEL";
 	private UserPanelControler userPanelControler;
 	private UserAdmissionController userAdmissionController;
+	private UserAdmissionController userAdmissionControllerSaves;
 	private Map<String,Integer> userComponentsMap;
 	private JPanel panelUserGroups;
 	private UserPanelGroupsController userPanelGroupsController;
-	UserAdmissionPanel panelUserAdmissionGroups = new UserAdmissionPanel();
+	private UserAdmissionPanel panelUserAdmissionGroups = new UserAdmissionPanel();
+	private UserAdmissionPanel panelUserAdmissionSaves = new UserAdmissionPanel();
 	private Map<String,Integer> userGroupsComponentsMap;
 	
 	private JPanel employeePanel;
 	private final static String EMPLOYEE_PANEL_ID = "EMPLOYEEPANEL";
 	private EmployeePanelControler employeePanelControler;
 	private Map<String,Integer> employeeComponentsMap;
+	private JLabel labelAdmissionTime, labelAdmissionRight;
 
 
 	/**
@@ -192,10 +190,20 @@ public class App
 						userAdmissionController = new UserAdmissionController(dbConn, panelUserAdmissionGroups);
 						userAdmissionController.setMainUser((Student)mainUser);
 						userAdmissionController.updateAdmissionPanel();
+						userAdmissionControllerSaves = new UserAdmissionController(dbConn, panelUserAdmissionSaves);
+						userAdmissionControllerSaves.setMainUser((Student)mainUser);
+						userAdmissionControllerSaves.updateAdmissionPanel();
 						userPanelGroupsController = new UserPanelGroupsController(dbConn, userGroupsComponentsMap);
 						userPanelGroupsController.setMainUser((Student)mainUser);
 						userPanelGroupsController.updateUserECTS(panelUserGroups);
 						cards.show(mainFrame.getContentPane(), USER_PANEL_ID);
+						if(((Student)mainUser).getAdmissionRight().equals("posiada")){
+							labelAdmissionRight.setForeground(Color.GREEN);
+						}else{
+							labelAdmissionRight.setForeground(Color.RED);
+						}
+						labelAdmissionTime.setText(((Student)mainUser).getAdmissionTime());
+						labelAdmissionRight.setText(((Student)mainUser).getAdmissionRight());
 						break;
 					}
 					case 2:
@@ -338,9 +346,9 @@ public class App
 		tabbedPane.setBounds(12, 83, 770, 370);
 		userPanel.add(tabbedPane);
 
-		JPanel panelUserAdmission = new JPanel();
-		tabbedPane.addTab("Zapisy", null, panelUserAdmission, null);
-		panelUserAdmission.setLayout(null);
+		tabbedPane.addTab("Zapisy", null, panelUserAdmissionSaves, null);
+		panelUserAdmissionSaves.setLayout(null);
+
 		
 		
 		
@@ -574,83 +582,29 @@ public class App
 			}
 		});
 
-		tabbedPane.addTab("Przegl¹daj daj grupy", null, panelUserAdmissionGroups, null);
+		tabbedPane.addTab("Przeglï¿½daj daj grupy", null, panelUserAdmissionGroups, null);
 		panelUserAdmissionGroups.setLayout(null);
-		
-		JLabel fixLabelBrowserForm = new JLabel("Forma zaj\u0119\u0107:");
-		fixLabelBrowserForm.setFont(new Font("Arial", Font.PLAIN, 16));
-		fixLabelBrowserForm.setBounds(437, 48, 95, 16);
-		panelUserAdmissionGroups.add(fixLabelBrowserForm);
-		
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setBounds(193, 153, 56, 40);
-		panelUserAdmissionGroups.add(lblNewLabel_1);
-		
-		JLabel labelBrowserForm = new JLabel("wyk\u0142ad");
-		labelBrowserForm.setFont(new Font("Arial", Font.PLAIN, 16));
-		labelBrowserForm.setBounds(533, 48, 56, 16);
-		panelUserAdmissionGroups.add(labelBrowserForm);
-		
-		JLabel fixLabelBrowserTeacher = new JLabel("Prowadz\u0105cy:");
-		fixLabelBrowserTeacher.setFont(new Font("Arial", Font.PLAIN, 16));
-		fixLabelBrowserTeacher.setBounds(437, 104, 95, 16);
-		panelUserAdmissionGroups.add(fixLabelBrowserTeacher);
-		
-		JLabel labelBrowserTeacher = new JLabel("dr inz janusz biernatykat");
-		labelBrowserTeacher.setFont(new Font("Arial", Font.PLAIN, 16));
-		labelBrowserTeacher.setBounds(533, 104, 209, 16);
-		panelUserAdmissionGroups.add(labelBrowserTeacher);
-		
-		JLabel fixLabelBrowserECTS = new JLabel("ECTS:");
-		fixLabelBrowserECTS.setFont(new Font("Arial", Font.PLAIN, 16));
-		fixLabelBrowserECTS.setBounds(612, 48, 56, 16);
-		panelUserAdmissionGroups.add(fixLabelBrowserECTS);
-		
-		JLabel labelBrowserECTS = new JLabel("5");
-		labelBrowserECTS.setFont(new Font("Arial", Font.BOLD, 16));
-		labelBrowserECTS.setBounds(668, 48, 56, 16);
-		panelUserAdmissionGroups.add(labelBrowserECTS);
-		
-		JLabel fixLabelBrowserWeek = new JLabel("Parzysto\u015B\u0107 tygodnia:");
-		fixLabelBrowserWeek.setFont(new Font("Arial", Font.PLAIN, 16));
-		fixLabelBrowserWeek.setBounds(437, 145, 152, 16);
-		panelUserAdmissionGroups.add(fixLabelBrowserWeek);
-		
-		JLabel labelBrowserWeek = new JLabel("TP");
-		labelBrowserWeek.setFont(new Font("Arial", Font.PLAIN, 16));
-		labelBrowserWeek.setBounds(589, 145, 56, 16);
-		panelUserAdmissionGroups.add(labelBrowserWeek);
-		
-		JLabel fixLabelBrowserDay = new JLabel("Dzie\u0144 zaj\u0119\u0107:");
-		fixLabelBrowserDay.setFont(new Font("Arial", Font.PLAIN, 16));
-		fixLabelBrowserDay.setBounds(437, 177, 95, 16);
-		panelUserAdmissionGroups.add(fixLabelBrowserDay);
-		
-		JLabel labelBrowserDay = new JLabel("PONiedzia\u0142ek");
-		labelBrowserDay.setFont(new Font("Arial", Font.PLAIN, 16));
-		labelBrowserDay.setBounds(533, 177, 112, 16);
-		panelUserAdmissionGroups.add(labelBrowserDay);
-		
-		JLabel fixLabelBrowserTime = new JLabel("Godziny zaj\u0119\u0107:");
-		fixLabelBrowserTime.setFont(new Font("Arial", Font.PLAIN, 16));
-		fixLabelBrowserTime.setBounds(437, 224, 112, 16);
-		panelUserAdmissionGroups.add(fixLabelBrowserTime);
-		
-		JLabel fixLabelBrowserRoom = new JLabel("Sala zaj\u0119\u0107:");
-		fixLabelBrowserRoom.setFont(new Font("Arial", Font.PLAIN, 16));
-		fixLabelBrowserRoom.setBounds(437, 269, 95, 16);
-		panelUserAdmissionGroups.add(fixLabelBrowserRoom);
-		
-		JLabel labelBrowserTime = new JLabel("New label");
-		labelBrowserTime.setFont(new Font("Arial", Font.PLAIN, 16));
-		labelBrowserTime.setBounds(545, 224, 141, 16);
-		panelUserAdmissionGroups.add(labelBrowserTime);
-		
-		JLabel labelBrowserRoom = new JLabel("c13 0.16 alal");
-		labelBrowserRoom.setFont(new Font("Arial", Font.PLAIN, 16));
-		labelBrowserRoom.setBounds(519, 269, 149, 16);
-		panelUserAdmissionGroups.add(labelBrowserRoom);
-		
+
+		JLabel fixLabelAdmissionTime = new JLabel("Czas zapisow:");
+		fixLabelAdmissionTime.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelAdmissionTime.setBounds(10, 10, 120, 16);
+		panelUserAdmissionSaves.add(fixLabelAdmissionTime,19);
+
+		JLabel fixLabelAdmissionRight = new JLabel("Prawo do zapisow:");
+		fixLabelAdmissionRight.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelAdmissionRight.setBounds(350, 10, 150, 16);
+		panelUserAdmissionSaves.add(fixLabelAdmissionRight,19);
+
+		labelAdmissionTime = new JLabel("-- . --");
+		labelAdmissionTime.setFont(new Font("Arial", Font.PLAIN, 16));
+		labelAdmissionTime.setBounds(130, 10, 200, 16);
+		panelUserAdmissionSaves.add(labelAdmissionTime,19);
+
+		labelAdmissionRight = new JLabel("-- . --");
+		labelAdmissionRight.setFont(new Font("Arial", Font.PLAIN, 16));
+		labelAdmissionRight.setBounds(500, 10, 95, 16);
+		panelUserAdmissionSaves.add(labelAdmissionRight,19);
+
 	}
 
 	private void initEmployeePanel()
@@ -706,13 +660,13 @@ public class App
 		employeePanel.add(tabbedPane_1);
 		
 		JPanel panel = new JPanel();
-		tabbedPane_1.addTab("Prawa i terminy zapisów studentów", null, panel, null);
+		tabbedPane_1.addTab("Prawa i terminy zapisï¿½w studentï¿½w", null, panel, null);
 		
 		JPanel panel_1 = new JPanel();
-		tabbedPane_1.addTab("Zarz¹dzaj grupami", null, panel_1, null);
+		tabbedPane_1.addTab("Zarzï¿½dzaj grupami", null, panel_1, null);
 		
 		JPanel panel_2 = new JPanel();
-		tabbedPane_1.addTab("Zarz¹dzaj kursami", null, panel_2, null);
+		tabbedPane_1.addTab("Zarzï¿½dzaj kursami", null, panel_2, null);
 		
 		JPanel panel_3 = new JPanel();
 		tabbedPane_1.addTab("Wypisz studenta", null, panel_3, null);

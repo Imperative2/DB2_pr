@@ -19,4 +19,52 @@ public class Group {
     public String toString() {
         return Integer.toString(id);
     }
+
+    public int getHours() {
+        return hours;
+    }
+
+    public void setHours(int hours) {
+        this.hours = hours;
+    }
+
+    public int getAmountOfPlaces() {
+        return amountOfPlaces;
+    }
+
+    public void setAmountOfPlaces(int amountOfPlaces) {
+        this.amountOfPlaces = amountOfPlaces;
+    }
+
+    public String getDayOfWeek() {
+        return dayOfWeek;
+    }
+
+    public void setDayOfWeek(String dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
+    }
+
+    public String getParityOfWeek() {
+        return parityOfWeek;
+    }
+
+    public void setParityOfWeek(String parityOfWeek) {
+        this.parityOfWeek = parityOfWeek;
+    }
+
+    public String getClassroom() {
+        return classroom;
+    }
+
+    public void setClassroom(String classroom) {
+        this.classroom = classroom;
+    }
+
+    public String getLessonTime() {
+        return lessonTime;
+    }
+
+    public void setLessonTime(String lessonTime) {
+        this.lessonTime = lessonTime;
+    }
 }
