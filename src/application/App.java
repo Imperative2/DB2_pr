@@ -61,6 +61,7 @@ public class App
 	private final static String EMPLOYEE_PANEL_ID = "EMPLOYEEPANEL";
 	private EmployeePanelControler employeePanelControler;
 	private Map<String,Integer> employeeComponentsMap;
+	private JLabel labelAdmissionTime, labelAdmissionRight;
 
 
 	/**
@@ -196,6 +197,13 @@ public class App
 						userPanelGroupsController.setMainUser((Student)mainUser);
 						userPanelGroupsController.updateUserECTS(panelUserGroups);
 						cards.show(mainFrame.getContentPane(), USER_PANEL_ID);
+						if(((Student)mainUser).getAdmissionRight().equals("posiada")){
+							labelAdmissionRight.setForeground(Color.GREEN);
+						}else{
+							labelAdmissionRight.setForeground(Color.RED);
+						}
+						labelAdmissionTime.setText(((Student)mainUser).getAdmissionTime());
+						labelAdmissionRight.setText(((Student)mainUser).getAdmissionRight());
 						break;
 					}
 					case 2:
@@ -579,22 +587,22 @@ public class App
 
 		JLabel fixLabelAdmissionTime = new JLabel("Czas zapisow:");
 		fixLabelAdmissionTime.setFont(new Font("Arial", Font.PLAIN, 16));
-		fixLabelAdmissionTime.setBounds(10, 10, 150, 16);
+		fixLabelAdmissionTime.setBounds(10, 10, 120, 16);
 		panelUserAdmissionSaves.add(fixLabelAdmissionTime,19);
 
 		JLabel fixLabelAdmissionRight = new JLabel("Prawo do zapisow:");
 		fixLabelAdmissionRight.setFont(new Font("Arial", Font.PLAIN, 16));
-		fixLabelAdmissionRight.setBounds(250, 10, 150, 16);
+		fixLabelAdmissionRight.setBounds(350, 10, 150, 16);
 		panelUserAdmissionSaves.add(fixLabelAdmissionRight,19);
 
-		JLabel labelAdmissionTime = new JLabel("-- . --");
+		labelAdmissionTime = new JLabel("-- . --");
 		labelAdmissionTime.setFont(new Font("Arial", Font.PLAIN, 16));
-		labelAdmissionTime.setBounds(150, 10, 95, 16);
+		labelAdmissionTime.setBounds(130, 10, 200, 16);
 		panelUserAdmissionSaves.add(labelAdmissionTime,19);
 
-		JLabel labelAdmissionRight = new JLabel("-- . --");
+		labelAdmissionRight = new JLabel("-- . --");
 		labelAdmissionRight.setFont(new Font("Arial", Font.PLAIN, 16));
-		labelAdmissionRight.setBounds(450, 10, 95, 16);
+		labelAdmissionRight.setBounds(500, 10, 95, 16);
 		panelUserAdmissionSaves.add(labelAdmissionRight,19);
 
 	}
@@ -652,13 +660,13 @@ public class App
 		employeePanel.add(tabbedPane_1);
 		
 		JPanel panel = new JPanel();
-		tabbedPane_1.addTab("Prawa i terminy zapisów studentów", null, panel, null);
+		tabbedPane_1.addTab("Prawa i terminy zapisï¿½w studentï¿½w", null, panel, null);
 		
 		JPanel panel_1 = new JPanel();
-		tabbedPane_1.addTab("Zarz¹dzaj grupami", null, panel_1, null);
+		tabbedPane_1.addTab("Zarzï¿½dzaj grupami", null, panel_1, null);
 		
 		JPanel panel_2 = new JPanel();
-		tabbedPane_1.addTab("Zarz¹dzaj kursami", null, panel_2, null);
+		tabbedPane_1.addTab("Zarzï¿½dzaj kursami", null, panel_2, null);
 		
 		JPanel panel_3 = new JPanel();
 		tabbedPane_1.addTab("Wypisz studenta", null, panel_3, null);
