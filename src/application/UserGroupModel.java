@@ -40,6 +40,7 @@ public class UserGroupModel
 		this.day = data[6];
 		this.room = data[7];
 		this.time = data[8];
+		time = time.replaceAll(":00 |:00$", " ");
 		this.zapisID = data[9];
 	}
 	
@@ -118,7 +119,7 @@ public class UserGroupModel
 		int groupRoom = groupComponentsMap.get("labelGroupRoom");
 		JLabel labelGroupRoom = (JLabel)groupPanel.getComponent(groupRoom);
 		labelGroupRoom.setVisible(true);
-		labelGroupRoom.setText(this.day);
+		labelGroupRoom.setText(this.room);
 		
 		int unsub = groupComponentsMap.get("buttonGroupUnsub");
 		JButton buttonGroupUnsub = (JButton)groupPanel.getComponent(unsub);

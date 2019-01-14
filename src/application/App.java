@@ -428,11 +428,10 @@ public class App
 		panelUserGroups.add(fixLabelGroupCourseName,2);
 		userGroupsComponentsMap.put("fixLabelGroupCourseName", 2);
 		
-		JLabel labelGroupCourseName = new JLabel("Urz\u0105dzenia Peryferyjne");
+		JLabel labelGroupCourseName = new JLabel("---.---");
 		labelGroupCourseName.setFont(new Font("Arial", Font.BOLD, 16));
 		labelGroupCourseName.setBounds(301, 68, 201, 16);
 		panelUserGroups.add(labelGroupCourseName,3);
-		labelGroupCourseName.setVisible(false);
 		userGroupsComponentsMap.put("labelGroupCourseName", 3);
 		
 		JLabel fixLabelGroupForm = new JLabel("Forma zaj\u0119\u0107:");
@@ -442,11 +441,10 @@ public class App
 		userGroupsComponentsMap.put("fixLabelGroupForm", 4);
 		
 		
-		JLabel labelGroupForm = new JLabel("Laboratorium");
+		JLabel labelGroupForm = new JLabel("---.---");
 		labelGroupForm.setFont(new Font("Arial", Font.PLAIN, 16));
 		labelGroupForm.setBounds(306, 107, 101, 16);
 		panelUserGroups.add(labelGroupForm,5);
-		labelGroupForm.setVisible(false);
 		userGroupsComponentsMap.put("labelGroupForm", 5);
 		
 		JLabel fixLabelGroupECTS = new JLabel("ECTS:");
@@ -456,11 +454,10 @@ public class App
 		userGroupsComponentsMap.put("fixLabelGroupECTS", 6);
 		
 		
-		JLabel labelGroupECTS = new JLabel("5");
+		JLabel labelGroupECTS = new JLabel("--.--");
 		labelGroupECTS.setFont(new Font("Arial", Font.BOLD, 16));
 		labelGroupECTS.setBounds(571, 68, 76, 16);
 		panelUserGroups.add(labelGroupECTS,7);
-		labelGroupECTS.setVisible(false);
 		userGroupsComponentsMap.put("labelGroupECTS", 7);
 		
 		JLabel fixLabelGroupCode = new JLabel("Kod grupy:");
@@ -469,11 +466,10 @@ public class App
 		panelUserGroups.add(fixLabelGroupCode,8);
 		userGroupsComponentsMap.put("fixLabelGroupCode", 8);
 		
-		JLabel labelGroupCode = new JLabel("E06-gh4");
+		JLabel labelGroupCode = new JLabel("---.---");
 		labelGroupCode.setFont(new Font("Arial", Font.PLAIN, 16));
-		labelGroupCode.setBounds(564, 107, 83, 18);
+		labelGroupCode.setBounds(549, 107, 83, 18);
 		panelUserGroups.add(labelGroupCode,9);
-		labelGroupCode.setVisible(false);
 		userGroupsComponentsMap.put("labelGroupCode", 9);
 		
 		
@@ -483,11 +479,10 @@ public class App
 		panelUserGroups.add(fixLabelGroupTeacher,10);
 		userGroupsComponentsMap.put("fixLabelGroupTeacher", 10);
 		
-		JLabel labelGroupTeacher = new JLabel("dr. in\u017C. Janusz Biernat");
+		JLabel labelGroupTeacher = new JLabel("---.---");
 		labelGroupTeacher.setFont(new Font("Arial", Font.PLAIN, 16));
 		labelGroupTeacher.setBounds(301, 146, 283, 16);
 		panelUserGroups.add(labelGroupTeacher,11);
-		labelGroupTeacher.setVisible(false);
 		userGroupsComponentsMap.put("labelGroupTeacher", 11);
 		
 		JLabel fixLabelGroupDay = new JLabel("Dzie\u0144 zaj\u0119c:");
@@ -496,11 +491,10 @@ public class App
 		panelUserGroups.add(fixLabelGroupDay,12);
 		userGroupsComponentsMap.put("fixLabelGroupDay", 12);
 		
-		JLabel labelGroupDay = new JLabel("Poniedzia\u0142ek");
+		JLabel labelGroupDay = new JLabel("---.---");
 		labelGroupDay.setFont(new Font("Arial", Font.PLAIN, 16));
-		labelGroupDay.setBounds(528, 185, 119, 16);
+		labelGroupDay.setBounds(510, 185, 119, 16);
 		panelUserGroups.add(labelGroupDay,13);
-		labelGroupDay.setVisible(false);
 		userGroupsComponentsMap.put("labelGroupDay", 13);
 		
 		
@@ -510,11 +504,10 @@ public class App
 		panelUserGroups.add(fixLabelGroupTime,14);
 		userGroupsComponentsMap.put("fixLabelGroupTime", 14);
 		
-		JLabel labelGroupTime = new JLabel("13:15 - 15:15");
+		JLabel labelGroupTime = new JLabel("---.---");
 		labelGroupTime.setFont(new Font("Arial", Font.PLAIN, 16));
-		labelGroupTime.setBounds(528, 225, 119, 16);
+		labelGroupTime.setBounds(528, 225, 150, 16);
 		panelUserGroups.add(labelGroupTime,15);
-		labelGroupTime.setVisible(false);
 		userGroupsComponentsMap.put("labelGroupTime", 15);
 		
 		JLabel fixLabelGroupWeek = new JLabel("Parzysto\u015B\u0107 tygodnia:");
@@ -523,11 +516,10 @@ public class App
 		panelUserGroups.add(fixLabelGroupWeek,16);
 		userGroupsComponentsMap.put("fixLabelGroupWeek", 16);
 		
-		JLabel labelGroupWeek = new JLabel("TP");
+		JLabel labelGroupWeek = new JLabel("--.--");
 		labelGroupWeek.setFont(new Font("Arial", Font.PLAIN, 16));
-		labelGroupWeek.setBounds(367, 185, 56, 16);
+		labelGroupWeek.setBounds(351, 185, 56, 16);
 		panelUserGroups.add(labelGroupWeek,17);
-		labelGroupWeek.setVisible(false);
 		userGroupsComponentsMap.put("labelGroupWeek", 17);
 		
 		JLabel fixLabelGroupRoom = new JLabel("Sala zaj\u0119ciowa:");
@@ -536,11 +528,10 @@ public class App
 		panelUserGroups.add(fixLabelGroupRoom,18);
 		userGroupsComponentsMap.put("fixLabelGroupRoom", 18);
 		
-		JLabel labelGroupRoom = new JLabel("C13 0.16");
+		JLabel labelGroupRoom = new JLabel("---.---");
 		labelGroupRoom.setFont(new Font("Arial", Font.PLAIN, 16));
 		labelGroupRoom.setBounds(314, 225, 95, 16);
 		panelUserGroups.add(labelGroupRoom,19);
-		labelGroupRoom.setVisible(false);
 		userGroupsComponentsMap.put("labelGroupRoom", 19);
 		
 		

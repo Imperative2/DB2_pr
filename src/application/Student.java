@@ -7,6 +7,8 @@ public class Student extends User
 	private String gender;
 	private String fieldOfStudy;
 	private String semester;
+	private String admissionRight;
+	private String admissionTime;
 	
 	public Student()
 	{
@@ -35,6 +37,16 @@ public class Student extends User
 		return semester;
 	}
 	
+	public String getAdmissionRight()
+	{
+		return admissionRight;
+	}
+	
+	public String getAdmissionTime()
+	{
+		return admissionRight;
+	}
+	
 	public void setPesel(String pesel)
 	{
 		this.pesel = pesel;
@@ -53,6 +65,16 @@ public class Student extends User
 	public void setSemester(String semester)
 	{
 		this.semester = semester;
+	}
+	
+	public void setAdmissionRight(String admissionRight)
+	{
+		this.admissionRight = admissionRight;
+	}
+	
+	public void setAdmissionTime(String admissionTime)
+	{
+		this.admissionTime = admissionTime;
 	}
 	
 }
