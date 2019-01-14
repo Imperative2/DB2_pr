@@ -596,14 +596,18 @@ public class App
 		panelUserAdmissionSaves.add(fixLabelAdmissionRight,19);
 
 		labelAdmissionTime = new JLabel("-- . --");
-		labelAdmissionTime.setFont(new Font("Arial", Font.PLAIN, 16));
-		labelAdmissionTime.setBounds(130, 10, 200, 16);
+		labelAdmissionTime.setFont(new Font("Arial", Font.BOLD, 16));
+		labelAdmissionTime.setBounds(113, 10, 200, 16);
 		panelUserAdmissionSaves.add(labelAdmissionTime,19);
 
 		labelAdmissionRight = new JLabel("-- . --");
-		labelAdmissionRight.setFont(new Font("Arial", Font.PLAIN, 16));
+		labelAdmissionRight.setFont(new Font("Arial", Font.BOLD, 16));
 		labelAdmissionRight.setBounds(500, 10, 95, 16);
 		panelUserAdmissionSaves.add(labelAdmissionRight,19);
+		
+		JButton btnAdmissionSignUp = new JButton("Zapisz");
+		btnAdmissionSignUp.setBounds(645, 302, 97, 25);
+		panelUserAdmissionSaves.add(btnAdmissionSignUp);
 
 	}
 
