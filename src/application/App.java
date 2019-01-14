@@ -208,7 +208,7 @@ public class App
 							labelAdmissionRight.setForeground(Color.RED);
 						}
 						labelAdmissionTime.setText(((Student)mainUser).getAdmissionTime());
-						timerAdmissionTime = new TimerAdmissionTime(((Student)mainUser).getGregTime(), labelAdmissionTime, 10000);
+						timerAdmissionTime = new TimerAdmissionTime(((Student)mainUser).getGregTime(), labelAdmissionTime, 10000, panelUserAdmissionSaves);
 						labelAdmissionRight.setText(((Student)mainUser).getAdmissionRight());
 						break;
 					}
@@ -612,13 +612,6 @@ public class App
 		labelAdmissionRight.setFont(new Font("Arial", Font.BOLD, 16));
 		labelAdmissionRight.setBounds(500, 10, 95, 16);
 		panelUserAdmissionSaves.add(labelAdmissionRight,19);
-		
-		JButton btnAdmissionSignUp = new JButton("Zapisz");
-		btnAdmissionSignUp.setBounds(645, 302, 97, 25);
-		btnAdmissionSignUp.addActionListener(e->{
-			signUpStudentToGroup(userAdmissionControllerSaves.getChosenGroup());
-		});
-		panelUserAdmissionSaves.add(btnAdmissionSignUp);
 
 	}
 

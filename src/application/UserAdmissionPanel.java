@@ -16,6 +16,8 @@ public class UserAdmissionPanel extends JPanel
 	private JLabel labelBrowserForm, labelBrowserTeacher, labelBrowserECTS, labelBrowserWeek, labelBrowserDay,
 			labelBrowserTime, labelBrowserRoom, labelFreeSpace;
 	private JList<Group> listGroups;
+    private JList<Course> listCourses;
+    private JButton btnAdmissionSignUp;
 
 	public UserAdmissionPanel()
 	{
@@ -41,7 +43,7 @@ public class UserAdmissionPanel extends JPanel
 		 * 
 		 * Lists
 		 */
-		JList<Course> listCourses = new JList<>(coursesModel);
+		listCourses = new JList<>(coursesModel);
 
 		listGroups = new JList<>(groupsModel);
 		listGroups.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -174,6 +176,14 @@ public class UserAdmissionPanel extends JPanel
 		labelFreeSpace.setBounds(560, 300, 95, 16);
 		this.add(labelFreeSpace);
 
+		btnAdmissionSignUp = new JButton("Zapisz");
+        btnAdmissionSignUp.setBounds(645, 302, 97, 25);
+        btnAdmissionSignUp.setVisible(false);
+        btnAdmissionSignUp.addActionListener(e->{
+//            signUpStudentToGroup(userAdmissionControllerSaves.getChosenGroup());
+        });
+        this.add(btnAdmissionSignUp);
+
 	}
 
 	public ImageIcon scaleImageAndConvertToIcon(Image sourceImage, int destinationWidth, int destinationHeight)
@@ -202,5 +212,11 @@ public class UserAdmissionPanel extends JPanel
 
 	public Group getChosenGroup(){
 	     return listGroups.getSelectedValue();
+    }
+
+    public void setEnabledList(boolean enabled){
+	    listGroups.setVisible(enabled);
+	    listCourses.setVisible(enabled);
+	    btnAdmissionSignUp.setVisible(enabled);
     }
 }

@@ -10,11 +10,13 @@ public class TimerAdmissionTime extends Thread
 	private GregorianCalendar userAdmissionTime;
 	private JLabel label;
 	private boolean flag = false;
+	private UserAdmissionPanel userAdmissionPanel;
 	
-	public TimerAdmissionTime(GregorianCalendar userAdmissionTime, JLabel label, long waitTimeMilisec)
+	public TimerAdmissionTime(GregorianCalendar userAdmissionTime, JLabel label, long waitTimeMilisec, UserAdmissionPanel userAdmissionPanel)
 	{
 		super();
 		this.userAdmissionTime = userAdmissionTime;
+		this.userAdmissionPanel = userAdmissionPanel;
 		this.label = label;
 		waitTime = waitTimeMilisec;
 		this.start();
@@ -29,11 +31,13 @@ public class TimerAdmissionTime extends Thread
 			{
 				label.setForeground(Color.RED);
 				flag = false;
+				userAdmissionPanel.setEnabledList(false);
 			}
 			else
 			{
 				label.setForeground(Color.GREEN);
 				flag = true;
+				userAdmissionPanel.setEnabledList(true);
 			}
 			try
 			{
