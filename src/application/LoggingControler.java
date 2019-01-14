@@ -30,7 +30,7 @@ public class LoggingControler
 			{
 				List<String[]> result;
 				String sqlQuerry = "SELECT * FROM STUDENT WHERE LOGIN='"+login+"' AND haslo='"+password+"'";
-				result = dbConn.querryDatabase(sqlQuerry, 112);
+				result = dbConn.querryDatabase(sqlQuerry, 12);
 				dbConn.disconnect();
 				if(result.size()>3 || result.size() < 1)
 				{
