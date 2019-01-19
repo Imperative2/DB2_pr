@@ -67,6 +67,7 @@ public class App
 	private EmployeePanelControler employeePanelControler;
 	private Map<String,Integer> employeeComponentsMap;
 	private JLabel labelAdmissionTime, labelAdmissionRight;
+	private JTextField txtYyyymmddHhmmss;
 
 
 	/**
@@ -671,8 +672,120 @@ public class App
 		tabbedPane_1.setBounds(12, 57, 770, 396);
 		employeePanel.add(tabbedPane_1);
 		
-		JPanel panel = new JPanel();
-		tabbedPane_1.addTab("Prawa i terminy zapis�w student�w", null, panel, null);
+		JPanel panelRights = new JPanel();
+		tabbedPane_1.addTab("Prawa i terminy zapis�w student�w", null, panelRights, null);
+		panelRights.setLayout(null);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(12, 37, 173, 316);
+		panelRights.add(scrollPane);
+		
+		JList list = new JList();
+		scrollPane.setViewportView(list);
+		
+		JLabel fixLabelRigthsStudents = new JLabel("Studenci:");
+		fixLabelRigthsStudents.setFont(new Font("Arial", Font.BOLD, 16));
+		fixLabelRigthsStudents.setBounds(12, 13, 87, 16);
+		panelRights.add(fixLabelRigthsStudents);
+		
+		JLabel fixLabelRigthsName = new JLabel("Imi\u0119:");
+		fixLabelRigthsName.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelRigthsName.setBounds(239, 39, 35, 16);
+		panelRights.add(fixLabelRigthsName);
+		
+		JLabel labelRightsName = new JLabel("Karolina");
+		labelRightsName.setFont(new Font("Arial", Font.PLAIN, 16));
+		labelRightsName.setBounds(286, 38, 131, 16);
+		panelRights.add(labelRightsName);
+		
+		JLabel fixLabelRightsSurname = new JLabel("Nazwisko:");
+		fixLabelRightsSurname.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelRightsSurname.setBounds(429, 39, 76, 16);
+		panelRights.add(fixLabelRightsSurname);
+		
+		JLabel labelRightsSurname = new JLabel("Bo\u017Conarodzeniowa");
+		labelRightsSurname.setFont(new Font("Arial", Font.PLAIN, 16));
+		labelRightsSurname.setBounds(510, 38, 229, 16);
+		panelRights.add(labelRightsSurname);
+		
+		JLabel fixLabelRightsIndex = new JLabel("Indeks:");
+		fixLabelRightsIndex.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelRightsIndex.setBounds(239, 78, 56, 16);
+		panelRights.add(fixLabelRightsIndex);
+		
+		JLabel labelRightsIndex = new JLabel("235044");
+		labelRightsIndex.setFont(new Font("Arial", Font.PLAIN, 16));
+		labelRightsIndex.setBounds(296, 78, 56, 16);
+		panelRights.add(labelRightsIndex);
+		
+		JLabel fixLabelRightsPesel = new JLabel("Pesel:");
+		fixLabelRightsPesel.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelRightsPesel.setBounds(429, 78, 56, 16);
+		panelRights.add(fixLabelRightsPesel);
+		
+		JLabel labelRightsPesel = new JLabel("97070312345");
+		labelRightsPesel.setFont(new Font("Arial", Font.PLAIN, 16));
+		labelRightsPesel.setBounds(482, 78, 105, 16);
+		panelRights.add(labelRightsPesel);
+		
+		JLabel fixLabelRightsFieldStudy = new JLabel("Kierunek:");
+		fixLabelRightsFieldStudy.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelRightsFieldStudy.setBounds(239, 122, 66, 16);
+		panelRights.add(fixLabelRightsFieldStudy);
+		
+		JLabel labelRightsFieldStudy = new JLabel("INF");
+		labelRightsFieldStudy.setFont(new Font("Arial", Font.PLAIN, 16));
+		labelRightsFieldStudy.setBounds(311, 122, 41, 16);
+		panelRights.add(labelRightsFieldStudy);
+		
+		JLabel fixLabelRightsSemester = new JLabel("Semestr:");
+		fixLabelRightsSemester.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelRightsSemester.setBounds(429, 122, 76, 16);
+		panelRights.add(fixLabelRightsSemester);
+		
+		JLabel labelRightsSemester = new JLabel("5");
+		labelRightsSemester.setFont(new Font("Arial", Font.PLAIN, 16));
+		labelRightsSemester.setBounds(499, 122, 56, 16);
+		panelRights.add(labelRightsSemester);
+		
+		JLabel fixLabelRights = new JLabel("Prawo do zapis\u00F3w:");
+		fixLabelRights.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelRights.setBounds(239, 165, 145, 16);
+		panelRights.add(fixLabelRights);
+		
+		JLabel labelRights = new JLabel("nie posiada");
+		labelRights.setFont(new Font("Arial", Font.PLAIN, 16));
+		labelRights.setBounds(381, 165, 156, 16);
+		panelRights.add(labelRights);
+		
+		JLabel fixLabelRightsTime = new JLabel("Termin zapis\u00F3w:");
+		fixLabelRightsTime.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelRightsTime.setBounds(239, 247, 131, 16);
+		panelRights.add(fixLabelRightsTime);
+		
+		JLabel labelRightsTime = new JLabel("2019-02-19 19:58:39");
+		labelRightsTime.setFont(new Font("Arial", Font.PLAIN, 16));
+		labelRightsTime.setBounds(361, 247, 156, 16);
+		panelRights.add(labelRightsTime);
+		
+		JButton btnNewButton = new JButton("Nadaj");
+		btnNewButton.setBounds(239, 198, 97, 25);
+		panelRights.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Nadaj nowy czas zapis\u00F3w");
+		btnNewButton_1.setBounds(430, 284, 205, 25);
+		panelRights.add(btnNewButton_1);
+		
+		txtYyyymmddHhmmss = new JTextField();
+		txtYyyymmddHhmmss.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtYyyymmddHhmmss.setText("yyyy-MM-dd HH:mm:ss");
+		txtYyyymmddHhmmss.setBounds(239, 276, 178, 38);
+		panelRights.add(txtYyyymmddHhmmss);
+		txtYyyymmddHhmmss.setColumns(10);
+		
+		JButton btnNewButton_2 = new JButton("Odbierz");
+		btnNewButton_2.setBounds(372, 198, 97, 25);
+		panelRights.add(btnNewButton_2);
 		
 		JPanel panel_1 = new JPanel();
 		tabbedPane_1.addTab("Zarz�dzaj grupami", null, panel_1, null);
