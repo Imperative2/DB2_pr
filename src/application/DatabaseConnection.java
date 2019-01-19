@@ -84,6 +84,7 @@ public class DatabaseConnection
     public void deleteOrUpdateData(String sql_query) {
         try {
             Statement stmt = connection.createStatement();
+            System.out.println(sql_query);
             stmt.executeUpdate(sql_query);
         } catch (SQLException e) {
             e.printStackTrace();

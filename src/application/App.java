@@ -192,10 +192,10 @@ public class App
 						userPanelControler = new UserPanelControler(dbConn, userComponentsMap);
 						userPanelControler.setMainUser((Student)mainUser);
 						userPanelControler.updateUserPanel(userPanel);
-						userAdmissionController = new UserAdmissionController(dbConn, panelUserAdmissionGroups);
+						userAdmissionController = new UserAdmissionController(dbConn, panelUserAdmissionGroups, timerAdmissionTime);
 						userAdmissionController.setMainUser((Student)mainUser);
 						userAdmissionController.updateAdmissionPanel();
-						userAdmissionControllerSaves = new UserAdmissionController(dbConn, panelUserAdmissionSaves);
+						userAdmissionControllerSaves = new UserAdmissionController(dbConn, panelUserAdmissionSaves, timerAdmissionTime);
 						userAdmissionControllerSaves.setMainUser((Student)mainUser);
 						userAdmissionControllerSaves.updateAdmissionPanel();
 						userPanelGroupsController = new UserPanelGroupsController(dbConn, userGroupsComponentsMap);
@@ -613,31 +613,6 @@ public class App
 		labelAdmissionRight.setBounds(500, 10, 95, 16);
 		panelUserAdmissionSaves.add(labelAdmissionRight,19);
 
-	}
-
-	private void signUpStudentToGroup(Group group) {
-		if(checkRightToSignUp((Student)mainUser) && studentIsNotInGroup((Student)mainUser, group)){
-
-		}
-	}
-
-	private boolean studentIsNotInGroup(Student mainUser, Group group) {
-		List<String[]> queryResults;
-		queryResults = dbConn.querryDatabase("Select id_grupy from zapis where id_indeksu = " + mainUser.getUserId() + ";", 1);
-		for(String[] id_grupy:queryResults){
-			if(Integer.parseInt(id_grupy[0]) == group.getId()){
-				return false;
-			}
-		}
-		return true;
-	}
-
-	private boolean checkRightToSignUp(Student mainUser) {
-		if(mainUser.getAdmissionRight().equals("posiada") || timerAdmissionTime.isAfter()){
-			return true;
-		}else{
-			return false;
-		}
 	}
 
 	private void initEmployeePanel()

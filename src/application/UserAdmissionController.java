@@ -3,6 +3,7 @@ package application;
 import application.models.Course;
 import application.models.Group;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,13 +19,16 @@ public class UserAdmissionController {
     private final int AMOUNT_OF_COLUMN = 16;
     private Student mainUser;
     private List<Course> courseList = new ArrayList<>();
+    private TimerAdmissionTime timerAdmissionTime;
 
     private UserAdmissionPanel userAdmissionPanel;
 
-    public UserAdmissionController(DatabaseConnection dbConnection,UserAdmissionPanel userAdmissionPanel)
+    public UserAdmissionController(DatabaseConnection dbConnection,UserAdmissionPanel userAdmissionPanel, TimerAdmissionTime timerAdmissionTime)
     {
         this.dbConn = dbConnection;
         this.userAdmissionPanel = userAdmissionPanel;
+        this.userAdmissionPanel.setController(this);
+        this.timerAdmissionTime = timerAdmissionTime;
     }
 
     public void setMainUser(Student mainUser) {
@@ -71,6 +75,37 @@ public class UserAdmissionController {
             }
         }
         return false;
+    }
+
+
+    public void signUpStudentToGroup() {
+        if(checkRightToSignUp((Student)mainUser) && studentIsNotInGroup((Student)mainUser, getChosenGroup())){
+            dbConn.deleteOrUpdateData("INSERT INTO zapis (id_indeksu, id_grupy) VALUES (" + mainUser.getUserId() + "," +  getChosenGroup().getId() + ")");
+            JOptionPane.showMessageDialog(null, "Process succeed!", "Info message!", JOptionPane.INFORMATION_MESSAGE);
+
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "You are belong to this group or you don't have admission right.", "Something gone wrong!", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private boolean checkRightToSignUp(Student mainUser) {
+        if(mainUser.getAdmissionRight().equals("posiada") || timerAdmissionTime.isAfter()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    private boolean studentIsNotInGroup(Student mainUser, Group group) {
+        List<String[]> queryResults;
+        queryResults = dbConn.querryDatabase("Select id_grupy from zapis where id_indeksu = " + mainUser.getUserId() + ";", 1);
+        for(String[] id_grupy:queryResults){
+            if(Integer.parseInt(id_grupy[0]) == group.getId()){
+                return false;
+            }
+        }
+        return true;
     }
 
     public Group getChosenGroup() {
