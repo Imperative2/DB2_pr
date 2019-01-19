@@ -36,6 +36,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.JTextPane;
 import javax.swing.JComboBox;
+import javax.swing.JLayeredPane;
 
 public class App
 {
@@ -815,48 +816,48 @@ public class App
 		btnNewButton_3.setBounds(395, 9, 168, 25);
 		panelCourses.add(btnNewButton_3);
 		
-		JLabel lblNewLabel_1 = new JLabel("Id Kursu:");
-		lblNewLabel_1.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblNewLabel_1.setBounds(210, 70, 71, 16);
-		panelCourses.add(lblNewLabel_1);
+		JLabel fixLabelCoursesId = new JLabel("Id Kursu:");
+		fixLabelCoursesId.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelCoursesId.setBounds(210, 70, 71, 16);
+		panelCourses.add(fixLabelCoursesId);
 		
 		textField = new JTextField();
 		textField.setBounds(277, 68, 116, 22);
 		panelCourses.add(textField);
 		textField.setColumns(10);
 		
-		JLabel lblNewLabel_2 = new JLabel("Nazwa Kursu:");
-		lblNewLabel_2.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblNewLabel_2.setBounds(210, 117, 101, 16);
-		panelCourses.add(lblNewLabel_2);
+		JLabel fixLabelCoursesName = new JLabel("Nazwa Kursu:");
+		fixLabelCoursesName.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelCoursesName.setBounds(210, 117, 101, 16);
+		panelCourses.add(fixLabelCoursesName);
 		
 		textField_1 = new JTextField();
 		textField_1.setBounds(312, 115, 270, 22);
 		panelCourses.add(textField_1);
 		textField_1.setColumns(10);
 		
-		JLabel lblNewLabel_3 = new JLabel("Semestr Kursu:");
-		lblNewLabel_3.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblNewLabel_3.setBounds(210, 159, 116, 16);
-		panelCourses.add(lblNewLabel_3);
+		JLabel fixLabelCoursesSemester = new JLabel("Semestr Kursu:");
+		fixLabelCoursesSemester.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelCoursesSemester.setBounds(210, 159, 116, 16);
+		panelCourses.add(fixLabelCoursesSemester);
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(322, 157, 93, 22);
 		panelCourses.add(comboBox);
 		
-		JLabel lblFormaKursu = new JLabel("Forma Kursu:");
-		lblFormaKursu.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblFormaKursu.setBounds(210, 199, 101, 16);
-		panelCourses.add(lblFormaKursu);
+		JLabel fixLabelCoursesForm = new JLabel("Forma Kursu:");
+		fixLabelCoursesForm.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelCoursesForm.setBounds(210, 199, 101, 16);
+		panelCourses.add(fixLabelCoursesForm);
 		
 		JComboBox comboBox_1 = new JComboBox();
 		comboBox_1.setBounds(313, 197, 102, 22);
 		panelCourses.add(comboBox_1);
 		
-		JLabel lblNewLabel_4 = new JLabel("ECTS:");
-		lblNewLabel_4.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblNewLabel_4.setBounds(210, 239, 56, 16);
-		panelCourses.add(lblNewLabel_4);
+		JLabel fixLabelCoursesECTS = new JLabel("ECTS:");
+		fixLabelCoursesECTS.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelCoursesECTS.setBounds(210, 239, 56, 16);
+		panelCourses.add(fixLabelCoursesECTS);
 		
 		textField_2 = new JTextField();
 		textField_2.setBounds(264, 237, 116, 22);
@@ -875,13 +876,193 @@ public class App
 		
 		JPanel panelUnsub = new JPanel();
 		tabbedPane_1.addTab("Wypisz studenta", null, panelUnsub, null);
+		panelUnsub.setLayout(null);
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBounds(12, 34, 163, 319);
+		panelUnsub.add(scrollPane_2);
+		
+		JList list_2 = new JList();
+		scrollPane_2.setViewportView(list_2);
+		
+		JScrollPane scrollPane_3 = new JScrollPane();
+		scrollPane_3.setBounds(187, 34, 177, 319);
+		panelUnsub.add(scrollPane_3);
+		
+		JList list_3 = new JList();
+		scrollPane_3.setViewportView(list_3);
+		
+		JScrollPane scrollPane_4 = new JScrollPane();
+		scrollPane_4.setBounds(376, 34, 177, 319);
+		panelUnsub.add(scrollPane_4);
+		
+		JList list_4 = new JList();
+		scrollPane_4.setViewportView(list_4);
+		
+		JButton btnWypisz = new JButton("Wypisz");
+		btnWypisz.setForeground(Color.RED);
+		btnWypisz.setBounds(656, 328, 97, 25);
+		panelUnsub.add(btnWypisz);
+		
+		JLabel lblNewLabel = new JLabel("Studenci:");
+		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 16));
+		lblNewLabel.setBounds(12, 13, 84, 16);
+		panelUnsub.add(lblNewLabel);
+		
+		JLabel lblNewLabel_2 = new JLabel("Grupy:");
+		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 16));
+		lblNewLabel_2.setBounds(380, 13, 56, 16);
+		panelUnsub.add(lblNewLabel_2);
+		
+		JLabel lblKursy = new JLabel("Kursy:");
+		lblKursy.setFont(new Font("Arial", Font.BOLD, 16));
+		lblKursy.setBounds(187, 13, 56, 16);
+		panelUnsub.add(lblKursy);
+		
+		JLabel lblNewLabel_3 = new JLabel("ECTS:");
+		lblNewLabel_3.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblNewLabel_3.setBounds(565, 36, 56, 16);
+		panelUnsub.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel("13");
+		lblNewLabel_4.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblNewLabel_4.setBounds(637, 36, 56, 16);
+		panelUnsub.add(lblNewLabel_4);
+		
+		JLabel lblNewLabel_5 = new JLabel("Parzysto\u015B\u0107 tygodnia:");
+		lblNewLabel_5.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblNewLabel_5.setBounds(565, 80, 157, 16);
+		panelUnsub.add(lblNewLabel_5);
+		
+		JLabel lblNewLabel_6 = new JLabel("TP");
+		lblNewLabel_6.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblNewLabel_6.setBounds(709, 80, 56, 16);
+		panelUnsub.add(lblNewLabel_6);
+		
+		JLabel lblNewLabel_7 = new JLabel("Dzie\u0144 zaj\u0119\u0107:");
+		lblNewLabel_7.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblNewLabel_7.setBounds(565, 120, 97, 16);
+		panelUnsub.add(lblNewLabel_7);
+		
+		JLabel lblNewLabel_8 = new JLabel("wt");
+		lblNewLabel_8.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblNewLabel_8.setBounds(656, 120, 56, 16);
+		panelUnsub.add(lblNewLabel_8);
+		
+		JLabel lblNewLabel_9 = new JLabel("Godziny zaj\u0119\u0107:");
+		lblNewLabel_9.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblNewLabel_9.setBounds(565, 149, 108, 16);
+		panelUnsub.add(lblNewLabel_9);
+		
+		JLabel lblNewLabel_10 = new JLabel("7:30:00 - 9:30:00");
+		lblNewLabel_10.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblNewLabel_10.setBounds(575, 169, 147, 16);
+		panelUnsub.add(lblNewLabel_10);
+		
+		JLabel lblProwadzcy = new JLabel("Prowadz\u0105cy:");
+		lblProwadzcy.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblProwadzcy.setBounds(565, 198, 97, 16);
+		panelUnsub.add(lblProwadzcy);
+		
+		JLabel lblProfDrIn = new JLabel("Prof. dr. inz Janusz biernat");
+		lblProfDrIn.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblProfDrIn.setBounds(564, 217, 213, 16);
+		panelUnsub.add(lblProfDrIn);
 		
 		JPanel panelSub = new JPanel();
+		panelSub.setLayout(null);
 		tabbedPane_1.addTab("Zapisz studenta", null, panelSub, null);
 		
-		JPanel panelGroupView = new JPanel();
-		tabbedPane_1.addTab("Przegl¹daj grupy", null, panelGroupView, null);
-		panelGroupView.setLayout(null);
+		JScrollPane scrollPane_5 = new JScrollPane();
+		scrollPane_5.setBounds(12, 34, 163, 319);
+		panelSub.add(scrollPane_5);
+		
+		JList list_5 = new JList();
+		scrollPane_5.setViewportView(list_5);
+		
+		JScrollPane scrollPane_6 = new JScrollPane();
+		scrollPane_6.setBounds(187, 34, 177, 319);
+		panelSub.add(scrollPane_6);
+		
+		JList list_6 = new JList();
+		scrollPane_6.setViewportView(list_6);
+		
+		JScrollPane scrollPane_7 = new JScrollPane();
+		scrollPane_7.setBounds(376, 34, 177, 319);
+		panelSub.add(scrollPane_7);
+		
+		JList list_7 = new JList();
+		scrollPane_7.setViewportView(list_7);
+		
+		JButton button = new JButton("Wypisz");
+		button.setForeground(new Color(0, 153, 51));
+		button.setBounds(656, 328, 97, 25);
+		panelSub.add(button);
+		
+		JLabel label = new JLabel("Studenci:");
+		label.setFont(new Font("Arial", Font.BOLD, 16));
+		label.setBounds(12, 13, 84, 16);
+		panelSub.add(label);
+		
+		JLabel label_1 = new JLabel("Grupy:");
+		label_1.setFont(new Font("Arial", Font.BOLD, 16));
+		label_1.setBounds(380, 13, 56, 16);
+		panelSub.add(label_1);
+		
+		JLabel label_2 = new JLabel("Kursy:");
+		label_2.setFont(new Font("Arial", Font.BOLD, 16));
+		label_2.setBounds(187, 13, 56, 16);
+		panelSub.add(label_2);
+		
+		JLabel label_3 = new JLabel("ECTS:");
+		label_3.setFont(new Font("Arial", Font.PLAIN, 16));
+		label_3.setBounds(565, 36, 56, 16);
+		panelSub.add(label_3);
+		
+		JLabel label_4 = new JLabel("13");
+		label_4.setFont(new Font("Arial", Font.PLAIN, 16));
+		label_4.setBounds(637, 36, 56, 16);
+		panelSub.add(label_4);
+		
+		JLabel label_5 = new JLabel("Parzysto\u015B\u0107 tygodnia:");
+		label_5.setFont(new Font("Arial", Font.PLAIN, 16));
+		label_5.setBounds(565, 80, 157, 16);
+		panelSub.add(label_5);
+		
+		JLabel label_6 = new JLabel("TP");
+		label_6.setFont(new Font("Arial", Font.PLAIN, 16));
+		label_6.setBounds(709, 80, 56, 16);
+		panelSub.add(label_6);
+		
+		JLabel label_7 = new JLabel("Dzie\u0144 zaj\u0119\u0107:");
+		label_7.setFont(new Font("Arial", Font.PLAIN, 16));
+		label_7.setBounds(565, 120, 97, 16);
+		panelSub.add(label_7);
+		
+		JLabel label_8 = new JLabel("wt");
+		label_8.setFont(new Font("Arial", Font.PLAIN, 16));
+		label_8.setBounds(656, 120, 56, 16);
+		panelSub.add(label_8);
+		
+		JLabel label_9 = new JLabel("Godziny zaj\u0119\u0107:");
+		label_9.setFont(new Font("Arial", Font.PLAIN, 16));
+		label_9.setBounds(565, 149, 108, 16);
+		panelSub.add(label_9);
+		
+		JLabel label_10 = new JLabel("7:30:00 - 9:30:00");
+		label_10.setFont(new Font("Arial", Font.PLAIN, 16));
+		label_10.setBounds(575, 169, 147, 16);
+		panelSub.add(label_10);
+		
+		JLabel label_11 = new JLabel("Prowadz\u0105cy:");
+		label_11.setFont(new Font("Arial", Font.PLAIN, 16));
+		label_11.setBounds(565, 198, 97, 16);
+		panelSub.add(label_11);
+		
+		JLabel label_12 = new JLabel("Prof. dr. inz Janusz biernat");
+		label_12.setFont(new Font("Arial", Font.PLAIN, 14));
+		label_12.setBounds(564, 217, 213, 16);
+		panelSub.add(label_12);
 		
 	}
 }
