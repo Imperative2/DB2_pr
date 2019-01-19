@@ -54,7 +54,7 @@ public class UserAdmissionController {
                 Course course = new Course(Integer.parseInt(row[0]), row[1], Integer.parseInt(row[2]), row[3], Integer.parseInt(row[4]), row[14]);
                 courseList.add(course);
             }
-            Group group = new Group(Integer.parseInt(row[6]),Integer.parseInt(row[9]), row[10], row[11],Integer.parseInt(row[12]), row[13], row[15]);
+            Group group = new Group(Integer.parseInt(row[6]),Integer.parseInt(row[9]), row[10], row[11],Integer.parseInt(row[12]), row[13], row[15], Integer.parseInt(row[0]));
             getCourseByID(Integer.parseInt(row[0])).addGroups(group);
         }
     }
@@ -98,10 +98,17 @@ public class UserAdmissionController {
     }
 
     private boolean studentIsNotInGroup(Student mainUser, Group group) {
-        List<String[]> queryResults;
-        queryResults = dbConn.querryDatabase("Select id_grupy from zapis where id_indeksu = " + mainUser.getUserId() + ";", 1);
-        for(String[] id_grupy:queryResults){
-            if(Integer.parseInt(id_grupy[0]) == group.getId()){
+        List<String[]> queryResultsIDGroups, queryResultsIDCourse;
+        List<String> id_courses = new ArrayList<>();
+        queryResultsIDGroups = dbConn.querryDatabase("Select id_grupy from zapis where id_indeksu = " + mainUser.getUserId() + ";", 1);
+        for(String[] id_group:queryResultsIDGroups){
+            queryResultsIDCourse = dbConn.querryDatabase("Select id_kursu from grupa_zajeciowa where id_grupy = " + id_group[0], 1);
+            for(String[] id_course:queryResultsIDCourse){
+                id_courses.add(id_course[0]);
+            }
+        }
+        for(String id_course:id_courses){
+            if(Integer.parseInt(id_course) == group.getId_course()){
                 return false;
             }
         }
