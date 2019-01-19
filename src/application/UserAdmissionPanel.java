@@ -103,7 +103,7 @@ public class UserAdmissionPanel extends JPanel
 
 		labelBrowserForm = new JLabel("-- . --");
 		labelBrowserForm.setFont(new Font("Arial", Font.PLAIN, 16));
-		labelBrowserForm.setBounds(533, 48, 56, 16);
+		labelBrowserForm.setBounds(533, 48, 105, 16);
 		this.add(labelBrowserForm);
 
 		JLabel fixLabelBrowserTeacher = new JLabel("Prowadz\u0105cy:");
@@ -118,12 +118,12 @@ public class UserAdmissionPanel extends JPanel
 
 		JLabel fixLabelBrowserECTS = new JLabel("ECTS:");
 		fixLabelBrowserECTS.setFont(new Font("Arial", Font.PLAIN, 16));
-		fixLabelBrowserECTS.setBounds(612, 48, 56, 16);
+		fixLabelBrowserECTS.setBounds(638, 48, 56, 16);
 		this.add(fixLabelBrowserECTS);
 
 		labelBrowserECTS = new JLabel("-");
 		labelBrowserECTS.setFont(new Font("Arial", Font.BOLD, 16));
-		labelBrowserECTS.setBounds(668, 48, 56, 16);
+		labelBrowserECTS.setBounds(688, 48, 56, 16);
 		this.add(labelBrowserECTS);
 
 		JLabel fixLabelBrowserWeek = new JLabel("Parzysto\u015B\u0107 tygodnia:");
