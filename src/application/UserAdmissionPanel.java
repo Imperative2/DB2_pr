@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.List;
 
 public class UserAdmissionPanel extends JPanel
 {
@@ -18,6 +19,7 @@ public class UserAdmissionPanel extends JPanel
 	private JList<Group> listGroups;
     private JList<Course> listCourses;
     private JButton btnAdmissionSignUp;
+    private UserAdmissionController userAdmissionController;
 
 	public UserAdmissionPanel()
 	{
@@ -180,7 +182,7 @@ public class UserAdmissionPanel extends JPanel
         btnAdmissionSignUp.setBounds(645, 302, 97, 25);
         btnAdmissionSignUp.setVisible(false);
         btnAdmissionSignUp.addActionListener(e->{
-//            signUpStudentToGroup(userAdmissionControllerSaves.getChosenGroup());
+            userAdmissionController.signUpStudentToGroup();
         });
         this.add(btnAdmissionSignUp);
 
@@ -219,4 +221,8 @@ public class UserAdmissionPanel extends JPanel
 	    listCourses.setVisible(enabled);
 	    btnAdmissionSignUp.setVisible(enabled);
     }
+
+    public void setController(UserAdmissionController userAdmissionController){
+		this.userAdmissionController = userAdmissionController;
+	}
 }

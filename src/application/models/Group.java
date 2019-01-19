@@ -2,10 +2,10 @@ package application.models;
 
 public class Group {
 
-    private int id, hours, amountOfPlaces;
+    private int id, hours, amountOfPlaces, id_course;
     private String dayOfWeek, parityOfWeek, classroom, lessonTime;
 
-    public Group(int id, int hours, String dayOfWeek, String parityOfWeek, int amountOfPlaces, String classroom, String lessonTime){
+    public Group(int id, int hours, String dayOfWeek, String parityOfWeek, int amountOfPlaces, String classroom, String lessonTime, Integer id_course){
         this.id = id;
         this.hours = hours;
         this.dayOfWeek = dayOfWeek;
@@ -13,6 +13,7 @@ public class Group {
         this.amountOfPlaces = amountOfPlaces;
         this.classroom = classroom;
         this.lessonTime = lessonTime;
+        this.id_course = id_course;
     }
 
     @Override
@@ -70,5 +71,13 @@ public class Group {
 
     public void setLessonTime(String lessonTime) {
         this.lessonTime = lessonTime;
+    }
+
+    public int getId_course() {
+        return id_course;
+    }
+
+    public void setId_course(int id_course) {
+        this.id_course = id_course;
     }
 }
