@@ -34,6 +34,8 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.JTextPane;
+import javax.swing.JComboBox;
 
 public class App
 {
@@ -68,6 +70,9 @@ public class App
 	private Map<String,Integer> employeeComponentsMap;
 	private JLabel labelAdmissionTime, labelAdmissionRight;
 	private JTextField txtYyyymmddHhmmss;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
 
 
 	/**
@@ -787,17 +792,96 @@ public class App
 		btnNewButton_2.setBounds(372, 198, 97, 25);
 		panelRights.add(btnNewButton_2);
 		
-		JPanel panel_1 = new JPanel();
-		tabbedPane_1.addTab("Zarzï¿½dzaj grupami", null, panel_1, null);
+		JPanel panelGroups = new JPanel();
+		tabbedPane_1.addTab("Zarzï¿½dzaj grupami", null, panelGroups, null);
 		
-		JPanel panel_2 = new JPanel();
-		tabbedPane_1.addTab("Zarzï¿½dzaj kursami", null, panel_2, null);
+		JPanel panelCourses = new JPanel();
+		tabbedPane_1.addTab("Zarzï¿½dzaj kursami", null, panelCourses, null);
+		panelCourses.setLayout(null);
 		
-		JPanel panel_3 = new JPanel();
-		tabbedPane_1.addTab("Wypisz studenta", null, panel_3, null);
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(12, 32, 186, 321);
+		panelCourses.add(scrollPane_1);
 		
-		JPanel panel_4 = new JPanel();
-		tabbedPane_1.addTab("Zapisz studenta", null, panel_4, null);
+		JList list_1 = new JList();
+		scrollPane_1.setViewportView(list_1);
+		
+		JLabel fixLabelCourses = new JLabel("Kursy:");
+		fixLabelCourses.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelCourses.setBounds(12, 13, 56, 16);
+		panelCourses.add(fixLabelCourses);
+		
+		JButton btnNewButton_3 = new JButton("Stw\u00F3rz nowy kurs");
+		btnNewButton_3.setBounds(395, 9, 168, 25);
+		panelCourses.add(btnNewButton_3);
+		
+		JLabel lblNewLabel_1 = new JLabel("Id Kursu:");
+		lblNewLabel_1.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblNewLabel_1.setBounds(210, 70, 71, 16);
+		panelCourses.add(lblNewLabel_1);
+		
+		textField = new JTextField();
+		textField.setBounds(277, 68, 116, 22);
+		panelCourses.add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblNewLabel_2 = new JLabel("Nazwa Kursu:");
+		lblNewLabel_2.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblNewLabel_2.setBounds(210, 117, 101, 16);
+		panelCourses.add(lblNewLabel_2);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(312, 115, 270, 22);
+		panelCourses.add(textField_1);
+		textField_1.setColumns(10);
+		
+		JLabel lblNewLabel_3 = new JLabel("Semestr Kursu:");
+		lblNewLabel_3.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblNewLabel_3.setBounds(210, 159, 116, 16);
+		panelCourses.add(lblNewLabel_3);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(322, 157, 93, 22);
+		panelCourses.add(comboBox);
+		
+		JLabel lblFormaKursu = new JLabel("Forma Kursu:");
+		lblFormaKursu.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblFormaKursu.setBounds(210, 199, 101, 16);
+		panelCourses.add(lblFormaKursu);
+		
+		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setBounds(313, 197, 102, 22);
+		panelCourses.add(comboBox_1);
+		
+		JLabel lblNewLabel_4 = new JLabel("ECTS:");
+		lblNewLabel_4.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblNewLabel_4.setBounds(210, 239, 56, 16);
+		panelCourses.add(lblNewLabel_4);
+		
+		textField_2 = new JTextField();
+		textField_2.setBounds(264, 237, 116, 22);
+		panelCourses.add(textField_2);
+		textField_2.setColumns(10);
+		
+		JButton btnModyfikuj = new JButton("Modyfikuj");
+		btnModyfikuj.setBounds(635, 328, 97, 25);
+		panelCourses.add(btnModyfikuj);
+		
+		JButton btnUsuKurs = new JButton("Usu\u0144 Kurs");
+		btnUsuKurs.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnUsuKurs.setForeground(Color.RED);
+		btnUsuKurs.setBounds(224, 337, 99, 16);
+		panelCourses.add(btnUsuKurs);
+		
+		JPanel panelUnsub = new JPanel();
+		tabbedPane_1.addTab("Wypisz studenta", null, panelUnsub, null);
+		
+		JPanel panelSub = new JPanel();
+		tabbedPane_1.addTab("Zapisz studenta", null, panelSub, null);
+		
+		JPanel panelGroupView = new JPanel();
+		tabbedPane_1.addTab("Przegl¹daj grupy", null, panelGroupView, null);
+		panelGroupView.setLayout(null);
 		
 	}
 }
