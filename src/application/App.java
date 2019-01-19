@@ -395,6 +395,7 @@ public class App
 				listModel.clear();
 				UserGroupModel emptyModel = new UserGroupModel(dbConn);
 				List<String[]> elements = emptyModel.getData();
+				userPanelGroupsController.updateUserECTS(panelUserGroups);
 				for(String[] element : elements)
 				{
 					if(element.length > 10)
@@ -573,7 +574,7 @@ public class App
 				System.out.println(zapisId);
 				JButton button = (JButton)e.getSource();
 
-				if(JOptionPane.showConfirmDialog(null, "Do you want unsubscribe this group?", "Are you sure?", JOptionPane.OK_CANCEL_OPTION)==0){
+				if(JOptionPane.showConfirmDialog(null, "Czy na pewno chcesz siê wypisaæ z tej grupy?", "Jeœteœ pewnien?", JOptionPane.OK_CANCEL_OPTION)==0){
 
 					String sql_query = "DELETE FROM `zapis` WHERE `zapis`.`id_zapisu` =  " + zapisId + ";";
 					dbConn.deleteOrUpdateData(sql_query);
@@ -594,9 +595,9 @@ public class App
 						}
 
 					}
-
+					userPanelGroupsController.updateUserECTS(panelUserGroups);
 					JOptionPane.showMessageDialog(mainFrame, "Pomyï¿½lnie usuniï¿½to zapis.",
-							"Uwaga!", JOptionPane.INFORMATION_MESSAGE);
+							"Informacja!", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
@@ -784,7 +785,7 @@ public class App
 		
 		txtYyyymmddHhmmss = new JTextField();
 		txtYyyymmddHhmmss.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		txtYyyymmddHhmmss.setText("yyyy-MM-dd HH:mm:ss");
+		txtYyyymmddHhmmss.setText("yyyy-MM-dd hh:mm:ss");
 		txtYyyymmddHhmmss.setBounds(239, 276, 178, 38);
 		panelRights.add(txtYyyymmddHhmmss);
 		txtYyyymmddHhmmss.setColumns(10);
@@ -994,10 +995,10 @@ public class App
 		JList list_7 = new JList();
 		scrollPane_7.setViewportView(list_7);
 		
-		JButton button = new JButton("Wypisz");
-		button.setForeground(new Color(0, 153, 51));
-		button.setBounds(656, 328, 97, 25);
-		panelSub.add(button);
+		JButton btnZapisz = new JButton("Zapisz");
+		btnZapisz.setForeground(new Color(0, 153, 51));
+		btnZapisz.setBounds(656, 328, 97, 25);
+		panelSub.add(btnZapisz);
 		
 		JLabel label = new JLabel("Studenci:");
 		label.setFont(new Font("Arial", Font.BOLD, 16));

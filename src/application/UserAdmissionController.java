@@ -87,11 +87,11 @@ public class UserAdmissionController {
 			
 			dbConn.deleteOrUpdateData("INSERT INTO zapis (id_indeksu, id_grupy) VALUES (" + mainUser.getUserId() + ","
 					+ getChosenGroup().getId() + ")");
-			JOptionPane.showMessageDialog(null, "Process succeed!", "Info message!", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Uda³o siê!", "Informacja!", JOptionPane.INFORMATION_MESSAGE);
 
 		}
         else{
-            JOptionPane.showMessageDialog(null, "You are belong to this group or you don't have admission right.", "Something gone wrong!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Ju¿ nale¿ysz do tego kursu b¹dz nie masz prawa do zapisów.", "Coœ jest nie tak!", JOptionPane.ERROR_MESSAGE);
         }
     }
 
