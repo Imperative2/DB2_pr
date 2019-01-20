@@ -78,7 +78,7 @@ public class App
 	private EmployeePanelControler employeePanelControler;
 	private Map<String,Integer> employeeComponentsMap;
 	private JLabel labelAdmissionTime, labelAdmissionRight;
-	private JTextField txtYyyymmddHhmmss;
+
 	private JTextField textFieldCoursesId;
 	private JTextField textFieldCoursesName;
 	private JTextField textFieldCoursesECTS;
@@ -196,10 +196,13 @@ public class App
 				LoggingControler logControler = new LoggingControler(dbConn);
 				String login = textFieldLogin.getText();
 				String password = String.valueOf(passwordField.getPassword());
+				login = login.replaceAll("(?i)select|from", "");
+				password = password.replaceAll("(?i)select|from", "");
 				System.out.println("login: "+ login+" haslo: "+ password);
 				int logResult;
 				logResult = logControler.login(login, password);
 				System.out.println(logResult);
+				
 				
 				switch(logResult)
 				{
