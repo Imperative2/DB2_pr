@@ -5,6 +5,8 @@ import application.models.Group;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 public class StudentCoursesInfoPanel extends JPanel {
@@ -15,6 +17,7 @@ public class StudentCoursesInfoPanel extends JPanel {
     private StudentCoursesInfoController studentCoursesInfoController;
     private JLabel lblECTS, lblparityOfWeek, lbldayOfWeek, lbllessonsHours,lblProfDrIn;
     private JList<Course> listStudentCourses;
+    private JList<Group> listStudentsGroups;
 
     public StudentCoursesInfoPanel(){
         JScrollPane scrollPane_2 = new JScrollPane();
@@ -47,7 +50,7 @@ public class StudentCoursesInfoPanel extends JPanel {
         scrollPane_4.setBounds(376, 34, 177, 319);
         this.add(scrollPane_4);
 
-        JList<Group> listStudentsGroups = new JList<>(modelListGroups);
+        listStudentsGroups = new JList<>(modelListGroups);
         scrollPane_4.setViewportView(listStudentsGroups);
         listStudentsGroups.addListSelectionListener(e->{
             if(listStudentsGroups.getSelectedValue()!=null){
@@ -58,6 +61,9 @@ public class StudentCoursesInfoPanel extends JPanel {
         JButton btnWypisz = new JButton("Wypisz");
         btnWypisz.setForeground(Color.RED);
         btnWypisz.setBounds(656, 328, 97, 25);
+        btnWypisz.addActionListener(e -> {
+            studentCoursesInfoController.unsubscribeStudentFromGroup(listAllStudents.getSelectedValue(), listStudentsGroups.getSelectedValue());
+        });
         this.add(btnWypisz);
 
         JLabel lblNewLabel = new JLabel("Studenci:");
@@ -126,7 +132,7 @@ public class StudentCoursesInfoPanel extends JPanel {
         this.add(lblProfDrIn);
     }
 
-    private void updateInfoGroup(Group selectedValue) {
+    public void updateInfoGroup(Group selectedValue) {
         lblECTS.setText(Integer.toString(listStudentCourses.getSelectedValue().getEcts()));
         lbllessonsHours.setText(selectedValue.getLessonTime());
         lblProfDrIn.setText(listStudentCourses.getSelectedValue().getNameMaster());
@@ -134,7 +140,7 @@ public class StudentCoursesInfoPanel extends JPanel {
         lblparityOfWeek.setText(selectedValue.getParityOfWeek());
     }
 
-    private void removeInfoGroup(){
+    public void removeInfoGroup(){
         lblECTS.setText("-- . --");
         lbllessonsHours.setText("-- . --");
         lblProfDrIn.setText("-- . --");

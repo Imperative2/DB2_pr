@@ -843,8 +843,6 @@ public class App
 	
 
 		
-		JPanel panelUnsub = new JPanel();
-
 		tabbedPane_1.addTab("Wypisz studenta", null, panelUnsub, null);
 		panelUnsub.setLayout(null);
 		

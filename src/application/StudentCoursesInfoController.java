@@ -3,17 +3,19 @@ package application;
 import application.models.Course;
 import application.models.Group;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class StudentCoursesInfoController {
     private final String GET_ALL_STUDENTS_QUERY = "select distinct s.id_indeks, s.imie, s.nazwisko, s.semestr, s.id_kierunku from student s";
-    private final String QUERY_SELECTED_COURSES_WITHOUT_WHERE_STUDENT_PARAM = "SELECT k.*, gz.*, CONCAT(p.tytul, ' ', p.imie,' ', p.nazwisko) as teacher, CONCAT(g.godzina_rozpoczecia , ' - ', g.godzina_zakonczenia) as godziny_zajec \n" +
+    private final String QUERY_SELECTED_COURSES_WITHOUT_WHERE_STUDENT_PARAM = "SELECT distinct k.*, gz.*, CONCAT(p.tytul, ' ', p.imie,' ', p.nazwisko) as teacher, CONCAT(g.godzina_rozpoczecia , ' - ', g.godzina_zakonczenia) as godziny_zajec \n" +
             "FROM student s INNER JOIN kurs k ON s.semestr = k.semestr\n" +
             "INNER JOIN grupa_zajeciowa gz ON k.id_kursu = gz.id_kursu \n" +
             "INNER JOIN prowadzacy p ON p.id_prowadzacego = gz.id_prowadzacego\n" +
             "INNER JOIN godziny_zajec g ON gz.id_godziny_zajec = g.id_godziny_zajec\n" +
-            "WHERE s.id_indeks = ";
+            "INNER JOIN zapis z ON z.id_grupy = gz.id_grupy\n" +
+            "WHERE z.id_indeksu = ";
     private List<Student> studentList = new ArrayList<>();
     private List<Course> coursesList = new ArrayList<>();
     private DatabaseConnection dbConn;
@@ -84,6 +86,23 @@ public class StudentCoursesInfoController {
         }
         return false;
     }
+
+    public void unsubscribeStudentFromGroup(Student student, Group group)
+    {
+        if(student!=null && group!=null) {
+            if(JOptionPane.showConfirmDialog(null, "Are you sure?", "Important message!", JOptionPane.OK_CANCEL_OPTION)==0) {
+                String query = "DELETE FROM zapis WHERE zapis.id_indeksu=" + student.getIndeks() + " AND zapis.id_grupy=" + group.getId();
+
+                dbConn.deleteOrUpdateData(query);
+                getCoursesAdnGroupsBy(student);
+                unsubscribeStudentPanel.removeInfoGroup();
+                JOptionPane.showMessageDialog(null, "Uda�o si�!", "Informacja!", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Something gone wrong, choose correct group!", "Warning info!", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
 
     public void updateInfoAboutGroups(){
 
