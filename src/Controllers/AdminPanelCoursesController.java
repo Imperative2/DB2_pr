@@ -28,7 +28,7 @@ public class AdminPanelCoursesController
 	{
 		coursesList.clear();
 		
-		String querryString = "SELECT * FROM `kurs`";
+		String querryString = "SELECT * FROM `kurs` ORDER BY semestr,nazwa_kursu ASC;";
 		
 		dbConn.connect();
 		
@@ -48,5 +48,29 @@ public class AdminPanelCoursesController
 		}
 		
 		panel.loadList(coursesList);
+	}
+	
+	public void createNewCourse(CourseModel course)
+	{
+		dbConn.connect();
+		String sql_query = "INSERT INTO `kurs`(`id_kursu`, `nazwa_kursu`, `semestr`, `forma_zajec`, `ects`, `ilosc`)"
+				+ " VALUES ("+course.getCourseId()+",'"+course.getCourseId()+"','"+course.getSemester()+"','"+course.getForm()
+				+"','"+course.getECTS()+"','"+20+"');" ;
+		
+		dbConn.deleteOrUpdateData(sql_query);
+		
+		loadCourses();
+		panel.update(course);
+	}
+	
+	public void deleteCourse(CourseModel course)
+	{
+		dbConn.connect();
+		String sql_query = "DELETE FROM `kurs` WHERE id_kursu = "+course.getCourseId()+";" ;
+		
+		dbConn.deleteOrUpdateData(sql_query);
+		
+		loadCourses();
+		panel.update(course);
 	}
 }

@@ -81,9 +81,7 @@ public class App
 	private Map<String,Integer> employeeComponentsMap;
 	private JLabel labelAdmissionTime, labelAdmissionRight;
 
-	private JTextField textFieldCoursesId;
-	private JTextField textFieldCoursesName;
-	private JTextField textFieldCoursesECTS;
+
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_5;
@@ -842,90 +840,10 @@ public class App
 		adminPanelCoursesController.loadCourses();
 		panelCourses.setController(adminPanelCoursesController);
 
+	
+
 		
-//		JScrollPane scrollPane_1 = new JScrollPane();
-//		scrollPane_1.setBounds(12, 32, 186, 321);
-//		panelCourses.add(scrollPane_1);
-		
-//		JList list_1 = new JList();
-//		scrollPane_1.setViewportView(list_1);
-		
-//		JLabel fixLabelCourses = new JLabel("Kursy:");
-//		fixLabelCourses.setFont(new Font("Arial", Font.BOLD, 16));
-//		fixLabelCourses.setBounds(12, 13, 56, 16);
-//		panelCourses.add(fixLabelCourses);
-		
-//		JButton btnCoursesCreate = new JButton("Stw\u00F3rz nowy kurs");
-//		btnCoursesCreate.setBounds(395, 9, 168, 25);
-//		panelCourses.add(btnCoursesCreate);
-		
-//		JLabel fixLabelCoursesId = new JLabel("Id Kursu:");
-//		fixLabelCoursesId.setFont(new Font("Arial", Font.PLAIN, 16));
-//		fixLabelCoursesId.setBounds(210, 70, 71, 16);
-//		panelCourses.add(fixLabelCoursesId);
-		
-//		textFieldCoursesId = new JTextField();
-//		textFieldCoursesId.setBounds(277, 68, 116, 22);
-//		panelCourses.add(textFieldCoursesId);
-//		textFieldCoursesId.setColumns(10);
-		
-//		JLabel fixLabelCoursesName = new JLabel("Nazwa Kursu:");
-//		fixLabelCoursesName.setFont(new Font("Arial", Font.PLAIN, 16));
-//		fixLabelCoursesName.setBounds(210, 117, 101, 16);
-//		panelCourses.add(fixLabelCoursesName);
-		
-//		textFieldCoursesName = new JTextField();
-//		textFieldCoursesName.setBounds(312, 115, 270, 22);
-//		panelCourses.add(textFieldCoursesName);
-//		textFieldCoursesName.setColumns(10);
-		
-//		JLabel fixLabelCoursesSemester = new JLabel("Semestr Kursu:");
-//		fixLabelCoursesSemester.setFont(new Font("Arial", Font.PLAIN, 16));
-//		fixLabelCoursesSemester.setBounds(210, 159, 116, 16);
-//		panelCourses.add(fixLabelCoursesSemester);
-		
-//		JComboBox<String> comboBoxCoursesSemester = new JComboBox<>();
-//		comboBoxCoursesSemester.setBounds(322, 157, 49, 22);
-//		panelCourses.add(comboBoxCoursesSemester);
-//		for(int i=0; i<7; i++)
-//		{
-//			comboBoxCoursesSemester.addItem((i+1)+"");
-//		}
-		
-		
-//		JLabel fixLabelCoursesForm = new JLabel("Forma Kursu:");
-//		fixLabelCoursesForm.setFont(new Font("Arial", Font.PLAIN, 16));
-//		fixLabelCoursesForm.setBounds(210, 199, 101, 16);
-//		panelCourses.add(fixLabelCoursesForm);
-		
-//		JComboBox<String> comboBoxCoursesForm = new JComboBox<>();
-//		comboBoxCoursesForm.setBounds(313, 197, 102, 22);
-//		panelCourses.add(comboBoxCoursesForm);
-//		comboBoxCoursesForm.addItem("Wyk³ad");
-//		comboBoxCoursesForm.addItem("Æwiczenia");
-//		comboBoxCoursesForm.addItem("Laboratorium");
-//		comboBoxCoursesForm.addItem("Projekt");
-//		comboBoxCoursesForm.addItem("Seminarium");
-		
-//		JLabel fixLabelCoursesECTS = new JLabel("ECTS:");
-//		fixLabelCoursesECTS.setFont(new Font("Arial", Font.PLAIN, 16));
-//		fixLabelCoursesECTS.setBounds(210, 239, 56, 16);
-//		panelCourses.add(fixLabelCoursesECTS);
-		
-//		textFieldCoursesECTS = new JTextField();
-//		textFieldCoursesECTS.setBounds(264, 237, 116, 22);
-//		panelCourses.add(textFieldCoursesECTS);
-//		textFieldCoursesECTS.setColumns(10);
-		
-//		JButton btnModify = new JButton("Modyfikuj");
-//		btnModify.setBounds(635, 328, 97, 25);
-//		panelCourses.add(btnModify);
-//		
-//		JButton btnRemove = new JButton("Usu\u0144 Kurs");
-//		btnRemove.setFont(new Font("Tahoma", Font.BOLD, 13));
-//		btnRemove.setForeground(Color.RED);
-//		btnRemove.setBounds(224, 337, 99, 16);
-//		panelCourses.add(btnRemove);
+		JPanel panelUnsub = new JPanel();
 
 		tabbedPane_1.addTab("Wypisz studenta", null, panelUnsub, null);
 		panelUnsub.setLayout(null);

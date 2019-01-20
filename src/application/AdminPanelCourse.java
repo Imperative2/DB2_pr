@@ -3,6 +3,8 @@ package application;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
@@ -81,11 +83,14 @@ public class AdminPanelCourse extends JPanel
 			@Override
 			public void valueChanged(ListSelectionEvent e)
 			{
-				btnModify.setEnabled(true);
-				btnRemove.setEnabled(true);
-				
-				CourseModel course = list.getSelectedValue();
-				update(course);
+				if(list.isSelectionEmpty() != true)
+				{
+					btnModify.setEnabled(true);
+					btnRemove.setEnabled(true);
+					
+					CourseModel course = list.getSelectedValue();
+					update(course);
+				}
 			}
 		});
 	}
@@ -170,6 +175,22 @@ public class AdminPanelCourse extends JPanel
 		btnCoursesCreate.setBounds(395, 9, 168, 25);
 		this.add(btnCoursesCreate);
 		
+		btnCoursesCreate.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				CourseModel course = new CourseModel();
+				course.setCourseId(tfCoursesId.getText());
+				course.setCourseName(tfCoursesName.getText());
+				course.setSemester((String)comboBoxCoursesSemester.getSelectedItem());
+				course.setForm((String)comboBoxCoursesForm.getSelectedItem());
+				course.setECTS(tfCoursesECTS.getText());
+				
+				controller.createNewCourse(course);
+			}
+		});
+		
 		btnModify = new JButton("Modyfikuj");
 		btnModify.setBounds(635, 328, 97, 25);
 		this.add(btnModify);
@@ -181,6 +202,22 @@ public class AdminPanelCourse extends JPanel
 		btnRemove.setBounds(224, 337, 99, 16);
 		this.add(btnRemove);
 		btnRemove.setEnabled(false);
+		
+		btnRemove.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0)
+			{
+				btnRemove.setEnabled(false);
+				btnModify.setEnabled(false);
+				
+				CourseModel course = new CourseModel();
+				course.setCourseId(tfCoursesId.getText());
+
+				controller.deleteCourse(course);
+				
+			}
+		});
 	}
 	
 	private void initComboBoxes()

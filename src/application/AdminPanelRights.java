@@ -96,7 +96,7 @@ public class AdminPanelRights extends JPanel
 	
 	public void loadList(List<StudentModel> studentsList)
 	{
-		listModel.removeAllElements();
+		//listModel.removeAllElements();
 		for(StudentModel student : studentsList)
 		{
 			listModel.addElement(student);
