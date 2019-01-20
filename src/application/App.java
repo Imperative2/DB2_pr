@@ -69,6 +69,7 @@ public class App
 	private UserPanelGroupsController userPanelGroupsController;
 	private UserAdmissionPanel panelUserAdmissionGroups = new UserAdmissionPanel();
 	private UserAdmissionPanel panelUserAdmissionSaves = new UserAdmissionPanel();
+	StudentCoursesInfoPanel panelUnsub = new StudentCoursesInfoPanel();
 	private Map<String,Integer> userGroupsComponentsMap;
 	
 	private TimerAdmissionTime timerAdmissionTime;
@@ -240,6 +241,10 @@ public class App
 						employeePanelControler = new EmployeePanelControler(dbConn, employeeComponentsMap);
 						employeePanelControler.setMainUser((Employee)mainUser);
 						employeePanelControler.updateEmployeePanel(employeePanel);
+						StudentCoursesInfoController studentCoursesInfoController = new StudentCoursesInfoController(dbConn, panelUnsub, timerAdmissionTime);
+						studentCoursesInfoController.updateInfoAboutStudents();
+						panelUnsub.setController(studentCoursesInfoController);
+						studentCoursesInfoController.setMainUser((Employee) mainUser);
 						
 						cards.show(mainFrame.getContentPane(), EMPLOYEE_PANEL_ID);
 						
@@ -694,7 +699,7 @@ public class App
 		tabbedPane_1.addTab("Prawa i terminy zapis?w student?w", null, panelRights, null);
 		
 		AdminPanelRightsController adminPanelRightsController = new AdminPanelRightsController(dbConn, panelRights);
-		adminPanelRightsController.loadStudents();
+//		adminPanelRightsController.loadStudents();
 
 		panelRights.setController(adminPanelRightsController);
 		
@@ -708,7 +713,7 @@ public class App
 		
 		
 		JPanel panelGroups = new JPanel();
-		tabbedPane_1.addTab("Zarz¹dzaj grupami", null, panelGroups, null);
+		tabbedPane_1.addTab("Zarzï¿½dzaj grupami", null, panelGroups, null);
 		
 		JScrollPane scrollPane_8 = new JScrollPane();
 		scrollPane_8.setBounds(12, 28, 173, 325);
@@ -888,8 +893,8 @@ public class App
 		JComboBox<String> comboBoxCoursesForm = new JComboBox<>();
 		comboBoxCoursesForm.setBounds(313, 197, 102, 22);
 		panelCourses.add(comboBoxCoursesForm);
-		comboBoxCoursesForm.addItem("Wyk³ad");
-		comboBoxCoursesForm.addItem("Æwiczenia");
+		comboBoxCoursesForm.addItem("Wykï¿½ad");
+		comboBoxCoursesForm.addItem("ï¿½wiczenia");
 		comboBoxCoursesForm.addItem("Laboratorium");
 		comboBoxCoursesForm.addItem("Projekt");
 		comboBoxCoursesForm.addItem("Seminarium");
@@ -913,13 +918,9 @@ public class App
 		btnRemove.setForeground(Color.RED);
 		btnRemove.setBounds(224, 337, 99, 16);
 		panelCourses.add(btnRemove);
-		
-		StudentCoursesInfoPanel panelUnsub = new StudentCoursesInfoPanel();
+
 		tabbedPane_1.addTab("Wypisz studenta", null, panelUnsub, null);
 		panelUnsub.setLayout(null);
-
-		StudentCoursesInfoController studentCoursesInfoController = new StudentCoursesInfoController(dbConn, panelUnsub, timerAdmissionTime);
-		studentCoursesInfoController.updateInfoAboutStudents();
 		
 		JPanel panelSub = new JPanel();
 		panelSub.setLayout(null);

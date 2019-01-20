@@ -1,12 +1,20 @@
 package application;
 
+import application.models.Course;
+import application.models.Group;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
 public class StudentCoursesInfoPanel extends JPanel {
 
-    DefaultListModel<Student> modelListStudent = new DefaultListModel<>();
+    private DefaultListModel<Student> modelListStudent = new DefaultListModel<>();
+    private DefaultListModel<Course> modelListCourses = new DefaultListModel<>();
+    private DefaultListModel<Group> modelListGroups = new DefaultListModel<Group>();
+    private StudentCoursesInfoController studentCoursesInfoController;
+    private JLabel lblECTS, lblparityOfWeek, lbldayOfWeek, lbllessonsHours,lblProfDrIn;
+    private JList<Course> listStudentCourses;
 
     public StudentCoursesInfoPanel(){
         JScrollPane scrollPane_2 = new JScrollPane();
@@ -15,20 +23,37 @@ public class StudentCoursesInfoPanel extends JPanel {
 
         JList<Student> listAllStudents = new JList<>(modelListStudent);
         scrollPane_2.setViewportView(listAllStudents);
+        listAllStudents.addListSelectionListener(e -> {
+            removeInfoGroup();
+                studentCoursesInfoController.getCoursesAdnGroupsBy(listAllStudents.getSelectedValue());
+            }
+        );
 
         JScrollPane scrollPane_3 = new JScrollPane();
         scrollPane_3.setBounds(187, 34, 177, 319);
         this.add(scrollPane_3);
 
-        JList listStudentCourses = new JList();
+        listStudentCourses = new JList<>(modelListCourses);
         scrollPane_3.setViewportView(listStudentCourses);
+        listStudentCourses.addListSelectionListener(e->{
+            modelListGroups.clear();
+            removeInfoGroup();
+            if(listStudentCourses.getSelectedValue()!=null) {
+                addGroupsToModel(listStudentCourses.getSelectedValue());
+            }
+        });
 
         JScrollPane scrollPane_4 = new JScrollPane();
         scrollPane_4.setBounds(376, 34, 177, 319);
         this.add(scrollPane_4);
 
-        JList listStudentsGroups = new JList();
+        JList<Group> listStudentsGroups = new JList<>(modelListGroups);
         scrollPane_4.setViewportView(listStudentsGroups);
+        listStudentsGroups.addListSelectionListener(e->{
+            if(listStudentsGroups.getSelectedValue()!=null){
+                updateInfoGroup(listStudentsGroups.getSelectedValue());
+            }
+        });
 
         JButton btnWypisz = new JButton("Wypisz");
         btnWypisz.setForeground(Color.RED);
@@ -55,55 +80,89 @@ public class StudentCoursesInfoPanel extends JPanel {
         lblNewLabel_3.setBounds(565, 36, 56, 16);
         this.add(lblNewLabel_3);
 
-        JLabel lblNewLabel_4 = new JLabel("13");
-        lblNewLabel_4.setFont(new Font("Arial", Font.PLAIN, 16));
-        lblNewLabel_4.setBounds(637, 36, 56, 16);
-        this.add(lblNewLabel_4);
+        lblECTS = new JLabel("-- . --");
+        lblECTS.setFont(new Font("Arial", Font.PLAIN, 16));
+        lblECTS.setBounds(637, 36, 56, 16);
+        this.add(lblECTS);
 
         JLabel lblNewLabel_5 = new JLabel("Parzysto\u015B\u0107 tygodnia:");
         lblNewLabel_5.setFont(new Font("Arial", Font.PLAIN, 16));
         lblNewLabel_5.setBounds(565, 80, 157, 16);
         this.add(lblNewLabel_5);
 
-        JLabel lblNewLabel_6 = new JLabel("TP");
-        lblNewLabel_6.setFont(new Font("Arial", Font.PLAIN, 16));
-        lblNewLabel_6.setBounds(709, 80, 56, 16);
-        this.add(lblNewLabel_6);
+        lblparityOfWeek = new JLabel("-- . --");
+        lblparityOfWeek.setFont(new Font("Arial", Font.PLAIN, 16));
+        lblparityOfWeek.setBounds(709, 80, 56, 16);
+        this.add(lblparityOfWeek);
 
         JLabel lblNewLabel_7 = new JLabel("Dzie\u0144 zaj\u0119\u0107:");
         lblNewLabel_7.setFont(new Font("Arial", Font.PLAIN, 16));
         lblNewLabel_7.setBounds(565, 120, 97, 16);
         this.add(lblNewLabel_7);
 
-        JLabel lblNewLabel_8 = new JLabel("wt");
-        lblNewLabel_8.setFont(new Font("Arial", Font.PLAIN, 16));
-        lblNewLabel_8.setBounds(656, 120, 56, 16);
-        this.add(lblNewLabel_8);
+        lbldayOfWeek = new JLabel("-- . --");
+        lbldayOfWeek.setFont(new Font("Arial", Font.PLAIN, 16));
+        lbldayOfWeek.setBounds(656, 120, 56, 16);
+        this.add(lbldayOfWeek);
 
         JLabel lblNewLabel_9 = new JLabel("Godziny zaj\u0119\u0107:");
         lblNewLabel_9.setFont(new Font("Arial", Font.PLAIN, 16));
         lblNewLabel_9.setBounds(565, 149, 108, 16);
         this.add(lblNewLabel_9);
 
-        JLabel lblNewLabel_10 = new JLabel("7:30:00 - 9:30:00");
-        lblNewLabel_10.setFont(new Font("Arial", Font.PLAIN, 16));
-        lblNewLabel_10.setBounds(575, 169, 147, 16);
-        this.add(lblNewLabel_10);
+        lbllessonsHours = new JLabel("-- . --");
+        lbllessonsHours.setFont(new Font("Arial", Font.PLAIN, 16));
+        lbllessonsHours.setBounds(575, 169, 147, 16);
+        this.add(lbllessonsHours);
 
         JLabel lblProwadzcy = new JLabel("Prowadz\u0105cy:");
         lblProwadzcy.setFont(new Font("Arial", Font.PLAIN, 16));
         lblProwadzcy.setBounds(565, 198, 97, 16);
         this.add(lblProwadzcy);
 
-        JLabel lblProfDrIn = new JLabel("Prof. dr. inz Janusz biernat");
+        lblProfDrIn = new JLabel("-- . --");
         lblProfDrIn.setFont(new Font("Arial", Font.PLAIN, 14));
         lblProfDrIn.setBounds(564, 217, 213, 16);
         this.add(lblProfDrIn);
     }
 
+    private void updateInfoGroup(Group selectedValue) {
+        lblECTS.setText(Integer.toString(listStudentCourses.getSelectedValue().getEcts()));
+        lbllessonsHours.setText(selectedValue.getLessonTime());
+        lblProfDrIn.setText(listStudentCourses.getSelectedValue().getNameMaster());
+        lbldayOfWeek.setText(selectedValue.getDayOfWeek());
+        lblparityOfWeek.setText(selectedValue.getParityOfWeek());
+    }
+
+    private void removeInfoGroup(){
+        lblECTS.setText("-- . --");
+        lbllessonsHours.setText("-- . --");
+        lblProfDrIn.setText("-- . --");
+        lbldayOfWeek.setText("-- . --");
+        lblparityOfWeek.setText("-- . --");
+    }
+
+    private void addGroupsToModel(Course selectedValue) {
+        for(Group group: selectedValue.getListGroups()){
+            modelListGroups.addElement(group);
+        }
+    }
+
     public void addStudentsToModel(List<Student> studentList) {
+        modelListStudent.clear();
         for(Student student:studentList){
             modelListStudent.addElement(student);
+        }
+    }
+
+    public void setController(StudentCoursesInfoController studentCoursesInfoController) {
+        this.studentCoursesInfoController = studentCoursesInfoController;
+    }
+
+    public void addCourseToModel(List<Course> courses) {
+        modelListCourses.clear();
+        for(Course course: courses){
+            modelListCourses.addElement(course);
         }
     }
 }
