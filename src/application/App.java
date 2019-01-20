@@ -139,7 +139,7 @@ public class App
 		fixLabelLogin.setBounds(177, 121, 110, 25);
 		loginPanel.add(fixLabelLogin);
 
-		JTextField textFieldLogin = new JTextField("pwr235011");
+		JTextField textFieldLogin = new JTextField("jan.popedzalski");
 		textFieldLogin.setBounds(285, 123, 266, 22);
 		loginPanel.add(textFieldLogin);
 		textFieldLogin.setColumns(10);
@@ -149,7 +149,7 @@ public class App
 		fixLabelPassword.setBounds(177, 160, 98, 16);
 		loginPanel.add(fixLabelPassword);
 
-		JPasswordField passwordField = new JPasswordField("haslo");
+		JPasswordField passwordField = new JPasswordField("jan32009alsk2");
 		passwordField.setBounds(285, 159, 266, 22);
 		loginPanel.add(passwordField);
 
