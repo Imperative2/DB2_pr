@@ -40,7 +40,7 @@ import javax.swing.JLayeredPane;
 
 public class App
 {
-
+// imie studenta, nazwisko, indeks polaczyc z kursami
 	private static DatabaseConnection dbConn;
 	
 	private User mainUser;
@@ -574,7 +574,7 @@ public class App
 				System.out.println(zapisId);
 				JButton button = (JButton)e.getSource();
 
-				if(JOptionPane.showConfirmDialog(null, "Czy na pewno chcesz siê wypisaæ z tej grupy?", "Jeœteœ pewnien?", JOptionPane.OK_CANCEL_OPTION)==0){
+				if(JOptionPane.showConfirmDialog(null, "Czy na pewno chcesz siï¿½ wypisaï¿½ z tej grupy?", "Jeï¿½teï¿½ pewnien?", JOptionPane.OK_CANCEL_OPTION)==0){
 
 					String sql_query = "DELETE FROM `zapis` WHERE `zapis`.`id_zapisu` =  " + zapisId + ";";
 					dbConn.deleteOrUpdateData(sql_query);
@@ -680,7 +680,7 @@ public class App
 		employeePanel.add(tabbedPane_1);
 		
 		JPanel panelRights = new JPanel();
-		tabbedPane_1.addTab("Prawa i terminy zapisów studentów", null, panelRights, null);
+		tabbedPane_1.addTab("Prawa i terminy zapisï¿½w studentï¿½w", null, panelRights, null);
 		panelRights.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -795,10 +795,10 @@ public class App
 		panelRights.add(btnNewButton_2);
 		
 		JPanel panelGroups = new JPanel();
-		tabbedPane_1.addTab("Zarz¹dzaj grupami", null, panelGroups, null);
+		tabbedPane_1.addTab("Zarzï¿½dzaj grupami", null, panelGroups, null);
 		
 		JPanel panelCourses = new JPanel();
-		tabbedPane_1.addTab("Zarz¹dzaj kursami", null, panelCourses, null);
+		tabbedPane_1.addTab("Zarzï¿½dzaj kursami", null, panelCourses, null);
 		panelCourses.setLayout(null);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
@@ -875,100 +875,12 @@ public class App
 		btnUsuKurs.setBounds(224, 337, 99, 16);
 		panelCourses.add(btnUsuKurs);
 		
-		JPanel panelUnsub = new JPanel();
+		StudentCoursesInfoPanel panelUnsub = new StudentCoursesInfoPanel();
 		tabbedPane_1.addTab("Wypisz studenta", null, panelUnsub, null);
 		panelUnsub.setLayout(null);
-		
-		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(12, 34, 163, 319);
-		panelUnsub.add(scrollPane_2);
-		
-		JList list_2 = new JList();
-		scrollPane_2.setViewportView(list_2);
-		
-		JScrollPane scrollPane_3 = new JScrollPane();
-		scrollPane_3.setBounds(187, 34, 177, 319);
-		panelUnsub.add(scrollPane_3);
-		
-		JList list_3 = new JList();
-		scrollPane_3.setViewportView(list_3);
-		
-		JScrollPane scrollPane_4 = new JScrollPane();
-		scrollPane_4.setBounds(376, 34, 177, 319);
-		panelUnsub.add(scrollPane_4);
-		
-		JList list_4 = new JList();
-		scrollPane_4.setViewportView(list_4);
-		
-		JButton btnWypisz = new JButton("Wypisz");
-		btnWypisz.setForeground(Color.RED);
-		btnWypisz.setBounds(656, 328, 97, 25);
-		panelUnsub.add(btnWypisz);
-		
-		JLabel lblNewLabel = new JLabel("Studenci:");
-		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 16));
-		lblNewLabel.setBounds(12, 13, 84, 16);
-		panelUnsub.add(lblNewLabel);
-		
-		JLabel lblNewLabel_2 = new JLabel("Grupy:");
-		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 16));
-		lblNewLabel_2.setBounds(380, 13, 56, 16);
-		panelUnsub.add(lblNewLabel_2);
-		
-		JLabel lblKursy = new JLabel("Kursy:");
-		lblKursy.setFont(new Font("Arial", Font.BOLD, 16));
-		lblKursy.setBounds(187, 13, 56, 16);
-		panelUnsub.add(lblKursy);
-		
-		JLabel lblNewLabel_3 = new JLabel("ECTS:");
-		lblNewLabel_3.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblNewLabel_3.setBounds(565, 36, 56, 16);
-		panelUnsub.add(lblNewLabel_3);
-		
-		JLabel lblNewLabel_4 = new JLabel("13");
-		lblNewLabel_4.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblNewLabel_4.setBounds(637, 36, 56, 16);
-		panelUnsub.add(lblNewLabel_4);
-		
-		JLabel lblNewLabel_5 = new JLabel("Parzysto\u015B\u0107 tygodnia:");
-		lblNewLabel_5.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblNewLabel_5.setBounds(565, 80, 157, 16);
-		panelUnsub.add(lblNewLabel_5);
-		
-		JLabel lblNewLabel_6 = new JLabel("TP");
-		lblNewLabel_6.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblNewLabel_6.setBounds(709, 80, 56, 16);
-		panelUnsub.add(lblNewLabel_6);
-		
-		JLabel lblNewLabel_7 = new JLabel("Dzie\u0144 zaj\u0119\u0107:");
-		lblNewLabel_7.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblNewLabel_7.setBounds(565, 120, 97, 16);
-		panelUnsub.add(lblNewLabel_7);
-		
-		JLabel lblNewLabel_8 = new JLabel("wt");
-		lblNewLabel_8.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblNewLabel_8.setBounds(656, 120, 56, 16);
-		panelUnsub.add(lblNewLabel_8);
-		
-		JLabel lblNewLabel_9 = new JLabel("Godziny zaj\u0119\u0107:");
-		lblNewLabel_9.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblNewLabel_9.setBounds(565, 149, 108, 16);
-		panelUnsub.add(lblNewLabel_9);
-		
-		JLabel lblNewLabel_10 = new JLabel("7:30:00 - 9:30:00");
-		lblNewLabel_10.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblNewLabel_10.setBounds(575, 169, 147, 16);
-		panelUnsub.add(lblNewLabel_10);
-		
-		JLabel lblProwadzcy = new JLabel("Prowadz\u0105cy:");
-		lblProwadzcy.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblProwadzcy.setBounds(565, 198, 97, 16);
-		panelUnsub.add(lblProwadzcy);
-		
-		JLabel lblProfDrIn = new JLabel("Prof. dr. inz Janusz biernat");
-		lblProfDrIn.setFont(new Font("Arial", Font.PLAIN, 14));
-		lblProfDrIn.setBounds(564, 217, 213, 16);
-		panelUnsub.add(lblProfDrIn);
+
+		StudentCoursesInfoController studentCoursesInfoController = new StudentCoursesInfoController(dbConn, panelUnsub, timerAdmissionTime);
+		studentCoursesInfoController.updateInfoAboutStudents();
 		
 		JPanel panelSub = new JPanel();
 		panelSub.setLayout(null);
