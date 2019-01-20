@@ -33,7 +33,7 @@ public class UnsubStudentFromGroupController {
         List<String[]> queryResults;
         String QUERY = GET_ALL_STUDENTS_QUERY;
         dbConn.connect();
-        queryResults = dbConn.querryDatabase(QUERY, 5);
+        queryResults = dbConn.querryDatabase(QUERY, 6);
 
         createStudents(queryResults);
 
@@ -44,7 +44,7 @@ public class UnsubStudentFromGroupController {
 
     private void createStudents(List<String[]> queryResults) {
         for(String[] row : queryResults){
-            Student student = new Student(Integer.parseInt(row[0]), row[1], row[2], row[3], row[4]);
+            Student student = new Student(Integer.parseInt(row[0]), row[1], row[2], row[3], row[4], row[5]);
             studentList.add(student);
         }
     }

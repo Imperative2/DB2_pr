@@ -17,7 +17,7 @@ public class SubStudentToGroupController {
             "INNER JOIN prowadzacy p ON p.id_prowadzacego = gz.id_prowadzacego\n" +
             "INNER JOIN godziny_zajec g ON gz.id_godziny_zajec = g.id_godziny_zajec\n" +
             "INNER JOIN zapis z ON z.id_grupy = gz.id_grupy\n" +
-            "WHERE z.id_indeksu = ";
+            "WHERE z.id_indeksu <> ";
     private List<Student> studentList = new ArrayList<>();
     private List<Course> coursesList = new ArrayList<>();
     private DatabaseConnection dbConn;
@@ -35,7 +35,7 @@ public class SubStudentToGroupController {
         List<String[]> queryResults;
         String QUERY = GET_ALL_STUDENTS_QUERY;
         dbConn.connect();
-        queryResults = dbConn.querryDatabase(QUERY, 5);
+        queryResults = dbConn.querryDatabase(QUERY, 6);
 
         createStudents(queryResults);
 
@@ -46,7 +46,7 @@ public class SubStudentToGroupController {
 
     private void createStudents(List<String[]> queryResults) {
         for(String[] row : queryResults){
-            Student student = new Student(Integer.parseInt(row[0]), row[1], row[2], row[3], row[4]);
+            Student student = new Student(Integer.parseInt(row[0]), row[1], row[2], row[3], row[4], row[5]);
             studentList.add(student);
         }
     }
@@ -101,7 +101,7 @@ public class SubStudentToGroupController {
             dbConn.deleteOrUpdateData("INSERT INTO zapis (id_indeksu, id_grupy) VALUES (" + student.getIndeks() + ","
                     + group.getId() + ")");
             JOptionPane.showMessageDialog(null, "Uda�o si�!", "Informacja!", JOptionPane.INFORMATION_MESSAGE);
-
+            getCoursesAdnGroupsBy(student);
         }
         else{
             JOptionPane.showMessageDialog(null, "Ju� nale�ysz do tego kursu b�dz nie masz prawa do zapis�w.", "Co� jest nie tak!", JOptionPane.ERROR_MESSAGE);

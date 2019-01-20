@@ -24,7 +24,7 @@ public class Student extends User
 		
 	}
 
-	public Student(int indeks, String name, String surname, String fieldOfStudy, String admissionRight){
+	public Student(int indeks, String name, String surname, String semester, String fieldOfStudy, String admissionRight){
 		this.indeks = indeks;
 		this.name = name;
 		this.surname = surname;
