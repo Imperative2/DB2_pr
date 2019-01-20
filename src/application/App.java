@@ -49,7 +49,7 @@ import javax.swing.JRadioButton;
 
 public class App
 {
-
+// imie studenta, nazwisko, indeks polaczyc z kursami
 	private static DatabaseConnection dbConn;
 	
 	private User mainUser;
@@ -70,6 +70,7 @@ public class App
 	private UserPanelGroupsController userPanelGroupsController;
 	private UserAdmissionPanel panelUserAdmissionGroups = new UserAdmissionPanel();
 	private UserAdmissionPanel panelUserAdmissionSaves = new UserAdmissionPanel();
+	StudentCoursesInfoPanel panelUnsub = new StudentCoursesInfoPanel();
 	private Map<String,Integer> userGroupsComponentsMap;
 	
 	private TimerAdmissionTime timerAdmissionTime;
@@ -155,7 +156,7 @@ public class App
 		fixLabelLogin.setBounds(177, 121, 110, 25);
 		loginPanel.add(fixLabelLogin);
 
-		JTextField textFieldLogin = new JTextField("pwr235011");
+		JTextField textFieldLogin = new JTextField("jan.popedzalski");
 		textFieldLogin.setBounds(285, 123, 266, 22);
 		loginPanel.add(textFieldLogin);
 		textFieldLogin.setColumns(10);
@@ -165,7 +166,7 @@ public class App
 		fixLabelPassword.setBounds(177, 160, 98, 16);
 		loginPanel.add(fixLabelPassword);
 
-		JPasswordField passwordField = new JPasswordField("haslo");
+		JPasswordField passwordField = new JPasswordField("jan32009alsk2");
 		passwordField.setBounds(285, 159, 266, 22);
 		loginPanel.add(passwordField);
 
@@ -242,6 +243,10 @@ public class App
 						employeePanelControler = new EmployeePanelControler(dbConn, employeeComponentsMap);
 						employeePanelControler.setMainUser((Employee)mainUser);
 						employeePanelControler.updateEmployeePanel(employeePanel);
+						StudentCoursesInfoController studentCoursesInfoController = new StudentCoursesInfoController(dbConn, panelUnsub, timerAdmissionTime);
+						studentCoursesInfoController.updateInfoAboutStudents();
+						panelUnsub.setController(studentCoursesInfoController);
+						studentCoursesInfoController.setMainUser((Employee) mainUser);
 						
 						cards.show(mainFrame.getContentPane(), EMPLOYEE_PANEL_ID);
 						
@@ -587,7 +592,7 @@ public class App
 				System.out.println(zapisId);
 				JButton button = (JButton)e.getSource();
 
-				if(JOptionPane.showConfirmDialog(null, "Czy na pewno chcesz siê wypisaæ z tej grupy?", "Jeœteœ pewnien?", JOptionPane.OK_CANCEL_OPTION)==0){
+				if(JOptionPane.showConfirmDialog(null, "Czy na pewno chcesz si? wypisa? z tej grupy?", "Je?te? pewnien?", JOptionPane.OK_CANCEL_OPTION)==0){
 
 					String sql_query = "DELETE FROM `zapis` WHERE `zapis`.`id_zapisu` =  " + zapisId + ";";
 					dbConn.deleteOrUpdateData(sql_query);
@@ -609,13 +614,13 @@ public class App
 
 					}
 					userPanelGroupsController.updateUserECTS(panelUserGroups);
-					JOptionPane.showMessageDialog(mainFrame, "Pomyï¿½lnie usuniï¿½to zapis.",
+					JOptionPane.showMessageDialog(mainFrame, "Pomy?lnie usuni?to zapis.",
 							"Informacja!", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
 
-		tabbedPane.addTab("Przeglï¿½daj daj grupy", null, panelUserAdmissionGroups, null);
+		tabbedPane.addTab("Przegl?daj daj grupy", null, panelUserAdmissionGroups, null);
 		panelUserAdmissionGroups.setLayout(null);
 
 		JLabel fixLabelAdmissionTime = new JLabel("Czas zapisow:");
@@ -693,10 +698,10 @@ public class App
 		employeePanel.add(tabbedPane_1);
 		
 		AdminPanelRights panelRights = new AdminPanelRights(mainFrame);
-		tabbedPane_1.addTab("Prawa i terminy zapisów studentów", null, panelRights, null);
+		tabbedPane_1.addTab("Prawa i terminy zapis?w student?w", null, panelRights, null);
 		
 		AdminPanelRightsController adminPanelRightsController = new AdminPanelRightsController(dbConn, panelRights);
-		adminPanelRightsController.loadStudents();
+//		adminPanelRightsController.loadStudents();
 
 		panelRights.setController(adminPanelRightsController);
 		
@@ -710,7 +715,7 @@ public class App
 		
 		
 		JPanel panelGroups = new JPanel();
-		tabbedPane_1.addTab("Zarz¹dzaj grupami", null, panelGroups, null);
+		tabbedPane_1.addTab("Zarz?dzaj grupami", null, panelGroups, null);
 		
 		JScrollPane scrollPane_8 = new JScrollPane();
 		scrollPane_8.setBounds(12, 28, 173, 325);
@@ -829,109 +834,19 @@ public class App
 		textField_5.setColumns(10);
 		
 		AdminPanelCourse panelCourses = new AdminPanelCourse(mainFrame);
-		tabbedPane_1.addTab("Zarz¹dzaj kursami", null, panelCourses, null);
+		tabbedPane_1.addTab("Zarz?dzaj kursami", null, panelCourses, null);
 		
 		AdminPanelCoursesController adminPanelCoursesController = new AdminPanelCoursesController(dbConn, panelCourses);
 		adminPanelCoursesController.loadCourses();
 		panelCourses.setController(adminPanelCoursesController);
 
-		
+	
 
 		
 		JPanel panelUnsub = new JPanel();
+
 		tabbedPane_1.addTab("Wypisz studenta", null, panelUnsub, null);
 		panelUnsub.setLayout(null);
-		
-		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(12, 34, 163, 319);
-		panelUnsub.add(scrollPane_2);
-		
-		JList list_2 = new JList();
-		scrollPane_2.setViewportView(list_2);
-		
-		JScrollPane scrollPane_3 = new JScrollPane();
-		scrollPane_3.setBounds(187, 34, 177, 319);
-		panelUnsub.add(scrollPane_3);
-		
-		JList list_3 = new JList();
-		scrollPane_3.setViewportView(list_3);
-		
-		JScrollPane scrollPane_4 = new JScrollPane();
-		scrollPane_4.setBounds(376, 34, 177, 319);
-		panelUnsub.add(scrollPane_4);
-		
-		JList list_4 = new JList();
-		scrollPane_4.setViewportView(list_4);
-		
-		JButton btnWypisz = new JButton("Wypisz");
-		btnWypisz.setForeground(Color.RED);
-		btnWypisz.setBounds(656, 328, 97, 25);
-		panelUnsub.add(btnWypisz);
-		
-		JLabel lblNewLabel = new JLabel("Studenci:");
-		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 16));
-		lblNewLabel.setBounds(12, 13, 84, 16);
-		panelUnsub.add(lblNewLabel);
-		
-		JLabel lblNewLabel_2 = new JLabel("Grupy:");
-		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 16));
-		lblNewLabel_2.setBounds(380, 13, 56, 16);
-		panelUnsub.add(lblNewLabel_2);
-		
-		JLabel lblKursy = new JLabel("Kursy:");
-		lblKursy.setFont(new Font("Arial", Font.BOLD, 16));
-		lblKursy.setBounds(187, 13, 56, 16);
-		panelUnsub.add(lblKursy);
-		
-		JLabel lblNewLabel_3 = new JLabel("ECTS:");
-		lblNewLabel_3.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblNewLabel_3.setBounds(565, 36, 56, 16);
-		panelUnsub.add(lblNewLabel_3);
-		
-		JLabel lblNewLabel_4 = new JLabel("13");
-		lblNewLabel_4.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblNewLabel_4.setBounds(637, 36, 56, 16);
-		panelUnsub.add(lblNewLabel_4);
-		
-		JLabel lblNewLabel_5 = new JLabel("Parzysto\u015B\u0107 tygodnia:");
-		lblNewLabel_5.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblNewLabel_5.setBounds(565, 80, 157, 16);
-		panelUnsub.add(lblNewLabel_5);
-		
-		JLabel lblNewLabel_6 = new JLabel("TP");
-		lblNewLabel_6.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblNewLabel_6.setBounds(709, 80, 56, 16);
-		panelUnsub.add(lblNewLabel_6);
-		
-		JLabel lblNewLabel_7 = new JLabel("Dzie\u0144 zaj\u0119\u0107:");
-		lblNewLabel_7.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblNewLabel_7.setBounds(565, 120, 97, 16);
-		panelUnsub.add(lblNewLabel_7);
-		
-		JLabel lblNewLabel_8 = new JLabel("wt");
-		lblNewLabel_8.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblNewLabel_8.setBounds(656, 120, 56, 16);
-		panelUnsub.add(lblNewLabel_8);
-		
-		JLabel lblNewLabel_9 = new JLabel("Godziny zaj\u0119\u0107:");
-		lblNewLabel_9.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblNewLabel_9.setBounds(565, 149, 108, 16);
-		panelUnsub.add(lblNewLabel_9);
-		
-		JLabel lblNewLabel_10 = new JLabel("7:30:00 - 9:30:00");
-		lblNewLabel_10.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblNewLabel_10.setBounds(575, 169, 147, 16);
-		panelUnsub.add(lblNewLabel_10);
-		
-		JLabel lblProwadzcy = new JLabel("Prowadz\u0105cy:");
-		lblProwadzcy.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblProwadzcy.setBounds(565, 198, 97, 16);
-		panelUnsub.add(lblProwadzcy);
-		
-		JLabel lblProfDrIn = new JLabel("Prof. dr. inz Janusz biernat");
-		lblProfDrIn.setFont(new Font("Arial", Font.PLAIN, 14));
-		lblProfDrIn.setBounds(564, 217, 213, 16);
-		panelUnsub.add(lblProfDrIn);
 		
 		JPanel panelSub = new JPanel();
 		panelSub.setLayout(null);

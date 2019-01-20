@@ -10,6 +10,8 @@ import java.util.GregorianCalendar;
 public class Student extends User
 {
 
+	private int indeks;
+	private String name, surname;
 	private String pesel;
 	private String gender;
 	private String fieldOfStudy;
@@ -20,6 +22,13 @@ public class Student extends User
 	public Student()
 	{
 		
+	}
+
+	public Student(int indeks, String name, String surname, String fieldOfStudy){
+		this.indeks = indeks;
+		this.name = name;
+		this.surname = surname;
+		this.fieldOfStudy = fieldOfStudy;
 	}
 	
 	
@@ -102,5 +111,37 @@ public class Student extends User
 	{
 		this.admissionTime = admissionTime;
 	}
-	
+
+	public int getIndeks() {
+		return indeks;
+	}
+
+	public void setIndeks(int indeks) {
+		this.indeks = indeks;
+	}
+
+	@Override
+	public String getName() {
+		return name;
+	}
+
+	@Override
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@Override
+	public String getSurname() {
+		return surname;
+	}
+
+	@Override
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	@Override
+	public String toString() {
+		return this.indeks + " " + this.surname;
+	}
 }

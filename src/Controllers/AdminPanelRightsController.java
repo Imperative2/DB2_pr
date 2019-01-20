@@ -18,7 +18,7 @@ public class AdminPanelRightsController
 		this.dbConn = dbConn;
 		this.panel = panel;
 		
-		loadStudents();
+//		loadStudents();
 	}
 	
 	
