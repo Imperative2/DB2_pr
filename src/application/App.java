@@ -34,9 +34,17 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
+import Controllers.AdminPanelRightsController;
+import Controllers.UserAdmissionController;
+
 import javax.swing.JTextPane;
 import javax.swing.JComboBox;
 import javax.swing.JLayeredPane;
+import javax.swing.JCheckBox;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JRadioButton;
 
 public class App
 {
@@ -71,9 +79,12 @@ public class App
 	private Map<String,Integer> employeeComponentsMap;
 	private JLabel labelAdmissionTime, labelAdmissionRight;
 	private JTextField txtYyyymmddHhmmss;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField textFieldCoursesId;
+	private JTextField textFieldCoursesName;
+	private JTextField textFieldCoursesECTS;
+	private JTextField textField_3;
+	private JTextField textField_4;
+	private JTextField textField_5;
 
 
 	/**
@@ -574,7 +585,7 @@ public class App
 				System.out.println(zapisId);
 				JButton button = (JButton)e.getSource();
 
-				if(JOptionPane.showConfirmDialog(null, "Czy na pewno chcesz siï¿½ wypisaï¿½ z tej grupy?", "Jeï¿½teï¿½ pewnien?", JOptionPane.OK_CANCEL_OPTION)==0){
+				if(JOptionPane.showConfirmDialog(null, "Czy na pewno chcesz si? wypisa? z tej grupy?", "Je?te? pewnien?", JOptionPane.OK_CANCEL_OPTION)==0){
 
 					String sql_query = "DELETE FROM `zapis` WHERE `zapis`.`id_zapisu` =  " + zapisId + ";";
 					dbConn.deleteOrUpdateData(sql_query);
@@ -596,13 +607,13 @@ public class App
 
 					}
 					userPanelGroupsController.updateUserECTS(panelUserGroups);
-					JOptionPane.showMessageDialog(mainFrame, "Pomyï¿½lnie usuniï¿½to zapis.",
+					JOptionPane.showMessageDialog(mainFrame, "Pomy?lnie usuni?to zapis.",
 							"Informacja!", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
 
-		tabbedPane.addTab("Przeglï¿½daj daj grupy", null, panelUserAdmissionGroups, null);
+		tabbedPane.addTab("Przegl?daj daj grupy", null, panelUserAdmissionGroups, null);
 		panelUserAdmissionGroups.setLayout(null);
 
 		JLabel fixLabelAdmissionTime = new JLabel("Czas zapisow:");
@@ -679,126 +690,144 @@ public class App
 		tabbedPane_1.setBounds(12, 57, 770, 396);
 		employeePanel.add(tabbedPane_1);
 		
-		JPanel panelRights = new JPanel();
-		tabbedPane_1.addTab("Prawa i terminy zapisï¿½w studentï¿½w", null, panelRights, null);
-		panelRights.setLayout(null);
+		AdminPanelRights panelRights = new AdminPanelRights(mainFrame);
+		tabbedPane_1.addTab("Prawa i terminy zapis?w student?w", null, panelRights, null);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 37, 173, 316);
-		panelRights.add(scrollPane);
+		AdminPanelRightsController adminPanelRightsController = new AdminPanelRightsController(dbConn, panelRights);
+		adminPanelRightsController.loadStudents();
+
+		panelRights.setController(adminPanelRightsController);
 		
-		JList list = new JList();
-		scrollPane.setViewportView(list);
 		
-		JLabel fixLabelRigthsStudents = new JLabel("Studenci:");
-		fixLabelRigthsStudents.setFont(new Font("Arial", Font.BOLD, 16));
-		fixLabelRigthsStudents.setBounds(12, 13, 87, 16);
-		panelRights.add(fixLabelRigthsStudents);
 		
-		JLabel fixLabelRigthsName = new JLabel("Imi\u0119:");
-		fixLabelRigthsName.setFont(new Font("Arial", Font.PLAIN, 16));
-		fixLabelRigthsName.setBounds(239, 39, 35, 16);
-		panelRights.add(fixLabelRigthsName);
 		
-		JLabel labelRightsName = new JLabel("Karolina");
-		labelRightsName.setFont(new Font("Arial", Font.PLAIN, 16));
-		labelRightsName.setBounds(286, 38, 131, 16);
-		panelRights.add(labelRightsName);
 		
-		JLabel fixLabelRightsSurname = new JLabel("Nazwisko:");
-		fixLabelRightsSurname.setFont(new Font("Arial", Font.PLAIN, 16));
-		fixLabelRightsSurname.setBounds(429, 39, 76, 16);
-		panelRights.add(fixLabelRightsSurname);
 		
-		JLabel labelRightsSurname = new JLabel("Bo\u017Conarodzeniowa");
-		labelRightsSurname.setFont(new Font("Arial", Font.PLAIN, 16));
-		labelRightsSurname.setBounds(510, 38, 229, 16);
-		panelRights.add(labelRightsSurname);
 		
-		JLabel fixLabelRightsIndex = new JLabel("Indeks:");
-		fixLabelRightsIndex.setFont(new Font("Arial", Font.PLAIN, 16));
-		fixLabelRightsIndex.setBounds(239, 78, 56, 16);
-		panelRights.add(fixLabelRightsIndex);
 		
-		JLabel labelRightsIndex = new JLabel("235044");
-		labelRightsIndex.setFont(new Font("Arial", Font.PLAIN, 16));
-		labelRightsIndex.setBounds(296, 78, 56, 16);
-		panelRights.add(labelRightsIndex);
 		
-		JLabel fixLabelRightsPesel = new JLabel("Pesel:");
-		fixLabelRightsPesel.setFont(new Font("Arial", Font.PLAIN, 16));
-		fixLabelRightsPesel.setBounds(429, 78, 56, 16);
-		panelRights.add(fixLabelRightsPesel);
-		
-		JLabel labelRightsPesel = new JLabel("97070312345");
-		labelRightsPesel.setFont(new Font("Arial", Font.PLAIN, 16));
-		labelRightsPesel.setBounds(482, 78, 105, 16);
-		panelRights.add(labelRightsPesel);
-		
-		JLabel fixLabelRightsFieldStudy = new JLabel("Kierunek:");
-		fixLabelRightsFieldStudy.setFont(new Font("Arial", Font.PLAIN, 16));
-		fixLabelRightsFieldStudy.setBounds(239, 122, 66, 16);
-		panelRights.add(fixLabelRightsFieldStudy);
-		
-		JLabel labelRightsFieldStudy = new JLabel("INF");
-		labelRightsFieldStudy.setFont(new Font("Arial", Font.PLAIN, 16));
-		labelRightsFieldStudy.setBounds(311, 122, 41, 16);
-		panelRights.add(labelRightsFieldStudy);
-		
-		JLabel fixLabelRightsSemester = new JLabel("Semestr:");
-		fixLabelRightsSemester.setFont(new Font("Arial", Font.PLAIN, 16));
-		fixLabelRightsSemester.setBounds(429, 122, 76, 16);
-		panelRights.add(fixLabelRightsSemester);
-		
-		JLabel labelRightsSemester = new JLabel("5");
-		labelRightsSemester.setFont(new Font("Arial", Font.PLAIN, 16));
-		labelRightsSemester.setBounds(499, 122, 56, 16);
-		panelRights.add(labelRightsSemester);
-		
-		JLabel fixLabelRights = new JLabel("Prawo do zapis\u00F3w:");
-		fixLabelRights.setFont(new Font("Arial", Font.PLAIN, 16));
-		fixLabelRights.setBounds(239, 165, 145, 16);
-		panelRights.add(fixLabelRights);
-		
-		JLabel labelRights = new JLabel("nie posiada");
-		labelRights.setFont(new Font("Arial", Font.PLAIN, 16));
-		labelRights.setBounds(381, 165, 156, 16);
-		panelRights.add(labelRights);
-		
-		JLabel fixLabelRightsTime = new JLabel("Termin zapis\u00F3w:");
-		fixLabelRightsTime.setFont(new Font("Arial", Font.PLAIN, 16));
-		fixLabelRightsTime.setBounds(239, 247, 131, 16);
-		panelRights.add(fixLabelRightsTime);
-		
-		JLabel labelRightsTime = new JLabel("2019-02-19 19:58:39");
-		labelRightsTime.setFont(new Font("Arial", Font.PLAIN, 16));
-		labelRightsTime.setBounds(361, 247, 156, 16);
-		panelRights.add(labelRightsTime);
-		
-		JButton btnNewButton = new JButton("Nadaj");
-		btnNewButton.setBounds(239, 198, 97, 25);
-		panelRights.add(btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("Nadaj nowy czas zapis\u00F3w");
-		btnNewButton_1.setBounds(430, 284, 205, 25);
-		panelRights.add(btnNewButton_1);
-		
-		txtYyyymmddHhmmss = new JTextField();
-		txtYyyymmddHhmmss.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		txtYyyymmddHhmmss.setText("yyyy-MM-dd hh:mm:ss");
-		txtYyyymmddHhmmss.setBounds(239, 276, 178, 38);
-		panelRights.add(txtYyyymmddHhmmss);
-		txtYyyymmddHhmmss.setColumns(10);
-		
-		JButton btnNewButton_2 = new JButton("Odbierz");
-		btnNewButton_2.setBounds(372, 198, 97, 25);
-		panelRights.add(btnNewButton_2);
 		
 		JPanel panelGroups = new JPanel();
-		tabbedPane_1.addTab("Zarzï¿½dzaj grupami", null, panelGroups, null);
+		tabbedPane_1.addTab("Zarz¹dzaj grupami", null, panelGroups, null);
+		
+		JScrollPane scrollPane_8 = new JScrollPane();
+		scrollPane_8.setBounds(12, 28, 173, 325);
+		
+		JList list_8 = new JList();
+		scrollPane_8.setViewportView(list_8);
+		
+		JScrollPane scrollPane_9 = new JScrollPane();
+		scrollPane_9.setBounds(197, 28, 173, 325);
+		
+		JList list_9 = new JList();
+		scrollPane_9.setViewportView(list_9);
+		
+		JLabel lblKurs = new JLabel("Kursy:");
+		lblKurs.setFont(new Font("Arial", Font.BOLD, 16));
+		lblKurs.setBounds(12, 13, 56, 16);
+		
+		JLabel lblNewLabel_1 = new JLabel("Grupy:");
+		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 16));
+		lblNewLabel_1.setBounds(197, 13, 56, 16);
+		
+		JButton btnStwrzNowGrup = new JButton("Stw\u00F3rz now\u0105 grup\u0119");
+		btnStwrzNowGrup.setBounds(526, 9, 145, 25);
+		
+		JButton btnModyfikuj_1 = new JButton("Modyfikuj ");
+		btnModyfikuj_1.setBounds(656, 328, 97, 25);
+		
+		JButton btnUsuGrup = new JButton("Usu\u0144 grup\u0119");
+		btnUsuGrup.setBounds(382, 332, 97, 16);
+		btnUsuGrup.setForeground(Color.RED);
+		
+		JLabel lblNewLabel_11 = new JLabel("Kod Grupy:");
+		lblNewLabel_11.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblNewLabel_11.setBounds(382, 49, 78, 16);
+		
+		textField_3 = new JTextField();
+		textField_3.setBounds(464, 47, 116, 22);
+		textField_3.setColumns(10);
+		
+		JLabel lblNewLabel_12 = new JLabel("Prowadz\u0105cy:");
+		lblNewLabel_12.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblNewLabel_12.setBounds(382, 92, 103, 16);
+		
+		JComboBox comboBox_2 = new JComboBox();
+		comboBox_2.setBounds(474, 90, 123, 22);
+		
+		JLabel lblNewLabel_13 = new JLabel("Godziny zaj\u0119\u0107:");
+		lblNewLabel_13.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblNewLabel_13.setBounds(382, 137, 103, 16);
+		
+		JComboBox comboBox_3 = new JComboBox();
+		comboBox_3.setBounds(484, 135, 133, 22);
+		
+		JLabel lblNewLabel_14 = new JLabel("Dzie\u0144 tygodnia:");
+		lblNewLabel_14.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblNewLabel_14.setBounds(382, 168, 122, 16);
+		
+		JComboBox comboBox_4 = new JComboBox();
+		comboBox_4.setBounds(494, 170, 123, 22);
+		
+		JLabel lblNewLabel_15 = new JLabel("Parzysto\u015B\u0107 tygodznia:");
+		lblNewLabel_15.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblNewLabel_15.setBounds(382, 204, 150, 18);
+		panelGroups.setLayout(null);
+		panelGroups.add(scrollPane_8);
+		panelGroups.add(scrollPane_9);
+		panelGroups.add(lblKurs);
+		panelGroups.add(lblNewLabel_1);
+		panelGroups.add(btnStwrzNowGrup);
+		panelGroups.add(btnModyfikuj_1);
+		panelGroups.add(btnUsuGrup);
+		panelGroups.add(lblNewLabel_11);
+		panelGroups.add(textField_3);
+		panelGroups.add(lblNewLabel_12);
+		panelGroups.add(comboBox_2);
+		panelGroups.add(lblNewLabel_13);
+		panelGroups.add(comboBox_3);
+		panelGroups.add(lblNewLabel_14);
+		panelGroups.add(comboBox_4);
+		panelGroups.add(lblNewLabel_15);
+		
+		JRadioButton rdbtnNewRadioButton = new JRadioButton("TP");
+		rdbtnNewRadioButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		rdbtnNewRadioButton.setBounds(540, 201, 47, 25);
+		panelGroups.add(rdbtnNewRadioButton);
+		
+		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("TN");
+		rdbtnNewRadioButton_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		rdbtnNewRadioButton_1.setBounds(591, 201, 47, 25);
+		panelGroups.add(rdbtnNewRadioButton_1);
+		
+		JRadioButton rdbtnOl = new JRadioButton("OL");
+		rdbtnOl.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		rdbtnOl.setBounds(642, 201, 47, 25);
+		panelGroups.add(rdbtnOl);
+		
+		JLabel lblNewLabel_16 = new JLabel("Ilo\u015B\u0107 miejsc:");
+		lblNewLabel_16.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblNewLabel_16.setBounds(382, 239, 97, 16);
+		panelGroups.add(lblNewLabel_16);
+		
+		textField_4 = new JTextField();
+		textField_4.setText("250");
+		textField_4.setBounds(467, 237, 39, 22);
+		panelGroups.add(textField_4);
+		textField_4.setColumns(10);
+		
+		JLabel lblNewLabel_17 = new JLabel("Sala zaj\u0119ciowa:");
+		lblNewLabel_17.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblNewLabel_17.setBounds(382, 276, 116, 16);
+		panelGroups.add(lblNewLabel_17);
+		
+		textField_5 = new JTextField();
+		textField_5.setBounds(494, 272, 116, 22);
+		panelGroups.add(textField_5);
+		textField_5.setColumns(10);
 		
 		JPanel panelCourses = new JPanel();
-		tabbedPane_1.addTab("Zarzï¿½dzaj kursami", null, panelCourses, null);
+		tabbedPane_1.addTab("Zarz?dzaj kursami", null, panelCourses, null);
 		panelCourses.setLayout(null);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
@@ -809,71 +838,81 @@ public class App
 		scrollPane_1.setViewportView(list_1);
 		
 		JLabel fixLabelCourses = new JLabel("Kursy:");
-		fixLabelCourses.setFont(new Font("Arial", Font.PLAIN, 16));
+		fixLabelCourses.setFont(new Font("Arial", Font.BOLD, 16));
 		fixLabelCourses.setBounds(12, 13, 56, 16);
 		panelCourses.add(fixLabelCourses);
 		
-		JButton btnNewButton_3 = new JButton("Stw\u00F3rz nowy kurs");
-		btnNewButton_3.setBounds(395, 9, 168, 25);
-		panelCourses.add(btnNewButton_3);
+		JButton btnCoursesCreate = new JButton("Stw\u00F3rz nowy kurs");
+		btnCoursesCreate.setBounds(395, 9, 168, 25);
+		panelCourses.add(btnCoursesCreate);
 		
 		JLabel fixLabelCoursesId = new JLabel("Id Kursu:");
 		fixLabelCoursesId.setFont(new Font("Arial", Font.PLAIN, 16));
 		fixLabelCoursesId.setBounds(210, 70, 71, 16);
 		panelCourses.add(fixLabelCoursesId);
 		
-		textField = new JTextField();
-		textField.setBounds(277, 68, 116, 22);
-		panelCourses.add(textField);
-		textField.setColumns(10);
+		textFieldCoursesId = new JTextField();
+		textFieldCoursesId.setBounds(277, 68, 116, 22);
+		panelCourses.add(textFieldCoursesId);
+		textFieldCoursesId.setColumns(10);
 		
 		JLabel fixLabelCoursesName = new JLabel("Nazwa Kursu:");
 		fixLabelCoursesName.setFont(new Font("Arial", Font.PLAIN, 16));
 		fixLabelCoursesName.setBounds(210, 117, 101, 16);
 		panelCourses.add(fixLabelCoursesName);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(312, 115, 270, 22);
-		panelCourses.add(textField_1);
-		textField_1.setColumns(10);
+		textFieldCoursesName = new JTextField();
+		textFieldCoursesName.setBounds(312, 115, 270, 22);
+		panelCourses.add(textFieldCoursesName);
+		textFieldCoursesName.setColumns(10);
 		
 		JLabel fixLabelCoursesSemester = new JLabel("Semestr Kursu:");
 		fixLabelCoursesSemester.setFont(new Font("Arial", Font.PLAIN, 16));
 		fixLabelCoursesSemester.setBounds(210, 159, 116, 16);
 		panelCourses.add(fixLabelCoursesSemester);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(322, 157, 93, 22);
-		panelCourses.add(comboBox);
+		JComboBox<String> comboBoxCoursesSemester = new JComboBox<>();
+		comboBoxCoursesSemester.setBounds(322, 157, 49, 22);
+		panelCourses.add(comboBoxCoursesSemester);
+		for(int i=0; i<7; i++)
+		{
+			comboBoxCoursesSemester.addItem((i+1)+"");
+		}
+		
 		
 		JLabel fixLabelCoursesForm = new JLabel("Forma Kursu:");
 		fixLabelCoursesForm.setFont(new Font("Arial", Font.PLAIN, 16));
 		fixLabelCoursesForm.setBounds(210, 199, 101, 16);
 		panelCourses.add(fixLabelCoursesForm);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(313, 197, 102, 22);
-		panelCourses.add(comboBox_1);
+		JComboBox<String> comboBoxCoursesForm = new JComboBox<>();
+		comboBoxCoursesForm.setBounds(313, 197, 102, 22);
+		panelCourses.add(comboBoxCoursesForm);
+		comboBoxCoursesForm.addItem("Wyk³ad");
+		comboBoxCoursesForm.addItem("Æwiczenia");
+		comboBoxCoursesForm.addItem("Laboratorium");
+		comboBoxCoursesForm.addItem("Projekt");
+		comboBoxCoursesForm.addItem("Seminarium");
 		
 		JLabel fixLabelCoursesECTS = new JLabel("ECTS:");
 		fixLabelCoursesECTS.setFont(new Font("Arial", Font.PLAIN, 16));
 		fixLabelCoursesECTS.setBounds(210, 239, 56, 16);
 		panelCourses.add(fixLabelCoursesECTS);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(264, 237, 116, 22);
-		panelCourses.add(textField_2);
-		textField_2.setColumns(10);
+		textFieldCoursesECTS = new JTextField();
+		textFieldCoursesECTS.setBounds(264, 237, 116, 22);
+		panelCourses.add(textFieldCoursesECTS);
+		textFieldCoursesECTS.setColumns(10);
 		
-		JButton btnModyfikuj = new JButton("Modyfikuj");
-		btnModyfikuj.setBounds(635, 328, 97, 25);
-		panelCourses.add(btnModyfikuj);
+		JButton btnModify = new JButton("Modyfikuj");
+		btnModify.setBounds(635, 328, 97, 25);
+		panelCourses.add(btnModify);
 		
-		JButton btnUsuKurs = new JButton("Usu\u0144 Kurs");
-		btnUsuKurs.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnUsuKurs.setForeground(Color.RED);
-		btnUsuKurs.setBounds(224, 337, 99, 16);
-		panelCourses.add(btnUsuKurs);
+		JButton btnRemove = new JButton("Usu\u0144 Kurs");
+		btnRemove.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnRemove.setForeground(Color.RED);
+		btnRemove.setBounds(224, 337, 99, 16);
+		panelCourses.add(btnRemove);
 		
 		StudentCoursesInfoPanel panelUnsub = new StudentCoursesInfoPanel();
 		tabbedPane_1.addTab("Wypisz studenta", null, panelUnsub, null);

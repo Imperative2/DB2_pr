@@ -1,5 +1,9 @@
-package application;
+package Controllers;
 
+import application.DatabaseConnection;
+import application.Student;
+import application.TimerAdmissionTime;
+import application.UserAdmissionPanel;
 import application.models.Course;
 import application.models.Group;
 
