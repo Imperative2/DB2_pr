@@ -102,6 +102,7 @@ public class StudentModel
 	}
 	public void setAdmissionTime(String admissionTime)
 	{
+		admissionTime = admissionTime.replaceAll(".0$", "");
 		this.admissionTime = admissionTime;
 	}
 	

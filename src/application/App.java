@@ -690,15 +690,13 @@ public class App
 		tabbedPane_1.setBounds(12, 57, 770, 396);
 		employeePanel.add(tabbedPane_1);
 		
-		AdminPanelRights panelRights = new AdminPanelRights();
+		AdminPanelRights panelRights = new AdminPanelRights(mainFrame);
 		tabbedPane_1.addTab("Prawa i terminy zapisów studentów", null, panelRights, null);
 		
 		AdminPanelRightsController adminPanelRightsController = new AdminPanelRightsController(dbConn, panelRights);
 		adminPanelRightsController.loadStudents();
 
-		
-		
-		
+		panelRights.setController(adminPanelRightsController);
 		
 		
 		

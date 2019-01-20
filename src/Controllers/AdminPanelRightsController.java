@@ -54,4 +54,28 @@ public class AdminPanelRightsController
 		panel.loadList(students);
 	}
 	
+	
+	public void updateStudentRight(StudentModel student, String right)
+	{
+		dbConn.connect();
+		String sql_query = "UPDATE `student` SET `prawo_do_zapisow`='"+right+"'\r\n" + 
+				"WHERE id_indeks = '"+student.getIndexId()+"';";
+		
+		dbConn.deleteOrUpdateData(sql_query);
+		
+		loadStudents();
+		panel.update(student);
+	}
+	
+	public void updateStudentTime(StudentModel student, String time)
+	{
+		dbConn.connect();
+		String sql_query = "UPDATE `student` SET `termin_zapisow`='"+time+"'\r\n" + 
+				"WHERE id_indeks = '"+student.getIndexId()+"';";
+		
+		dbConn.deleteOrUpdateData(sql_query);
+		loadStudents();
+		panel.update(student);
+	}
+	
 }
