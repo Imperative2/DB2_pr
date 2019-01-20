@@ -6,10 +6,6 @@ abstract class User
 	private String surname;
 	private String userId;
 
-	
-	
-	
-	
 	public String getName()
 	{
 		return name;

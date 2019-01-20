@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+
 public class UserPanelGroupsController
 {
 	private Student mainUser;
@@ -25,7 +26,7 @@ public class UserPanelGroupsController
 		this.mainUser = mainUser;
 	}
 	
-	public User getMainUser()
+	public application.User getMainUser()
 	{
 		return mainUser;
 	}
