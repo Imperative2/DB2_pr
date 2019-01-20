@@ -680,7 +680,7 @@ public class App
 		employeePanel.add(tabbedPane_1);
 		
 		JPanel panelRights = new JPanel();
-		tabbedPane_1.addTab("Prawa i terminy zapisï¿½w studentï¿½w", null, panelRights, null);
+		tabbedPane_1.addTab("Prawa i terminy zapisów studentów", null, panelRights, null);
 		panelRights.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -795,10 +795,10 @@ public class App
 		panelRights.add(btnNewButton_2);
 		
 		JPanel panelGroups = new JPanel();
-		tabbedPane_1.addTab("Zarzï¿½dzaj grupami", null, panelGroups, null);
+		tabbedPane_1.addTab("Zarz¹dzaj grupami", null, panelGroups, null);
 		
 		JPanel panelCourses = new JPanel();
-		tabbedPane_1.addTab("Zarzï¿½dzaj kursami", null, panelCourses, null);
+		tabbedPane_1.addTab("Zarz¹dzaj kursami", null, panelCourses, null);
 		panelCourses.setLayout(null);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
@@ -1064,6 +1064,9 @@ public class App
 		label_12.setFont(new Font("Arial", Font.PLAIN, 14));
 		label_12.setBounds(564, 217, 213, 16);
 		panelSub.add(label_12);
+		
+		JPanel panel = new JPanel();
+		tabbedPane_1.addTab("Grupy", null, panel, null);
 		
 	}
 }
