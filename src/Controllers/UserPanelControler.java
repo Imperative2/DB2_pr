@@ -1,4 +1,8 @@
-package application;
+package Controllers;
+
+import application.DatabaseConnection;
+import application.Student;
+import application.User;
 
 import java.util.Map;
 
@@ -12,7 +16,7 @@ public class UserPanelControler
 	
 	private Map<String,Integer> userComponentsMap;
 	
-	UserPanelControler(DatabaseConnection dbConnection,Map<String,Integer> userComponentsMap)
+	public UserPanelControler(DatabaseConnection dbConnection, Map<String, Integer> userComponentsMap)
 	{
 		this.dbConn = dbConnection;
 		this.userComponentsMap = userComponentsMap;

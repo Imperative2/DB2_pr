@@ -1,7 +1,5 @@
 package application;
 
-import application.models.Group;
-
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -16,7 +14,6 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
-import java.beans.Statement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,16 +32,13 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import Controllers.AdminPanelCoursesController;
-import Controllers.AdminPanelRightsController;
-import Controllers.UserAdmissionController;
+import Controllers.*;
+import application.panels.AdminPanelCourse;
+import application.panels.SubStudentToGroupPanel;
+import application.panels.UnsubStudentFromGroupPanel;
+import application.panels.UserAdmissionPanel;
 
-import javax.swing.JTextPane;
 import javax.swing.JComboBox;
-import javax.swing.JLayeredPane;
-import javax.swing.JCheckBox;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JRadioButton;
 
 public class App
@@ -70,7 +64,8 @@ public class App
 	private UserPanelGroupsController userPanelGroupsController;
 	private UserAdmissionPanel panelUserAdmissionGroups = new UserAdmissionPanel();
 	private UserAdmissionPanel panelUserAdmissionSaves = new UserAdmissionPanel();
-	StudentCoursesInfoPanel panelUnsub = new StudentCoursesInfoPanel();
+	UnsubStudentFromGroupPanel panelUnsub = new UnsubStudentFromGroupPanel();
+	SubStudentToGroupPanel panelSub = new SubStudentToGroupPanel();
 	private Map<String,Integer> userGroupsComponentsMap;
 	
 	private TimerAdmissionTime timerAdmissionTime;
@@ -243,10 +238,15 @@ public class App
 						employeePanelControler = new EmployeePanelControler(dbConn, employeeComponentsMap);
 						employeePanelControler.setMainUser((Employee)mainUser);
 						employeePanelControler.updateEmployeePanel(employeePanel);
-						StudentCoursesInfoController studentCoursesInfoController = new StudentCoursesInfoController(dbConn, panelUnsub, timerAdmissionTime);
-						studentCoursesInfoController.updateInfoAboutStudents();
-						panelUnsub.setController(studentCoursesInfoController);
-						studentCoursesInfoController.setMainUser((Employee) mainUser);
+						UnsubStudentFromGroupController unsubStudentFromGroupController = new UnsubStudentFromGroupController(dbConn, panelUnsub, timerAdmissionTime);
+						unsubStudentFromGroupController.updateInfoAboutStudents();
+						panelUnsub.setUnsubController(unsubStudentFromGroupController);
+						unsubStudentFromGroupController.setMainUser((Employee) mainUser);
+
+						SubStudentToGroupController subStudentToGroupControllerSub = new SubStudentToGroupController(dbConn, panelSub, timerAdmissionTime);
+						subStudentToGroupControllerSub.updateInfoAboutStudents();
+						panelSub.setSubController(subStudentToGroupControllerSub);
+						subStudentToGroupControllerSub.setMainUser((Employee) mainUser);
 						
 						cards.show(mainFrame.getContentPane(), EMPLOYEE_PANEL_ID);
 						
@@ -842,105 +842,13 @@ public class App
 
 	
 
-		
+
 		tabbedPane_1.addTab("Wypisz studenta", null, panelUnsub, null);
 		panelUnsub.setLayout(null);
 		
-		JPanel panelSub = new JPanel();
 		panelSub.setLayout(null);
 		tabbedPane_1.addTab("Zapisz studenta", null, panelSub, null);
-		
-		JScrollPane scrollPane_5 = new JScrollPane();
-		scrollPane_5.setBounds(12, 34, 163, 319);
-		panelSub.add(scrollPane_5);
-		
-		JList list_5 = new JList();
-		scrollPane_5.setViewportView(list_5);
-		
-		JScrollPane scrollPane_6 = new JScrollPane();
-		scrollPane_6.setBounds(187, 34, 177, 319);
-		panelSub.add(scrollPane_6);
-		
-		JList list_6 = new JList();
-		scrollPane_6.setViewportView(list_6);
-		
-		JScrollPane scrollPane_7 = new JScrollPane();
-		scrollPane_7.setBounds(376, 34, 177, 319);
-		panelSub.add(scrollPane_7);
-		
-		JList list_7 = new JList();
-		scrollPane_7.setViewportView(list_7);
-		
-		JButton btnZapisz = new JButton("Zapisz");
-		btnZapisz.setForeground(new Color(0, 153, 51));
-		btnZapisz.setBounds(656, 328, 97, 25);
-		panelSub.add(btnZapisz);
-		
-		JLabel label = new JLabel("Studenci:");
-		label.setFont(new Font("Arial", Font.BOLD, 16));
-		label.setBounds(12, 13, 84, 16);
-		panelSub.add(label);
-		
-		JLabel label_1 = new JLabel("Grupy:");
-		label_1.setFont(new Font("Arial", Font.BOLD, 16));
-		label_1.setBounds(380, 13, 56, 16);
-		panelSub.add(label_1);
-		
-		JLabel label_2 = new JLabel("Kursy:");
-		label_2.setFont(new Font("Arial", Font.BOLD, 16));
-		label_2.setBounds(187, 13, 56, 16);
-		panelSub.add(label_2);
-		
-		JLabel label_3 = new JLabel("ECTS:");
-		label_3.setFont(new Font("Arial", Font.PLAIN, 16));
-		label_3.setBounds(565, 36, 56, 16);
-		panelSub.add(label_3);
-		
-		JLabel label_4 = new JLabel("13");
-		label_4.setFont(new Font("Arial", Font.PLAIN, 16));
-		label_4.setBounds(637, 36, 56, 16);
-		panelSub.add(label_4);
-		
-		JLabel label_5 = new JLabel("Parzysto\u015B\u0107 tygodnia:");
-		label_5.setFont(new Font("Arial", Font.PLAIN, 16));
-		label_5.setBounds(565, 80, 157, 16);
-		panelSub.add(label_5);
-		
-		JLabel label_6 = new JLabel("TP");
-		label_6.setFont(new Font("Arial", Font.PLAIN, 16));
-		label_6.setBounds(709, 80, 56, 16);
-		panelSub.add(label_6);
-		
-		JLabel label_7 = new JLabel("Dzie\u0144 zaj\u0119\u0107:");
-		label_7.setFont(new Font("Arial", Font.PLAIN, 16));
-		label_7.setBounds(565, 120, 97, 16);
-		panelSub.add(label_7);
-		
-		JLabel label_8 = new JLabel("wt");
-		label_8.setFont(new Font("Arial", Font.PLAIN, 16));
-		label_8.setBounds(656, 120, 56, 16);
-		panelSub.add(label_8);
-		
-		JLabel label_9 = new JLabel("Godziny zaj\u0119\u0107:");
-		label_9.setFont(new Font("Arial", Font.PLAIN, 16));
-		label_9.setBounds(565, 149, 108, 16);
-		panelSub.add(label_9);
-		
-		JLabel label_10 = new JLabel("7:30:00 - 9:30:00");
-		label_10.setFont(new Font("Arial", Font.PLAIN, 16));
-		label_10.setBounds(575, 169, 147, 16);
-		panelSub.add(label_10);
-		
-		JLabel label_11 = new JLabel("Prowadz\u0105cy:");
-		label_11.setFont(new Font("Arial", Font.PLAIN, 16));
-		label_11.setBounds(565, 198, 97, 16);
-		panelSub.add(label_11);
-		
-		JLabel label_12 = new JLabel("Prof. dr. inz Janusz biernat");
-		label_12.setFont(new Font("Arial", Font.PLAIN, 14));
-		label_12.setBounds(564, 217, 213, 16);
-		panelSub.add(label_12);
-		
+
 		JPanel panel = new JPanel();
 		tabbedPane_1.addTab("Grupy", null, panel, null);
 		

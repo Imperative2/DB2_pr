@@ -1,4 +1,6 @@
 package application;
+import application.panels.UserAdmissionPanel;
+
 import java.awt.Color;
 import java.util.GregorianCalendar;
 
