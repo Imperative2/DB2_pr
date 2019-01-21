@@ -61,6 +61,19 @@ public class AdminPanelCoursesController
 		panel.update(course);
 	}
 	
+	public void modifyCourse(CourseModel course)
+	{
+		dbConn.connect();
+		String sql_query = "UPDATE `kurs` SET `nazwa_kursu`='"+course.getCourseName()
+		+"',`semestr`='"+course.getSemester()+"',`forma_zajec`='"+course.getForm()+"',`ects`='"+course.getECTS()
+		+"',`ilosc`='20' WHERE id_kursu = "+course.getCourseId()+";";
+		
+		dbConn.deleteOrUpdateData(sql_query);
+		
+		loadCourses();
+		panel.update(course);
+	}
+	
 	public void deleteCourse(CourseModel course)
 	{
 		dbConn.connect();

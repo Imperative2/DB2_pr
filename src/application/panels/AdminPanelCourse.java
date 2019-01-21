@@ -196,6 +196,26 @@ public class AdminPanelCourse extends JPanel
 		this.add(btnModify);
 		btnModify.setEnabled(false);
 		
+		btnModify.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				btnRemove.setEnabled(false);
+				btnModify.setEnabled(false);
+				
+				CourseModel course = new CourseModel();
+				course.setCourseId(tfCoursesId.getText());
+				course.setCourseName(tfCoursesName.getText());
+				course.setSemester((String)comboBoxCoursesSemester.getSelectedItem());
+				course.setForm((String)comboBoxCoursesForm.getSelectedItem());
+				course.setECTS(tfCoursesECTS.getText());
+
+				controller.modifyCourse(course);
+				
+			}
+		});
+		
 		btnRemove = new JButton("Usu\u0144 Kurs");
 		btnRemove.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnRemove.setForeground(Color.RED);
