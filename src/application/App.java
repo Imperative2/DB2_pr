@@ -184,7 +184,7 @@ public class App
 			{
 				if(dbConn.connect() == false)
 				{
-					JOptionPane.showMessageDialog(mainFrame, "Nie mo?na po??czy? si? do bazy danych",
+					JOptionPane.showMessageDialog(mainFrame, "Nie mo¿na po³¹czyæ siê do bazy danych",
 							"Uwaga!", JOptionPane.ERROR_MESSAGE);
 				}
 				LoggingControler logControler = new LoggingControler(dbConn);
@@ -253,13 +253,13 @@ public class App
 					}
 					case -1:
 					{
-						JOptionPane.showMessageDialog(mainFrame, "Z?y login lub has?o",
+						JOptionPane.showMessageDialog(mainFrame, "Z³y login lub haslo",
 								"Uwaga!", JOptionPane.ERROR_MESSAGE);
 						break;
 					}
 					default:
 					{
-						JOptionPane.showMessageDialog(mainFrame, "B??d podczas logowania",
+						JOptionPane.showMessageDialog(mainFrame, "B³¹d podczas logowania",
 								"Uwaga!", JOptionPane.ERROR_MESSAGE);
 						break;
 					}
@@ -273,7 +273,7 @@ public class App
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				JOptionPane.showMessageDialog(mainFrame, "W celu odzyskanie has?o zg?o? si? do administratora systemu.",
+				JOptionPane.showMessageDialog(mainFrame, "W celu odzyskanie has?o zg?o? si? do administratora systemu.\n Numer : 123456789",
 						"Uwaga!", JOptionPane.WARNING_MESSAGE);
 			}
 		});
@@ -591,7 +591,7 @@ public class App
 				System.out.println(zapisId);
 				JButton button = (JButton)e.getSource();
 
-				if(JOptionPane.showConfirmDialog(null, "Czy na pewno chcesz si? wypisa? z tej grupy?", "Je?te? pewnien?", JOptionPane.OK_CANCEL_OPTION)==0){
+				if(JOptionPane.showConfirmDialog(null, "Czy na pewno chcesz sie wypisac z tej grupy?", "Jestes pewnien?", JOptionPane.OK_CANCEL_OPTION)==0){
 
 					String sql_query = "DELETE FROM `zapis` WHERE `zapis`.`id_zapisu` =  " + zapisId + ";";
 					dbConn.deleteOrUpdateData(sql_query);
@@ -613,13 +613,13 @@ public class App
 
 					}
 					userPanelGroupsController.updateUserECTS(panelUserGroups);
-					JOptionPane.showMessageDialog(mainFrame, "Pomy?lnie usuni?to zapis.",
+					JOptionPane.showMessageDialog(mainFrame, "Pomyslnie usunieto zapis.",
 							"Informacja!", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
 
-		tabbedPane.addTab("Przegl?daj daj grupy", null, panelUserAdmissionGroups, null);
+		tabbedPane.addTab("Przegl¹daj grupy", null, panelUserAdmissionGroups, null);
 		panelUserAdmissionGroups.setLayout(null);
 
 		JLabel fixLabelAdmissionTime = new JLabel("Czas zapisow:");
@@ -697,7 +697,7 @@ public class App
 		employeePanel.add(tabbedPane_1);
 		
 		AdminPanelRights panelRights = new AdminPanelRights(mainFrame);
-		tabbedPane_1.addTab("Prawa i terminy zapis?w student?w", null, panelRights, null);
+		tabbedPane_1.addTab("Prawa i terminy zapisów studentów", null, panelRights, null);
 		
 		AdminPanelRightsController adminPanelRightsController = new AdminPanelRightsController(dbConn, panelRights);
 		adminPanelRightsController.loadStudents();
@@ -709,29 +709,18 @@ public class App
 			
 		
 		
-		
-		
 		AdminPanelGroup panelGroups = new AdminPanelGroup(mainFrame, dbConn);
-		tabbedPane_1.addTab("Zarz?dzaj grupami", null, panelGroups, null);
+		tabbedPane_1.addTab("Zarz¹dzaj grupami", null, panelGroups, null);
 		
 		AdminPanelGroupController adminPanelGroupController = new AdminPanelGroupController(dbConn, panelGroups);
 		adminPanelGroupController.loadCourses();
 		panelGroups.setController(adminPanelGroupController);
 		
 
-		
-//		JScrollPane scrollPane_9 = new JScrollPane();
-//		scrollPane_9.setBounds(197, 28, 173, 325);
-		
-		JList list_9 = new JList();
-//		scrollPane_9.setViewportView(list_9);
-		
-
-
 
 		
 		AdminPanelCourse panelCourses = new AdminPanelCourse(mainFrame);
-		tabbedPane_1.addTab("Zarz?dzaj kursami", null, panelCourses, null);
+		tabbedPane_1.addTab("Zarz¹dzaj kursami", null, panelCourses, null);
 		
 		AdminPanelCoursesController adminPanelCoursesController = new AdminPanelCoursesController(dbConn, panelCourses);
 		adminPanelCoursesController.loadCourses();

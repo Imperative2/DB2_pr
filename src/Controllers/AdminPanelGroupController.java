@@ -81,5 +81,18 @@ public class AdminPanelGroupController
 		
 		panel.loadListGroups(groupList);
 	}
+	
+	public void createNewCourse(GroupModel group)
+	{
+		dbConn.connect();
+		String sql_query = "INSERT INTO `grupa_zajeciowa`(`id_grupy`, `id_kursu`, `id_prowadzacego`, `id_godziny_zajec`, `dzien_tygodnia`, `parzystosc_tygodnia`, `ilosc_miejsc`, `sala_zajeciowa`) VALUES ("+group.getGroupId()
+			+",'"+group.getCourseId()+"','"+group.getTeacherId()+"','"+group.getHours()+"','"+group.getDayOfTheWeek()+"','"+group.getParity()+"','"+group.getFreeSpace()+"','"+group.getRoom()+"');" ;
+		
+		
+		dbConn.deleteOrUpdateData(sql_query);
+		
+		loadCourses();
+		
+	}
 
 }

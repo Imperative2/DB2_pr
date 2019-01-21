@@ -5,7 +5,11 @@ import java.awt.Font;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.MessageDigest;
+import java.util.Formatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -23,6 +27,7 @@ import Controllers.AdminPanelCoursesController;
 import Controllers.AdminPanelRightsController;
 import application.models.CourseModel;
 import application.models.StudentModel;
+import application.models.TeacherModel;
 
 public class AdminPanelCourse extends JPanel
 {
@@ -31,6 +36,8 @@ public class AdminPanelCourse extends JPanel
 	private DefaultListModel<CourseModel> listModel;
 	private JFrame mainFrame;
 	private AdminPanelCoursesController controller;
+	
+
 	
 	//Labels
 	JLabel fixLabelCourses;
@@ -253,10 +260,44 @@ public class AdminPanelCourse extends JPanel
 		comboBoxCoursesForm = new JComboBox<>();
 		comboBoxCoursesForm.setBounds(313, 197, 102, 22);
 		this.add(comboBoxCoursesForm);
-		comboBoxCoursesForm.addItem("Wykï¿½ad");
-		comboBoxCoursesForm.addItem("ï¿½wiczenia");
+		comboBoxCoursesForm.addItem("Wyk³ad");
+		comboBoxCoursesForm.addItem("æwiczenia");
 		comboBoxCoursesForm.addItem("Laboratorium");
 		comboBoxCoursesForm.addItem("Projekt");
 		comboBoxCoursesForm.addItem("Seminarium");
 	}
+	
+	
+//	private static String GetSHA(String password)
+//	{
+//		String sha1 = "";
+//		try
+//		{
+//			MessageDigest crypt = MessageDigest.getInstance("SHA-1");
+//			crypt.reset();
+//			crypt.update(password.getBytes("UTF-8"));
+//			sha1 = byteToHex(crypt.digest());
+//		}
+//		catch (NoSuchAlgorithmException e)
+//		{
+//			e.printStackTrace();
+//		}
+//		catch (UnsupportedEncodingException e)
+//		{
+//			e.printStackTrace();
+//		}
+//		return sha1;
+//	}
+//
+//	private static String byteToHex(final byte[] hash)
+//	{
+//		Formatter formatter = new Formatter();
+//		for (byte b : hash)
+//		{
+//			formatter.format("%02x", b);
+//		}
+//		String result = formatter.toString();
+//		formatter.close();
+//		return result;
+//	}
 }

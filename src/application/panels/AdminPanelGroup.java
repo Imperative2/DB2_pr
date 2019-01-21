@@ -2,7 +2,11 @@ package application.panels;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
@@ -41,6 +45,11 @@ public class AdminPanelGroup extends JPanel
 	private JScrollPane scrollPaneGroup;	
 	private JList<GroupModel> listGroup;
 	private DefaultListModel<GroupModel> listModelGroup;
+	
+	private String parity = "OL";
+	
+	private Map<String,TeacherModel> teacherMap = new HashMap<>();
+	private Map<String, TimeModel> timeMap = new HashMap<>();
 
 
 	
@@ -109,9 +118,22 @@ public class AdminPanelGroup extends JPanel
 				{
 					controller.loadGroups(listCourse.getSelectedValue());
 					btnCreateGroup.setEnabled(true);
+					btnDeleteGroup.setEnabled(false);
+					btnModifyGroup.setEnabled(false);
 					
 				}
 
+			}
+		});
+		
+		listGroup.addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e)
+			{
+				update();
+				btnModifyGroup.setEnabled(true);
+				btnDeleteGroup.setEnabled(true);	
 			}
 		});
 	}
@@ -137,7 +159,20 @@ public class AdminPanelGroup extends JPanel
 	}
 	
 
-	
+	public void update()
+	{
+		if(listGroup.isSelectionEmpty() == false)
+		{
+			GroupModel group = listGroup.getSelectedValue();
+			tfGroupId.setText(group.getGroupId());
+			cbDayOfWeek.setSelectedItem(group.getDayOfTheWeek());
+			tfGroupSize.setText(group.getFreeSpace());
+			tfRoom.setText(group.getRoom());
+			cbTeacher.setSelectedItem(teacherMap.get(group.getTeacherId()));
+			cbTime.setSelectedItem(timeMap.get(group.getHours()));
+			
+		}
+	}
 	
 	public void setController(AdminPanelGroupController controller)
 	{
@@ -199,6 +234,32 @@ public class AdminPanelGroup extends JPanel
 		btnCreateGroup.setBounds(526, 9, 145, 25);
 		this.add(btnCreateGroup);
 		btnCreateGroup.setEnabled(false);
+		btnCreateGroup.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				if(listCourse.isSelectionEmpty() == false)
+				{
+					GroupModel group = new GroupModel();
+					group.setGroupId(tfGroupId.getText());
+					group.setCourseId(listCourse.getSelectedValue().getCourseId());
+					TeacherModel teacher = (TeacherModel)cbTeacher.getSelectedItem();
+					group.setTeacherId(teacher.getId());
+					TimeModel time = (TimeModel)cbTime.getSelectedItem();
+					group.setHours(time.getId());
+					group.setDayOfTheWeek((String)cbDayOfWeek.getSelectedItem());
+					group.setParity(parity);
+					group.setFreeSpace(tfGroupSize.getText());
+					group.setRoom(tfRoom.getText());
+					
+					controller.createNewCourse(group);
+				}
+				else
+					btnCreateGroup.setEnabled(false);
+				
+			}
+		});
 		
 		btnModifyGroup = new JButton("Modyfikuj ");
 		btnModifyGroup.setBounds(656, 328, 97, 25);
@@ -219,17 +280,48 @@ public class AdminPanelGroup extends JPanel
 		this.add(btnTP);
 		btnGr.add(btnTP);
 		
+		btnTP.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0)
+			{
+				parity = "TP";
+				
+			}
+		});
+		
 		btTN = new JRadioButton("TN");
 		btTN.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btTN.setBounds(591, 201, 47, 25);
 		this.add(btTN);
 		btnGr.add(btTN);
 		
+		btTN.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0)
+			{
+				parity = "TN";
+				
+			}
+		});
+		
 		btnOL = new JRadioButton("OL");
 		btnOL.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnOL.setBounds(642, 201, 47, 25);
 		this.add(btnOL);
+		btnOL.setSelected(true);
 		btnGr.add(btnOL);
+		
+		btnOL.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0)
+			{
+				parity = "OL";
+				
+			}
+		});
 	}
 
 	private void initComboBoxes()
@@ -295,16 +387,18 @@ public class AdminPanelGroup extends JPanel
 			teacherModel.setTitle(row[3]);
 			teacherModel.setEmail(row[4]);
 			cbTeacher.addItem(teacherModel);
+			teacherMap.put(teacherModel.getId(), teacherModel);
 		}
 		
 		querry = "SELECT * FROM `godziny_zajec`;";
-		List<String[]> timeResult = dbConn.querryDatabase(querry, 2);
+		List<String[]> timeResult = dbConn.querryDatabase(querry, 3);
 		for(String[] row : timeResult)
 		{
 			TimeModel timeModel = new TimeModel();
 			timeModel.setId(row[0]);
-			timeModel.setTime(row[1]);
+			timeModel.setTime(row[1]+" "+row[2]);
 			cbTime.addItem(timeModel);
+			timeMap.put(timeModel.getId(), timeModel);
 		}
 		
 				

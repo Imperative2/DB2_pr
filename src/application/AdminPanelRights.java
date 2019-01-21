@@ -81,12 +81,15 @@ public class AdminPanelRights extends JPanel
 			@Override
 			public void valueChanged(ListSelectionEvent arg0)
 			{
-				btnGiveRight.setEnabled(true);
-				btnGiveTime.setEnabled(true);
-				btnTakeRight.setEnabled(true);
-				
-				StudentModel student = list.getSelectedValue();
-				update(student);
+				if(list.isSelectionEmpty() == false)
+				{
+					btnGiveRight.setEnabled(true);
+					btnGiveTime.setEnabled(true);
+					btnTakeRight.setEnabled(true);
+					
+					StudentModel student = list.getSelectedValue();
+					update(student);
+				}
 				
 			}
 		});

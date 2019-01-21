@@ -18,7 +18,7 @@ public class AdminPanelRightsController
 		this.dbConn = dbConn;
 		this.panel = panel;
 		
-//		loadStudents();
+		loadStudents();
 	}
 	
 	
@@ -63,7 +63,7 @@ public class AdminPanelRightsController
 		
 		dbConn.deleteOrUpdateData(sql_query);
 		
-		loadStudents();
+//		loadStudents();
 		panel.update(student);
 	}
 	
