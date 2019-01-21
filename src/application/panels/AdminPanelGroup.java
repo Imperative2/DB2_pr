@@ -15,10 +15,15 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import Controllers.AdminPanelCoursesController;
+import Controllers.AdminPanelGroupController;
 import application.DatabaseConnection;
 import application.models.CourseModel;
+import application.models.Group;
+import application.models.GroupModel;
 import application.models.TeacherModel;
 import application.models.TimeModel;
 
@@ -29,13 +34,13 @@ public class AdminPanelGroup extends JPanel
 	private JList<CourseModel> listCourse;
 	private DefaultListModel<CourseModel> listModelCourse;
 	private JFrame mainFrame;
-	private AdminPanelCoursesController controller;
+	private AdminPanelGroupController controller;
 	
 	private DatabaseConnection dbConn;
 	
 	private JScrollPane scrollPaneGroup;	
-//	private JList<GroupModel> listGroup;
-//	private DefaultListModel<GroupModel> listModelGroup;
+	private JList<GroupModel> listGroup;
+	private DefaultListModel<GroupModel> listModelGroup;
 
 
 	
@@ -70,20 +75,73 @@ public class AdminPanelGroup extends JPanel
 		
 		scrollPaneCourse = new JScrollPane();
 		scrollPaneCourse.setBounds(12, 28, 173, 325);
+		this.add(scrollPaneCourse);
 		
+		listModelCourse = new DefaultListModel<>();
 		
-		JList<CourseModel> listCourse = new JList<>();
+		listCourse = new JList<>(listModelCourse);
 		scrollPaneCourse.setViewportView(listCourse);
 		
 		
 		scrollPaneGroup = new JScrollPane();
 		scrollPaneGroup.setBounds(197, 28, 173, 325);
+		this.add(scrollPaneGroup);
+		
+		listModelGroup = new DefaultListModel<>();
+		
+		listGroup = new JList<>(listModelGroup);
+		scrollPaneGroup.setViewportView(listGroup);
 		
 		
 		initLabels();
 		initButtons();
 		initComboBoxes();
 		initTextFields();
+		
+		
+		
+		listCourse.addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e)
+			{
+				if(listCourse.isSelectionEmpty() == false)
+				{
+					controller.loadGroups(listCourse.getSelectedValue());
+					btnCreateGroup.setEnabled(true);
+					
+				}
+
+			}
+		});
+	}
+	
+	public void loadListCourses(List<CourseModel> coursesList)
+	{
+		listModelCourse.removeAllElements();
+		for(CourseModel course : coursesList)
+		{
+			listModelCourse.addElement(course);
+		}
+		listCourse.setVisible(true);
+	}
+	
+	public void loadListGroups(List<GroupModel> groupList)
+	{
+		listModelGroup.removeAllElements();
+		for(GroupModel group : groupList)
+		{
+			listModelGroup.addElement(group);
+		}
+
+	}
+	
+
+	
+	
+	public void setController(AdminPanelGroupController controller)
+	{
+		this.controller = controller;
 	}
 	
 	private void initLabels()
@@ -140,15 +198,18 @@ public class AdminPanelGroup extends JPanel
 		btnCreateGroup = new JButton("Stw\u00F3rz now\u0105 grup\u0119");
 		btnCreateGroup.setBounds(526, 9, 145, 25);
 		this.add(btnCreateGroup);
+		btnCreateGroup.setEnabled(false);
 		
 		btnModifyGroup = new JButton("Modyfikuj ");
 		btnModifyGroup.setBounds(656, 328, 97, 25);
 		this.add(btnModifyGroup);
+		btnModifyGroup.setEnabled(false);
 		
 		btnDeleteGroup = new JButton("Usu\u0144 grup\u0119");
 		btnDeleteGroup.setBounds(382, 332, 97, 16);
 		btnDeleteGroup.setForeground(Color.RED);
 		this.add(btnDeleteGroup);
+		btnDeleteGroup.setEnabled(false);
 		
 	
 		

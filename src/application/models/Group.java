@@ -15,6 +15,11 @@ public class Group {
         this.lessonTime = lessonTime;
         this.id_course = id_course;
     }
+    
+    public Group()
+    {
+    	
+    }
 
     @Override
     public String toString() {
@@ -23,6 +28,11 @@ public class Group {
 
     public int getId(){
         return id;
+    }
+    
+    public void setId(int id)
+    {
+    	this.id = id;
     }
 
     public int getHours() {

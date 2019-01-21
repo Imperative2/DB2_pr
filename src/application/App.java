@@ -714,11 +714,11 @@ public class App
 		AdminPanelGroup panelGroups = new AdminPanelGroup(mainFrame, dbConn);
 		tabbedPane_1.addTab("Zarz?dzaj grupami", null, panelGroups, null);
 		
-//		JScrollPane scrollPane_8 = new JScrollPane();
-//		scrollPane_8.setBounds(12, 28, 173, 325);
+		AdminPanelGroupController adminPanelGroupController = new AdminPanelGroupController(dbConn, panelGroups);
+		adminPanelGroupController.loadCourses();
+		panelGroups.setController(adminPanelGroupController);
 		
-//		JList list_8 = new JList();
-//		scrollPane_8.setViewportView(list_8);
+
 		
 //		JScrollPane scrollPane_9 = new JScrollPane();
 //		scrollPane_9.setBounds(197, 28, 173, 325);
