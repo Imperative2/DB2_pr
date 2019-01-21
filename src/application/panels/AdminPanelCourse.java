@@ -1,4 +1,4 @@
-package application;
+package application.panels;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -233,8 +233,8 @@ public class AdminPanelCourse extends JPanel
 		comboBoxCoursesForm = new JComboBox<>();
 		comboBoxCoursesForm.setBounds(313, 197, 102, 22);
 		this.add(comboBoxCoursesForm);
-		comboBoxCoursesForm.addItem("Wyk³ad");
-		comboBoxCoursesForm.addItem("Æwiczenia");
+		comboBoxCoursesForm.addItem("Wykï¿½ad");
+		comboBoxCoursesForm.addItem("ï¿½wiczenia");
 		comboBoxCoursesForm.addItem("Laboratorium");
 		comboBoxCoursesForm.addItem("Projekt");
 		comboBoxCoursesForm.addItem("Seminarium");

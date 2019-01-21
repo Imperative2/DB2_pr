@@ -1,4 +1,8 @@
-package application;
+package Controllers;
+
+import application.DatabaseConnection;
+import application.Employee;
+import application.User;
 
 import java.util.Map;
 

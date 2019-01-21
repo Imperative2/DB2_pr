@@ -1,4 +1,4 @@
-package application;
+package application.panels;
 
 import application.models.Course;
 import application.models.Group;

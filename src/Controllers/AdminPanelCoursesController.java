@@ -3,11 +3,9 @@ package Controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import application.AdminPanelCourse;
-import application.AdminPanelRights;
+import application.panels.AdminPanelCourse;
 import application.DatabaseConnection;
 import application.models.CourseModel;
-import application.models.StudentModel;
 
 public class AdminPanelCoursesController
 {

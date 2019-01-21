@@ -3,7 +3,7 @@ package Controllers;
 import application.DatabaseConnection;
 import application.Student;
 import application.TimerAdmissionTime;
-import application.UserAdmissionPanel;
+import application.panels.UserAdmissionPanel;
 import application.models.Course;
 import application.models.Group;
 
@@ -91,11 +91,11 @@ public class UserAdmissionController {
 			
 			dbConn.deleteOrUpdateData("INSERT INTO zapis (id_indeksu, id_grupy) VALUES (" + mainUser.getUserId() + ","
 					+ getChosenGroup().getId() + ")");
-			JOptionPane.showMessageDialog(null, "Uda³o siê!", "Informacja!", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Udaï¿½o siï¿½!", "Informacja!", JOptionPane.INFORMATION_MESSAGE);
 
 		}
         else{
-            JOptionPane.showMessageDialog(null, "Ju¿ nale¿ysz do tego kursu b¹dz nie masz prawa do zapisów.", "Coœ jest nie tak!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Juï¿½ naleï¿½ysz do tego kursu bï¿½dz nie masz prawa do zapisï¿½w.", "Coï¿½ jest nie tak!", JOptionPane.ERROR_MESSAGE);
         }
     }
 

@@ -1,4 +1,7 @@
-package application;
+package Controllers;
+
+import application.DatabaseConnection;
+import application.Student;
 
 import java.util.ArrayList;
 import java.util.List;

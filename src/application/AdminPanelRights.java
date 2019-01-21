@@ -96,7 +96,7 @@ public class AdminPanelRights extends JPanel
 	
 	public void loadList(List<StudentModel> studentsList)
 	{
-		//listModel.removeAllElements();
+		listModel.removeAllElements();
 		for(StudentModel student : studentsList)
 		{
 			listModel.addElement(student);
@@ -222,7 +222,7 @@ public class AdminPanelRights extends JPanel
 				StudentModel student =  list.getSelectedValue();
 				if(student.getAdmissionRight().equals("posiada"))
 				{
-					JOptionPane.showMessageDialog(mainFrame, "Student juz posiada prawo do zapisów",
+					JOptionPane.showMessageDialog(mainFrame, "Student juz posiada prawo do zapisï¿½w",
 							"Uwaga!", JOptionPane.ERROR_MESSAGE);
 				}
 				else
@@ -251,12 +251,12 @@ public class AdminPanelRights extends JPanel
 				{
 					student.setAdmissionTime(time);
 					controller.updateStudentTime(student, student.getAdmissionTime());
-					JOptionPane.showMessageDialog(mainFrame, "Poprawnie zmienieniono czas zapisów",
+					JOptionPane.showMessageDialog(mainFrame, "Poprawnie zmienieniono czas zapisï¿½w",
 							"Uwaga!", JOptionPane.INFORMATION_MESSAGE);
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(mainFrame, "Z³y czas",
+					JOptionPane.showMessageDialog(mainFrame, "Zï¿½y czas",
 							"Uwaga!", JOptionPane.ERROR_MESSAGE);
 				}
 			}
@@ -276,7 +276,7 @@ public class AdminPanelRights extends JPanel
 				StudentModel student =  list.getSelectedValue();
 				if(student.getAdmissionRight().equals("brak"))
 				{
-					JOptionPane.showMessageDialog(mainFrame, "Student nie posiada ju¿ prawa do zapisów",
+					JOptionPane.showMessageDialog(mainFrame, "Student nie posiada juï¿½ prawa do zapisï¿½w",
 							"Uwaga!", JOptionPane.ERROR_MESSAGE);
 				}
 				else
